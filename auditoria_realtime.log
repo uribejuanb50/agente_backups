@@ -1,0 +1,1012 @@
+=== INICIO DE AUDITORÍA DE BACKUPS EN TIEMPO REAL ===
+
+❌ [FILA 2][MISS] ANS: 4 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Diario
+❌ [FILA 3][MISS] ANS: 4 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Domingo 
+❌ [FILA 4][MISS] ANS: 4 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Primer Domingo del mes
+❌ [FILA 5][MISS] ANS: 4 | Servidor: COMHP04 | Agenda: Domingo 
+❌ [FILA 6][MISS] ANS: 4 | Servidor: COMHP04 | Agenda: Último 
+Domingo
+❌ [FILA 7][MISS] ANS: 4 | Servidor: COMHP35;COMHP36 | Agenda: Diario
+❌ [FILA 8][MISS] ANS: 4 | Servidor: COMHP35;COMHP36 | Agenda: Domingo 
+❌ [FILA 9][MISS] ANS: 4 | Servidor: COMHP35;COMHP36 | Agenda: Último 
+Domingo
+❌ [FILA 10][MISS] ANS: 4 | Servidor: COMIBM17 | Agenda: Diario
+❌ [FILA 11][MISS] ANS: 4 | Servidor: COMIBM17 | Agenda: Domingo 
+❌ [FILA 12][MISS] ANS: 4 | Servidor: COMIBM17 | Agenda: Último 
+Domingo
+❌ [FILA 13][MISS] ANS: 4 | Servidor: WFM0121 | Agenda: Diario
+❌ [FILA 14][MISS] ANS: 4 | Servidor: WFM0121 | Agenda: Sábado 
+❌ [FILA 15][MISS] ANS: 4 | Servidor: WFM0121 | Agenda: Primer Sábado del mes
+❌ [FILA 16][MISS] ANS: 4 | Servidor: WFM0194 | Agenda: Diario
+❌ [FILA 17][MISS] ANS: 4 | Servidor: WFM0194 | Agenda: Sábado 
+❌ [FILA 18][MISS] ANS: 4 | Servidor: WFM0194 | Agenda: Primer Sábado del mes
+❌ [FILA 19][MISS] ANS: 4 | Servidor: WFM0620-LNXINSEOC16 | Agenda: Diario
+❌ [FILA 20][MISS] ANS: 4 | Servidor: WFM0620-LNXINSEOC16 | Agenda: Sábado 
+❌ [FILA 21][MISS] ANS: 4 | Servidor: WFM0620-LNXINSEOC16 | Agenda: Primer Sábado del mes
+❌ [FILA 22][MISS] ANS: 4 | Servidor:  XLQ0001439-LNXAUTOSYSPRD1 | Agenda: Diario
+❌ [FILA 23][MISS] ANS: 4 | Servidor:  XLQ0001439-LNXAUTOSYSPRD1 | Agenda: Domingo 
+❌ [FILA 24][MISS] ANS: 4 | Servidor:  XLQ0001439-LNXAUTOSYSPRD1 | Agenda: Último 
+Domingo
+❌ [FILA 25][MISS] ANS: 4 | Servidor: XLQ0001440-LNXAUTOSYSPRD2 | Agenda: Diario
+❌ [FILA 26][MISS] ANS: 4 | Servidor: XLQ0001440-LNXAUTOSYSPRD2 | Agenda: Domingo 
+❌ [FILA 27][MISS] ANS: 4 | Servidor: XLQ0001440-LNXAUTOSYSPRD2 | Agenda: Último 
+Domingo
+❌ [FILA 28][MISS] ANS: 4 | Servidor: XQL1117-WAUTOSYSPROD01 - XQL1118-WAUTOSYSPROD02 | Agenda: Diario
+❌ [FILA 29][MISS] ANS: 4 | Servidor: XQL1117-WAUTOSYSPROD01 - XQL1118-WAUTOSYSPROD02 | Agenda: Domingo 
+❌ [FILA 30][MISS] ANS: 4 | Servidor: XQL1117-WAUTOSYSPROD01 - XQL1118-WAUTOSYSPROD02 | Agenda: Último 
+Domingo
+❌ [FILA 31][MISS] ANS: 19 | Servidor: COMHP36 | Agenda: Sábados
+❌ [FILA 32][MISS] ANS: 19 | Servidor: COMHP36 | Agenda: Primer y tercer Lunes  del mes
+❌ [FILA 33][MISS] ANS: 19 | Servidor: COMHP36 | Agenda: Por demanda
+❌ [FILA 34][MISS] ANS: 19 | Servidor: COMHP36 | Agenda: Primer 
+Martes 
+del mes
+❌ [FILA 35][MISS] ANS: 19 | Servidor: COMHP36 | Agenda: Por Demanda
+❌ [FILA 36][MISS] ANS: 19 | Servidor: COMHP24;COMHP36:COMHP35 | Agenda: Sábados
+❌ [FILA 37][MISS] ANS: 19 | Servidor: WFILE01.comcel.com.co | Agenda: Día 15 y 
+30 de cada mes
+❌ [FILA 38][MISS] ANS: 40 | Servidor: WPOLPS02,WPOLPS04, WPOLPS03, WPOLPS05, WPOLPS06 | Agenda: Sábado 
+❌ [FILA 39][MISS] ANS: 40 | Servidor: WPOLPS02,WPOLPS04, WPOLPS03, WPOLPS05, WPOLPS06 | Agenda: Primer Sábado del mes
+❌ [FILA 40][MISS] ANS: 40 | Servidor: WPOLPS02,WPOLPS04, WPOLPS03, WPOLPS05, WPOLPS06 | Agenda: Diario
+❌ [FILA 41][MISS] ANS: 40 | Servidor: WPOLBA02,WPOLBA03,WPOLBA04,WPOLBA05,WPOLBA06,WPOLBA07,WPOLBA08,WPOLBA09,WPOLBA15,WPOLBA16 | Agenda: Diario
+❌ [FILA 42][MISS] ANS: 40 | Servidor: WPOLBA02,WPOLBA03,WPOLBA04,WPOLBA05,WPOLBA06,WPOLBA07,WPOLBA08,WPOLBA09,WPOLBA15,WPOLBA16 | Agenda: Sábado 
+❌ [FILA 43][MISS] ANS: 40 | Servidor: WPOLBA02,WPOLBA03,WPOLBA04,WPOLBA05,WPOLBA06,WPOLBA07,WPOLBA08,WPOLBA09,WPOLBA15,WPOLBA16 | Agenda: Primer Sábado del mes 
+❌ [FILA 44][MISS] ANS: 40 | Servidor: WWEB02 | Agenda: Día 5 de cada Mes
+❌ [FILA 45][MISS] ANS: 40 | Servidor: WPOLPS02, WPOLPS03,WPOLPS04,WPOLPS05,WPOLPS06 | Agenda: Domingo
+❌ [FILA 46][MISS] ANS: 40 | Servidor: WPOLPS07 | Agenda: Domingo
+❌ [FILA 47][MISS] ANS: 40 | Servidor: WPOLBA02,WPOLBA03,WPOLBA04,WPOLBA06,WPOLBA07,WPOLBA08,WPOLBA09, | Agenda: Domingo
+❌ [FILA 48][MISS] ANS: 40 | Servidor: WPOLBA05, WPOLBA15 | Agenda: Domingo
+❌ [FILA 49][MISS] ANS: 40 | Servidor: WPOLBA05 | Agenda: Domingo
+❌ [FILA 50][MISS] ANS: 40 | Servidor: WPOLBA15 | Agenda: Domingo
+❌ [FILA 51][MISS] ANS: 40 | Servidor: WPOLBA16 | Agenda: Domingo
+❌ [FILA 52][MISS] ANS: 40 | Servidor: WPOLBA17 | Agenda: Domingo
+❌ [FILA 53][MISS] ANS: 40 | Servidor: WFILE02 | Agenda: Diario
+❌ [FILA 54][MISS] ANS: 40 | Servidor: WFILE02 | Agenda: Viernes
+❌ [FILA 55][MISS] ANS: 40 | Servidor: WFILE02 | Agenda: Primer Viernes del mes
+❌ [FILA 56][MISS] ANS: 40 | Servidor: WFILE01 | Agenda: Diario
+❌ [FILA 57][MISS] ANS: 40 | Servidor: WFILE01 | Agenda: Sábado
+❌ [FILA 58][MISS] ANS: 40 | Servidor: WFILE01 | Agenda: Primer Sábado del mes
+❌ [FILA 59][MISS] ANS: 40 | Servidor: WVCENTER02.comcel.com.co | Agenda: todos los 15 
+de cada mes
+❌ [FILA 60][MISS] ANS: 40 | Servidor: racven-scan.claro.co NODOS: lnxoraracven01 - lnxoraracven02 | Agenda: Domingo 
+❌ [FILA 61][MISS] ANS: 40 | Servidor: racven-scan.claro.co NODOS: lnxoraracven01 - lnxoraracven02 | Agenda: Primer  Domingo del mes
+❌ [FILA 62][MISS] ANS: 40 | Servidor: racven-scan.claro.co NODOS: lnxoraracven01 - lnxoraracven02 | Agenda: Domingo 
+❌ [FILA 63][MISS] ANS: 40 | Servidor: racven-scan.claro.co NODOS: lnxoraracven01 - lnxoraracven02 | Agenda: Primer  Domingo del mes
+❌ [FILA 64][MISS] ANS: 51 | Servidor: COMHP01 | Agenda: Diario
+❌ [FILA 65][MISS] ANS: 51 | Servidor: COMHP01 | Agenda: El último 
+Domingo
+❌ [FILA 66][MISS] ANS: 51 | Servidor: COMHP15 | Agenda: El último 
+Domingo
+❌ [FILA 67][MISS] ANS: 57 | Servidor: "bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8" | Agenda: Diario  - Incr
+❌ [FILA 68][MISS] ANS: 57 | Servidor: "bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8" | Agenda: Sábado
+❌ [FILA 69][MISS] ANS: 57 | Servidor: "bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8" | Agenda: último Sábado 
+❌ [FILA 70][MISS] ANS: 57 | Servidor: COMSUN62 | Agenda: Primer Viernes del mes
+❌ [FILA 71][MISS] ANS: 57 | Servidor: COMSUN62 | Agenda: A PARTIR TERCER VIERNES DEL MES
+❌ [FILA 72][MISS] ANS: 57 | Servidor: COMSUN63 | Agenda: Primer Viernes del mes
+❌ [FILA 73][MISS] ANS: 57 | Servidor: COMSUN62;
+COMSUN62; | Agenda: Miercoles 
+❌ [FILA 74][MISS] ANS: 57 | Servidor: COMSUN63 | Agenda: A PARTIR TERCER VIERNES DEL MES
+❌ [FILA 75][MISS] ANS: 57 | Servidor: GPRS.comcel.com.co
+COMSUN100
+COMSUN101 | Agenda: DIARIO
+❌ [FILA 76][MISS] ANS: 57 | Servidor: GPRS.comcel.com.co
+COMSUN100
+COMSUN101 | Agenda: Ultimo Miercoles del mes
+❌ [FILA 77][MISS] ANS: 91 | Servidor: WCBOGDC01 | Agenda: Lunes a Sábado 
+❌ [FILA 78][MISS] ANS: 91 | Servidor: WCBOGDC01 | Agenda: Domingo 
+❌ [FILA 79][MISS] ANS: 91 | Servidor: WCBOGDC02 | Agenda: Lunes a Sábado 
+❌ [FILA 80][MISS] ANS: 91 | Servidor: WCBOGDC02 | Agenda: Domingo 
+❌ [FILA 81][MISS] ANS: 91 | Servidor: WCBOGDC03 | Agenda: Lunes a Sábado
+❌ [FILA 82][MISS] ANS: 91 | Servidor: WCBOGDC03 | Agenda: Domingo 
+❌ [FILA 83][MISS] ANS: 91 | Servidor: WCBOGDC05 | Agenda: Sábado a jueves 
+❌ [FILA 84][MISS] ANS: 91 | Servidor: WCBOGDC05 | Agenda: viernes 
+❌ [FILA 85][MISS] ANS: 91 | Servidor: WDCBOG01 | Agenda: Lunes a Sábado 
+❌ [FILA 86][MISS] ANS: 91 | Servidor: WDCBOG01 | Agenda: Domingo 
+❌ [FILA 87][MISS] ANS: 91 | Servidor: WDCBOG02 | Agenda: Lunes a Sábado 
+❌ [FILA 88][MISS] ANS: 91 | Servidor: WDCBOG02 | Agenda: Domingo 
+❌ [FILA 89][MISS] ANS: 91 | Servidor: WDCBOG03 | Agenda: Lunes a Sábado 
+❌ [FILA 90][MISS] ANS: 91 | Servidor: WDCBOG03 | Agenda: Domingo 
+❌ [FILA 91][MISS] ANS: 91 | Servidor: WDCBOG04 | Agenda: Lunes a Sábado 
+❌ [FILA 92][MISS] ANS: 91 | Servidor: WDCBOG04 | Agenda: Domingo 
+❌ [FILA 93][MISS] ANS: 91 | Servidor: WDCCT01 | Agenda: Lunes a Sábado 
+❌ [FILA 94][MISS] ANS: 91 | Servidor: WDCCT01 | Agenda: Domingo 
+❌ [FILA 95][MISS] ANS: 91 | Servidor: WDCCT02 | Agenda: Lunes a Sábado 
+❌ [FILA 96][MISS] ANS: 91 | Servidor: WDCCT02 | Agenda: Domingo 
+❌ [FILA 97][MISS] ANS: 91 | Servidor: WDCBOG01 | Agenda: Diario
+❌ [FILA 98][MISS] ANS: 91 | Servidor: WDCBOG01 | Agenda: Domingo 
+❌ [FILA 99][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Diario
+❌ [FILA 100][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Domingo 
+❌ [FILA 101][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Primer  Domingo
+❌ [FILA 102][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Diario
+❌ [FILA 103][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Viernes
+❌ [FILA 104][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Primer Viernes del mes
+❌ [FILA 105][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Diario
+❌ [FILA 106][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Domingo 
+❌ [FILA 107][MISS] ANS: 195 | Servidor: TFM4933-LNXMEDIAPROD01 (100.123.32.68) | Agenda: Primer  Domingo
+❌ [FILA 108][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Diario
+❌ [FILA 109][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Sábado
+❌ [FILA 110][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Primer  Sábado
+❌ [FILA 111][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Diario
+❌ [FILA 112][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Sábado
+❌ [FILA 113][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Primer  Sábado
+❌ [FILA 114][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Diario
+❌ [FILA 115][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Sábado
+❌ [FILA 116][MISS] ANS: 195 | Servidor: ZAZ0063-LNXMPS1_IME (100.123.34.11) | Agenda: Primer  Sábado
+❌ [FILA 117][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Diario
+❌ [FILA 118][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Sábado
+❌ [FILA 119][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Sábado
+❌ [FILA 120][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Diario
+❌ [FILA 121][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Domingo 
+❌ [FILA 122][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Primer  Domingo
+❌ [FILA 123][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Diario
+❌ [FILA 124][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Sábado
+❌ [FILA 125][MISS] ANS: 195 | Servidor: ZAZ0000139-LNXMPS2_IME (100.126.192.65) | Agenda: Primer  Sábado
+❌ [FILA 126][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Sábado
+❌ [FILA 127][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Sábado
+❌ [FILA 128][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Sábado
+❌ [FILA 129][MISS] ANS: 198 | Servidor: XQL1035_LNXSAPCOMPRD01 | Agenda: Sábado
+❌ [FILA 130][MISS] ANS: 198 | Servidor: XQL1035_LNXSAPCOMPRD01 | Agenda: Sábado
+❌ [FILA 131][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Días 7, 15, 21 y 30 del 
+mes
+❌ [FILA 132][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Día 7 del mes
+❌ [FILA 133][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Días 7, 15, 21 y 30 del mes
+❌ [FILA 134][MISS] ANS: 198 | Servidor: COMIBM17 | Agenda: Día 7 del mes
+❌ [FILA 135][MISS] ANS: 198 | Servidor: COMHP14 (172.22.83.41) (Servidor de Base de Datos) | Agenda: Viernes
+❌ [FILA 136][MISS] ANS: 244 | Servidor: COMSUN68 Y COMSUN69 | Agenda: Miercoles 
+❌ [FILA 137][MISS] ANS: 244 | Servidor: EL01CN08 | Agenda: Sábado
+❌ [FILA 138][MISS] ANS: 244 | Servidor: EL01CN08 | Agenda: Primer  Sábado
+❌ [FILA 139][MISS] ANS: 244 | Servidor: EL01CN08 | Agenda: Sábado
+❌ [FILA 140][MISS] ANS: 244 | Servidor: EL01CN08 | Agenda: Primer  Sábado
+❌ [FILA 141][MISS] ANS: 252 | Servidor: "bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8" | Agenda: Sábado
+❌ [FILA 142][MISS] ANS: 252 | Servidor: "bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8" | Agenda: Primer Sábado del mes
+❌ [FILA 143][MISS] ANS: 252 | Servidor: LNXOVTADM02 | Agenda: Primer Domingo del mes
+❌ [FILA 144][MISS] ANS: 252 | Servidor: LNXOVTADM02 | Agenda: Miércoles
+❌ [FILA 145][MISS] ANS: 252 | Servidor: LNXOVTOSB11 | Agenda: Primer Domingo del mes
+❌ [FILA 146][MISS] ANS: 252 | Servidor: LNXOVTOSB11 | Agenda: Miércoles
+❌ [FILA 147][MISS] ANS: 252 | Servidor: LNXOVTOSB12 | Agenda: Primer Domingo del mes
+❌ [FILA 148][MISS] ANS: 252 | Servidor: LNXOVTOSB12 | Agenda: Miércoles
+❌ [FILA 149][MISS] ANS: 252 | Servidor: LNXOVTADM02 | Agenda: Primer Domingo del mes
+❌ [FILA 150][MISS] ANS: 252 | Servidor: LNXOVTADM02 | Agenda: Miércoles
+❌ [FILA 151][MISS] ANS: 252 | Servidor: LNXOVTOSB11 | Agenda: Primer Domingo del mes
+❌ [FILA 152][MISS] ANS: 252 | Servidor: LNXOVTOSB11 | Agenda: Miércoles
+❌ [FILA 153][MISS] ANS: 252 | Servidor: LNXOVTOSB12 | Agenda: Primer Domingo del mes
+❌ [FILA 154][MISS] ANS: 252 | Servidor: LNXOVTOSB12 | Agenda: Miércoles
+❌ [FILA 155][MISS] ANS: 252 | Servidor: LNXFTP01 (172.22.94.68) | Agenda: Diario
+❌ [FILA 156][MISS] ANS: 252 | Servidor: LNXFTP01 (172.22.94.68) | Agenda: Lunes
+❌ [FILA 157][MISS] ANS: 252 | Servidor: LNXFTP01 (172.22.94.68) | Agenda: Primer Sábado del mes
+❌ [FILA 158][MISS] ANS: 256 | Servidor: comibm100, comibm101 (Servidores Web de Aplicación) | Agenda: Martes
+❌ [FILA 159][MISS] ANS: 256 | Servidor: comibm102, comibm103, comibm104, comibm105, comibm106 (Servidores TXN de Aplicación) | Agenda: Miercoles 
+❌ [FILA 160][MISS] ANS: 256 | Servidor: lnxpretuplog01, lnxpretuplog02 (Servidores Logging & Monitoring de Aplicación) | Agenda: Martes
+❌ [FILA 161][MISS] ANS: 256 | Servidor: lnxpretuplog01, lnxpretuplog02 (Servidores Logging & Monitoring de Aplicación) | Agenda: Martes
+❌ [FILA 162][MISS] ANS: 256 | Servidor: lnxpretuplog01, lnxpretuplog02 (Servidores Logging & Monitoring de Aplicación) | Agenda: Martes
+❌ [FILA 163][MISS] ANS: 256 | Servidor: lnxgwussd01, lnxgwussd02 (Servidores de USSD Aplicación) | Agenda: Miercoles 
+❌ [FILA 164][MISS] ANS: 256 | Servidor: comibm107, comibm108 | Agenda: Diario
+❌ [FILA 165][MISS] ANS: 256 | Servidor: comibm107, comibm108 | Agenda: Martes
+❌ [FILA 166][MISS] ANS: 256 | Servidor: comibm107, comibm108 | Agenda: Primer Martes del mes 
+❌ [FILA 167][MISS] ANS: 256 | Servidor: lnxdbussd01, lnxdbussd02 | Agenda: Diario
+❌ [FILA 168][MISS] ANS: 256 | Servidor: lnxdbussd01, lnxdbussd02 | Agenda: Martes
+❌ [FILA 169][MISS] ANS: 256 | Servidor: lnxdbussd01, lnxdbussd02 | Agenda: Primer Martes del mes 
+❌ [FILA 170][MISS] ANS: 256 | Servidor: lnxdbussd01, lnxdbussd02 | Agenda: Martes
+❌ [FILA 171][MISS] ANS: 256 | Servidor: comsun08, comsun09 
+Servidores de Weblogic12 WSConsultaSAP, DOMINIO: 
+CO_COMCELDOMAIN_WLS_PR, CLUSTER: SERVICE_CLUSTER | Agenda: Miercoles 
+❌ [FILA 172][MISS] ANS: 264 | Servidor: TFM3858_LNXREMEDYMT01, XQL0742_LNXREMEDYMT02 (Servidores Web) | Agenda: Diario
+❌ [FILA 173][MISS] ANS: 264 | Servidor: TFM3858_LNXREMEDYMT01, XQL0742_LNXREMEDYMT02 (Servidores Web) | Agenda: Domingo 
+❌ [FILA 174][MISS] ANS: 264 | Servidor: TFM3858_LNXREMEDYMT01, XQL0742_LNXREMEDYMT02 (Servidores Web) | Agenda: Primer  Domingo del mes
+❌ [FILA 175][MISS] ANS: 264 | Servidor: TFM3856_LNXREMEDYAR01, TFM3857_LNXREMEDYAR02, XQL1051_LNXREMEDYAR03, XQL1052_LNXREMEDYADM, (Servidores de Aplicación) | Agenda: Diario
+❌ [FILA 176][MISS] ANS: 264 | Servidor: TFM3856_LNXREMEDYAR01, TFM3857_LNXREMEDYAR02, XQL1051_LNXREMEDYAR03, XQL1052_LNXREMEDYADM, (Servidores de Aplicación) | Agenda: Domingo 
+❌ [FILA 177][MISS] ANS: 264 | Servidor: TFM3856_LNXREMEDYAR01, TFM3857_LNXREMEDYAR02, XQL1051_LNXREMEDYAR03, XQL1052_LNXREMEDYADM, (Servidores de Aplicación) | Agenda: Primer  Domingo
+❌ [FILA 178][MISS] ANS: 264 | Servidor: XQL0741_LNXREMEDYREP (Servidor de reportes) | Agenda: Diario
+❌ [FILA 179][MISS] ANS: 264 | Servidor: XQL0741_LNXREMEDYREP (Servidor de reportes) | Agenda: Domingo 
+❌ [FILA 180][MISS] ANS: 264 | Servidor: XQL0741_LNXREMEDYREP (Servidor de reportes) | Agenda: Primer  Domingo
+❌ [FILA 181][MISS] ANS: 264 | Servidor: XQL0739 LNXRMMITPRD03, XQL0738 LNXRMMITPRD04, XQL0741 LNXRRSSO01) Capa Web Resolutor / Autenticacion. | Agenda: Diario
+❌ [FILA 182][MISS] ANS: 264 | Servidor:  TFM3859_LNXREMEDYDWP01, XQL0742_LNXREMEDYDWP02 Servidores Web Usuario Final) | Agenda: Diario
+❌ [FILA 183][MISS] ANS: 264 | Servidor:  TFM3859_LNXREMEDYDWP01, XQL0742_LNXREMEDYDWP02 Servidores Web Usuario Final) | Agenda: Domingo 
+❌ [FILA 184][MISS] ANS: 264 | Servidor:  TFM3859_LNXREMEDYDWP01, XQL0742_LNXREMEDYDWP02 Servidores Web Usuario Final) | Agenda: Primer  Domingo
+❌ [FILA 185][MISS] ANS: 264 | Servidor: TFM4866-WREMEDYPROD01 (Atrium de CMDB) | Agenda: Diario
+❌ [FILA 186][MISS] ANS: 264 | Servidor: TFM4866-WREMEDYPROD01 (Atrium de CMDB) | Agenda: Domingo 
+❌ [FILA 187][MISS] ANS: 264 | Servidor: TFM4866-WREMEDYPROD01 (Atrium de CMDB) | Agenda: Primer  Domingo
+❌ [FILA 188][MISS] ANS: 264 | Servidor: OCI PRODUCCIÓN BOGOTA
+bogexaprvm1-ao73q1,bogexaprvm1-ao73q2, bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6,bogexaprvm1-ao73q7,
+bogexaprvm1-ao73q8, bogexaprvm1-ao73q1-vip, bogexaprvm1-ao73q2-vip,
+bogexaprvm1-ao73q3-vip, bogexaprvm1-ao73q4-vip, bogexaprvm1-ao73q5-vip | Agenda: Diario
+❌ [FILA 189][MISS] ANS: 264 | Servidor: OCI PRODUCCIÓN BOGOTA
+bogexaprvm1-ao73q1,bogexaprvm1-ao73q2, bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6,bogexaprvm1-ao73q7,
+bogexaprvm1-ao73q8, bogexaprvm1-ao73q1-vip, bogexaprvm1-ao73q2-vip,
+bogexaprvm1-ao73q3-vip, bogexaprvm1-ao73q4-vip, bogexaprvm1-ao73q5-vip | Agenda: Domingo 
+❌ [FILA 190][MISS] ANS: 264 | Servidor: OCI PRODUCCIÓN BOGOTA
+bogexaprvm1-ao73q1,bogexaprvm1-ao73q2, bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6,bogexaprvm1-ao73q7,
+bogexaprvm1-ao73q8, bogexaprvm1-ao73q1-vip, bogexaprvm1-ao73q2-vip,
+bogexaprvm1-ao73q3-vip, bogexaprvm1-ao73q4-vip, bogexaprvm1-ao73q5-vip | Agenda: Primer  Domingo
+❌ [FILA 191][MISS] ANS: 272 | Servidor: XQL0337 -WCADSBS2PROD | Agenda: Sabado
+❌ [FILA 192][MISS] ANS: 272 | Servidor: XQL0337 -WCADSBS2PROD | Agenda: Sabado
+❌ [FILA 193][MISS] ANS: 272 | Servidor: XQL0337 -WCADSBS2PROD | Agenda: Sabado
+❌ [FILA 194][MISS] ANS: 286 | Servidor: LNXCSUCCESPR01 (172.24.43.68), LNXCSUCCESPR02 (172.24.43.83). | Agenda: Primer  Domingo
+❌ [FILA 195][MISS] ANS: 286 | Servidor: LNXCSUCCESSPR03.comcel.com.co (100.123.40.25) | Agenda: Diario
+❌ [FILA 196][MISS] ANS: 286 | Servidor: LNXCSUCCESSPR03.comcel.com.co (100.123.40.25) | Agenda: Sábado
+❌ [FILA 197][MISS] ANS: 286 | Servidor: LNXCSUCCESSPR03.comcel.com.co (100.123.40.25) | Agenda: Primer  Sábado
+❌ [FILA 198][MISS] ANS: 289 | Servidor: TFM4918_YBBACKUP_NETEZZA | Agenda: El 10 de cada mes
+❌ [FILA 199][MISS] ANS: 289 | Servidor: TFM4918_YBBACKUP_NETEZZA | Agenda: El 10 de cada mes
+❌ [FILA 200][MISS] ANS: 289 | Servidor: TFM4918_YBBACKUP_NETEZZA | Agenda: El 10 de cada mes
+❌ [FILA 201][MISS] ANS: 289 | Servidor: TFM4918_YBBACKUP_NETEZZA | Agenda: El 10 de cada mes
+❌ [FILA 202][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1;
+XQL0187 - APIMANAGERPROD2; | Agenda: Diario
+❌ [FILA 203][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1;
+XQL0187 - APIMANAGERPROD2; | Agenda: Sábado
+❌ [FILA 204][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1;
+XQL0187 - APIMANAGERPROD2; | Agenda: Primer  Sábado
+❌ [FILA 205][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1;
+XQL0187 - APIMANAGERPROD2; | Agenda: El 1ro de cada mes
+❌ [FILA 206][MISS] ANS: 291 | Servidor: XQL0187 - APIMANAGERPROD2 | Agenda: Diario
+❌ [FILA 207][MISS] ANS: 291 | Servidor: XQL0187 - APIMANAGERPROD2 | Agenda: Sábado
+❌ [FILA 208][MISS] ANS: 291 | Servidor: XQL0187 - APIMANAGERPROD2 | Agenda: Primer  Sábado
+❌ [FILA 209][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1 | Agenda: Diario
+❌ [FILA 210][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1 | Agenda: Sábado
+❌ [FILA 211][MISS] ANS: 291 | Servidor: XQL0186 - APIMANAGERPROD1 | Agenda: Primer  Sábado
+❌ [FILA 212][MISS] ANS: 291 | Servidor: XQL0188-WCREPORTSVPROD | Agenda: Diario
+❌ [FILA 213][MISS] ANS: 291 | Servidor: XQL0188-WCREPORTSVPROD | Agenda: Sábado
+❌ [FILA 214][MISS] ANS: 291 | Servidor: XQL0188-WCREPORTSVPROD | Agenda: Primer  Sábado
+❌ [FILA 215][MISS] ANS: 291 | Servidor: XQL0188-WCREPORTSVPROD | Agenda: Primer  Sábado
+❌ [FILA 216][MISS] ANS: 291 | Servidor: XQL0160-WCPAMSCPROD01 | Agenda: Diario
+❌ [FILA 217][MISS] ANS: 291 | Servidor: XQL0160-WCPAMSCPROD01 | Agenda: Sábado
+❌ [FILA 218][MISS] ANS: 291 | Servidor: XQL0160-WCPAMSCPROD01 | Agenda: Primer  Sábado
+❌ [FILA 219][MISS] ANS: 291 | Servidor: XQL0160-WCPAMSCPROD01 | Agenda: Primer  Sábado
+❌ [FILA 220][MISS] ANS: 291 | Servidor: bogexaprvm1-ao73q1, bogexaprvm1-ao73q2 , bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6, bogexaprvm1-ao73q7, 
+bogexaprvm1-ao73q8 | Agenda: Diario
+❌ [FILA 221][MISS] ANS: 291 | Servidor: bogexaprvm1-ao73q1, bogexaprvm1-ao73q2 , bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6, bogexaprvm1-ao73q7, 
+bogexaprvm1-ao73q8 | Agenda: Viernes
+❌ [FILA 222][MISS] ANS: 291 | Servidor: bogexaprvm1-ao73q1, bogexaprvm1-ao73q2 , bogexaprvm1-ao73q3, bogexaprvm1-
+ao73q4, bogexaprvm1-ao73q5, bogexaprvm1-ao73q6, bogexaprvm1-ao73q7, 
+bogexaprvm1-ao73q8 | Agenda: Ultimo Viernes 
+❌ [FILA 223][MISS] ANS: 291 | Servidor: XQL0001899 | Agenda: Diario
+❌ [FILA 224][MISS] ANS: 291 | Servidor: XQL0001899 | Agenda: Viernes
+❌ [FILA 225][MISS] ANS: 291 | Servidor: XQL0001899 | Agenda: Primer Viernes del mes
+❌ [FILA 226][MISS] ANS: 291 | Servidor: XQL0001900 | Agenda: Diario
+❌ [FILA 227][MISS] ANS: 291 | Servidor: XQL0001900 | Agenda: Viernes
+❌ [FILA 228][MISS] ANS: 291 | Servidor: XQL0001900 | Agenda: Primer Viernes del mes
+❌ [FILA 229][MISS] ANS: 291 | Servidor: XQL0001901 | Agenda: Diario
+❌ [FILA 230][MISS] ANS: 291 | Servidor: XQL0001901 | Agenda: Viernes
+❌ [FILA 231][MISS] ANS: 291 | Servidor: XQL0001901 | Agenda: Primer Viernes del mes
+❌ [FILA 232][MISS] ANS: 291 | Servidor: XQL0001902 | Agenda: Diario
+❌ [FILA 233][MISS] ANS: 291 | Servidor: XQL0001902 | Agenda: Viernes
+❌ [FILA 234][MISS] ANS: 291 | Servidor: XQL0001902 | Agenda: Primer Viernes del mes
+❌ [FILA 235][MISS] ANS: 291 | Servidor: XQL0001903 | Agenda: Diario
+❌ [FILA 236][MISS] ANS: 291 | Servidor: XQL0001903 | Agenda: Viernes
+❌ [FILA 237][MISS] ANS: 291 | Servidor: XQL0001903 | Agenda: Primer Viernes del mes
+❌ [FILA 238][MISS] ANS: 291 | Servidor: XQL0001904 | Agenda: Diario
+❌ [FILA 239][MISS] ANS: 291 | Servidor: XQL0001904 | Agenda: Viernes
+❌ [FILA 240][MISS] ANS: 291 | Servidor: XQL0001904 | Agenda: Primer Viernes del mes
+❌ [FILA 241][MISS] ANS: 291 | Servidor: XQL0001905 | Agenda: Diario
+❌ [FILA 242][MISS] ANS: 291 | Servidor: XQL0001905 | Agenda: Viernes
+❌ [FILA 243][MISS] ANS: 291 | Servidor: XQL0001905 | Agenda: Primer Viernes del mes
+❌ [FILA 244][MISS] ANS: 291 | Servidor: XQL0001906 | Agenda: Diario
+❌ [FILA 245][MISS] ANS: 291 | Servidor: XQL0001906 | Agenda: Viernes
+❌ [FILA 246][MISS] ANS: 291 | Servidor: XQL0001906 | Agenda: Primer Viernes del mes
+❌ [FILA 247][MISS] ANS: 291 | Servidor: XQL0001909 | Agenda: Diario
+❌ [FILA 248][MISS] ANS: 291 | Servidor: XQL0001909 | Agenda: Viernes
+❌ [FILA 249][MISS] ANS: 291 | Servidor: XQL0001909 | Agenda: Primer Viernes del mes
+❌ [FILA 250][MISS] ANS: 291 | Servidor: XQL0001909_WCPAMSCPR01 | Agenda: Diario
+❌ [FILA 251][MISS] ANS: 291 | Servidor: XQL0001909_WCPAMSCPR01 | Agenda: Sábado
+❌ [FILA 252][MISS] ANS: 291 | Servidor: XQL0001909_WCPAMSCPR01 | Agenda: Primer  Sábado
+❌ [FILA 253][MISS] ANS: 291 | Servidor: XQL0001910 | Agenda: Diario
+❌ [FILA 254][MISS] ANS: 291 | Servidor: XQL0001910 | Agenda: Viernes
+❌ [FILA 255][MISS] ANS: 291 | Servidor: XQL0001910 | Agenda: Primer Viernes del mes
+❌ [FILA 256][MISS] ANS: 291 | Servidor: XQL0001924 | Agenda: Diario
+❌ [FILA 257][MISS] ANS: 291 | Servidor: XQL0001924 | Agenda: Domingo
+❌ [FILA 258][MISS] ANS: 291 | Servidor: XQL0001924 | Agenda: Primer Domingo del mes
+❌ [FILA 259][MISS] ANS: 291 | Servidor: XQL0001907 | Agenda: Diario
+❌ [FILA 260][MISS] ANS: 291 | Servidor: XQL0001907 | Agenda: Sábado
+❌ [FILA 261][MISS] ANS: 291 | Servidor: XQL0001907 | Agenda: Primer Sábado del mes
+❌ [FILA 262][MISS] ANS: 291 | Servidor: XQL0001908 | Agenda: Sábado
+❌ [FILA 263][MISS] ANS: 291 | Servidor: XQL0001908 | Agenda: Primer Sábado del mes
+❌ [FILA 264][MISS] ANS: 291 | Servidor: XQL0001908 | Agenda: Primer Viernes del mes
+❌ [FILA 265][MISS] ANS: 294 | Servidor: XQL0360 - WCAWIPROD01.CLAROCO | Agenda: Viernes
+❌ [FILA 266][MISS] ANS: 294 | Servidor: XQL0361 - WCAWIPROD02.CLAROCO | Agenda: Viernes
+❌ [FILA 267][MISS] ANS: 294 | Servidor: XQL0363 - WCAEPROD.CLAROCO | Agenda: Diario
+❌ [FILA 268][MISS] ANS: 294 | Servidor: XQL0363 - WCAEPROD.CLAROCO | Agenda: Viernes
+❌ [FILA 269][MISS] ANS: 294 | Servidor: XQL0364 - WCAEAGENTS.CLAROCO | Agenda: Viernes
+❌ [FILA 270][MISS] ANS: 294 | Servidor: WCOSQLPRO03\SQL3 | Agenda: Domingo - Viernes
+❌ [FILA 271][MISS] ANS: 294 | Servidor: WCOSQLPRO03\SQL3 | Agenda: Sábado
+❌ [FILA 272][MISS] ANS: 299 | Servidor: WTURNOS01 (172.23.3.46) y WTURNOS02 (172.23.3.47) (Cubierto bajo el ANS 208 - 241) | Agenda: Lunes a Sábado
+❌ [FILA 273][MISS] ANS: 299 | Servidor: WTURNOS01 (172.23.3.46) y WTURNOS02 (172.23.3.47) (Cubierto bajo el ANS 208 - 241) | Agenda: Domingos menos el primero del mes
+❌ [FILA 274][MISS] ANS: 299 | Servidor: WTURNOS01 (172.23.3.46) y WTURNOS02 (172.23.3.47) (Cubierto bajo el ANS 208 - 241) | Agenda: Primer Domingo del mes
+❌ [FILA 275][MISS] ANS: 299 | Servidor: VHQ0426 - WTURNOS01PROD | Agenda: Diario
+❌ [FILA 276][MISS] ANS: 299 | Servidor: VHQ0426 - WTURNOS01PROD | Agenda: Domingo
+❌ [FILA 277][MISS] ANS: 299 | Servidor: VHQ0426 - WTURNOS01PROD | Agenda: Primer Domingo del mes
+❌ [FILA 278][MISS] ANS: 299 | Servidor: VHQ0427 - WTURNOS02PROD | Agenda: Diario
+❌ [FILA 279][MISS] ANS: 299 | Servidor: VHQ0427 - WTURNOS02PROD | Agenda: Domingo
+❌ [FILA 280][MISS] ANS: 299 | Servidor: VHQ0427 - WTURNOS02PROD | Agenda: Primer Domingo del mes
+❌ [FILA 281][MISS] ANS: 299 | Servidor: VHQ0426 - WTURNOS01PROD y VHQ0427 - WTURNOS02PROD | Agenda: Sábado
+❌ [FILA 282][MISS] ANS: 299 | Servidor: VHQ0426 - WTURNOS01PROD y VHQ0427 - WTURNOS02PROD | Agenda: Primer Sábado del mes de Mes
+❌ [FILA 283][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 284][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 285][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 286][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 287][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 288][MISS] ANS: 299 | Servidor: TFM5050_WCOSQLNOD3 y TFM5051_WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 289][MISS] ANS: 299 | Servidor: COMHP35 y COMHP36 - rac-ac-scan.comcel.com.co | Agenda: Sábado
+❌ [FILA 290][MISS] ANS: 299 | Servidor: COMHP01 (Cubierto bajo el OLA 208 241 - 271) | Agenda: Sábado
+❌ [FILA 291][MISS] ANS: 299 | Servidor: COMHP01 (Cubierto bajo el OLA 208 241 - 271) | Agenda: Primer  Sábado del mes
+❌ [FILA 292][MISS] ANS: 299 | Servidor: COMHP01 COMHP06 (Cubierto bajo el OLA 241) | Agenda: Sábado
+❌ [FILA 293][MISS] ANS: 299 | Servidor: COMHP01 COMHP06 (Cubierto bajo el OLA 241) | Agenda: Primer  Sábado del mes
+❌ [FILA 294][MISS] ANS: 299 | Servidor: COMHP43 (Cubierto bajo el OLA 074) | Agenda: Domingo
+❌ [FILA 295][MISS] ANS: 299 | Servidor: COMHP43 (Cubierto bajo el OLA 074) | Agenda: Primer  Domingo del mes
+❌ [FILA 296][MISS] ANS: 299 | Servidor: COMHP20 (Cubierta bajo el OLA 125) | Agenda: Sábado
+❌ [FILA 297][MISS] ANS: 299 | Servidor: COMHP20 (Cubierta bajo el OLA 125) | Agenda: Primer  Sábado del mes
+❌ [FILA 298][MISS] ANS: 299 | Servidor: COMHP20 (Cubierta bajo el OLA 125) | Agenda: Primer Martes del mes de Marzo (Cada año)
+❌ [FILA 299][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 35) | Agenda: Diario  
+❌ [FILA 300][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 35) | Agenda: Sábado
+❌ [FILA 301][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 35) | Agenda: Último Sábado del mes
+❌ [FILA 302][MISS] ANS: 299 | Servidor: LNXRACDBPR01, LNXRACDBPR02 (Cubierto bajo el OLA 42) | Agenda: Diario
+❌ [FILA 303][MISS] ANS: 299 | Servidor: LNXRACDBPR01, LNXRACDBPR02 (Cubierto bajo el OLA 42) | Agenda: Domingo
+❌ [FILA 304][MISS] ANS: 299 | Servidor: LNXRACDBPR01, LNXRACDBPR02 (Cubierto bajo el OLA 42) | Agenda: Primer  Domingo del mes
+❌ [FILA 305][MISS] ANS: 299 | Servidor: COMHP36 (Cubierto bajo el OLA 53) | Agenda: Diario
+❌ [FILA 306][MISS] ANS: 299 | Servidor: COMHP36 (Cubierto bajo el OLA 53) | Agenda: Miercoles 
+❌ [FILA 307][MISS] ANS: 299 | Servidor: COMHP36 (Cubierto bajo el OLA 53) | Agenda: Primer Miercoles del mes
+❌ [FILA 308][MISS] ANS: 299 | Servidor: COMHP14 (Cubierto bajo el OLA 189) | Agenda: Domingo
+❌ [FILA 309][MISS] ANS: 299 | Servidor: COMHP14 (Cubierto bajo el OLA 189) | Agenda: Ultimo Domingo del mes
+❌ [FILA 310][MISS] ANS: 299 | Servidor: COMHP01 COMHP06 (Cubierta bajo el OLA 040) | Agenda: Domingo
+❌ [FILA 311][MISS] ANS: 299 | Servidor: COMHP01 COMHP06 (Cubierta bajo el OLA 040) | Agenda: Primer  Domingo del mes
+❌ [FILA 312][MISS] ANS: 299 | Servidor: COMHP36 (Cubierto bajo el OLA 19) | Agenda: Sábado
+❌ [FILA 313][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 57) | Agenda: Diario  
+❌ [FILA 314][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 57) | Agenda: Sábado
+❌ [FILA 315][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 57) | Agenda: Último Sábado del mes
+❌ [FILA 316][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 30) | Agenda: Diario  
+❌ [FILA 317][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 30) | Agenda: Sábado
+❌ [FILA 318][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 (Cubierto bajo el OLA 30) | Agenda: Último Sábado del mes
+❌ [FILA 319][MISS] ANS: 299 | Servidor: COMHP15 (Cubierto bajo el OLA 68) | Agenda: Diario
+❌ [FILA 320][MISS] ANS: 299 | Servidor: COMHP15 (Cubierto bajo el OLA 68) | Agenda: Domingo
+❌ [FILA 321][MISS] ANS: 299 | Servidor: COMHP15 (Cubierto bajo el OLA 68) | Agenda: Primer  Domingo del mes
+❌ [FILA 322][MISS] ANS: 299 | Servidor: COMHP01, COMHP06 (Cubierto bajo el OLA 70) | Agenda: Diario
+❌ [FILA 323][MISS] ANS: 299 | Servidor: COMHP01, COMHP06 (Cubierto bajo el OLA 70) | Agenda: Martes
+❌ [FILA 324][MISS] ANS: 299 | Servidor: COMHP01, COMHP06 (Cubierto bajo el OLA 70) | Agenda: Primer Martes del mes
+❌ [FILA 325][MISS] ANS: 299 | Servidor: LNXORARACVEN01 Y LNXORARACVEN02 | Agenda: Diario
+❌ [FILA 326][MISS] ANS: 299 | Servidor: LNXORARACVEN01 Y LNXORARACVEN02 | Agenda: Martes
+❌ [FILA 327][MISS] ANS: 299 | Servidor: LNXORARACVEN01 Y LNXORARACVEN02 | Agenda: Primer Martes del mes
+❌ [FILA 328][MISS] ANS: 299 | Servidor: aixtnpracbd01 aixtnpracbd02 (Cubierto bajo el OLA 211) | Agenda: Domingo
+❌ [FILA 329][MISS] ANS: 299 | Servidor: aixtnpracbd01 aixtnpracbd02 (Cubierto bajo el OLA 211) | Agenda: Ultimo Domingo del mes
+❌ [FILA 330][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Diario
+❌ [FILA 331][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Miercoles 
+❌ [FILA 332][MISS] ANS: 299 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Primer Miercoles del mes
+❌ [FILA 333][MISS] ANS: 302 | Servidor: WFM0696-LNXCDESK01, WFM0697-LNXCDESK02 | Agenda: Diario
+❌ [FILA 334][MISS] ANS: 302 | Servidor: WFM0696-LNXCDESK01, WFM0697-LNXCDESK02 | Agenda: Viernes
+❌ [FILA 335][MISS] ANS: 302 | Servidor: WFM0696-LNXCDESK01, WFM0697-LNXCDESK02 | Agenda: Diario
+❌ [FILA 336][MISS] ANS: 302 | Servidor: WFM0696-LNXCDESK01, WFM0697-LNXCDESK02 | Agenda: Viernes
+❌ [FILA 337][MISS] ANS: 302 | Servidor: WFM0467 -GSRCMDBTRI29 | Agenda: Diario
+❌ [FILA 338][MISS] ANS: 302 | Servidor: WFM0467 -GSRCMDBTRI29 | Agenda: Sábado
+❌ [FILA 339][MISS] ANS: 302 | Servidor: WFM0467 -GSRCMDBTRI29 | Agenda: Primer Sábado del mes
+❌ [FILA 340][MISS] ANS: 302 | Servidor: bogexaprvm1- ao73q1, bogexaprvm1- ao73q2, bogexaprvm1- ao73q3,
+bogexaprvm1- ao73q4, bogexaprvm1- ao73q5, | Agenda: Lunes - Sábado
+❌ [FILA 341][MISS] ANS: 302 | Servidor: bogexaprvm1- ao73q1, bogexaprvm1- ao73q2, bogexaprvm1- ao73q3,
+bogexaprvm1- ao73q4, bogexaprvm1- ao73q5, | Agenda: Domingo
+❌ [FILA 342][MISS] ANS: 302 | Servidor: bogexaprvm1- ao73q1, bogexaprvm1- ao73q2, bogexaprvm1- ao73q3,
+bogexaprvm1- ao73q4, bogexaprvm1- ao73q5, | Agenda: Primer Domingo del mes
+❌ [FILA 343][MISS] ANS: 308 | Servidor: XQL0340- WCONTROLGSI | Agenda: Diario
+❌ [FILA 344][MISS] ANS: 308 | Servidor: XQL0340- WCONTROLGSI | Agenda: Domingo
+❌ [FILA 345][MISS] ANS: 308 | Servidor: XQL0340- WCONTROLGSI | Agenda: Primer  Domingo del mes
+❌ [FILA 346][MISS] ANS: 308 | Servidor: XQL0340- WCONTROLGSI | Agenda: Primer  Domingo del mes
+❌ [FILA 347][MISS] ANS: 311 | Servidor: bogexareplogvm1-ld82k1 (100.72.128.162)
+bogexareplogvm1-ld82k2 (100.72.129.192) | Agenda: Sábado
+❌ [FILA 348][MISS] ANS: 311 | Servidor: bogexareplogvm1-ld82k1 (100.72.128.162)
+bogexareplogvm1-ld82k2 (100.72.129.192) | Agenda: Primer Sábado del mes
+❌ [FILA 349][MISS] ANS: 311 | Servidor: bogexaprvm1-ao73q1 (100.72.128.76)
+bogexaprvm1-ao73q2 (100.72.129.34)
+bogexaprvm1-ao73q3 (100.72.129.93)
+bogexaprvm1-ao73q4 (100.72.129.154)
+bogexaprvm1-ao73q5 (100.72.128.92)
+bogexaprvm1-ao73q6 (100.72.128.174)
+bogexaprvm1-ao73q7 (100.72.128.18)
+bogexaprvm1-ao73q8 (100.72.128.206)
+ | Agenda: Diario
+❌ [FILA 350][MISS] ANS: 311 | Servidor: bogexaprvm1-ao73q1 (100.72.128.76)
+bogexaprvm1-ao73q2 (100.72.129.34)
+bogexaprvm1-ao73q3 (100.72.129.93)
+bogexaprvm1-ao73q4 (100.72.129.154)
+bogexaprvm1-ao73q5 (100.72.128.92)
+bogexaprvm1-ao73q6 (100.72.128.174)
+bogexaprvm1-ao73q7 (100.72.128.18)
+bogexaprvm1-ao73q8 (100.72.128.206)
+ | Agenda: Viernes
+❌ [FILA 351][MISS] ANS: 311 | Servidor: bogexaprvm1-ao73q1 (100.72.128.76)
+bogexaprvm1-ao73q2 (100.72.129.34)
+bogexaprvm1-ao73q3 (100.72.129.93)
+bogexaprvm1-ao73q4 (100.72.129.154)
+bogexaprvm1-ao73q5 (100.72.128.92)
+bogexaprvm1-ao73q6 (100.72.128.174)
+bogexaprvm1-ao73q7 (100.72.128.18)
+bogexaprvm1-ao73q8 (100.72.128.206)
+ | Agenda: Ultimo Viernes del mes
+❌ [FILA 352][MISS] ANS: 311 | Servidor: bogexaprvm1-ao73q1 (100.72.128.76)
+bogexaprvm1-ao73q2 (100.72.129.34)
+bogexaprvm1-ao73q3 (100.72.129.93)
+bogexaprvm1-ao73q4 (100.72.129.154)
+bogexaprvm1-ao73q5 (100.72.128.92)
+bogexaprvm1-ao73q6 (100.72.128.174)
+bogexaprvm1-ao73q7 (100.72.128.18)
+bogexaprvm1-ao73q8 (100.72.128.206)
+ | Agenda: Viernes
+❌ [FILA 353][MISS] ANS: 311 | Servidor: bogexaprvm1-ao73q1 (100.72.128.76)
+bogexaprvm1-ao73q2 (100.72.129.34)
+bogexaprvm1-ao73q3 (100.72.129.93)
+bogexaprvm1-ao73q4 (100.72.129.154)
+bogexaprvm1-ao73q5 (100.72.128.92)
+bogexaprvm1-ao73q6 (100.72.128.174)
+bogexaprvm1-ao73q7 (100.72.128.18)
+bogexaprvm1-ao73q8 (100.72.128.206)
+ | Agenda: Ultimo Viernes del mes
+❌ [FILA 354][MISS] ANS: 311 | Servidor: COMHP24 | Agenda: Domingo
+❌ [FILA 355][MISS] ANS: 321 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Diario
+❌ [FILA 356][MISS] ANS: 321 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Domingo
+❌ [FILA 357][MISS] ANS: 321 | Servidor: WFM0393-LNXINSREP1, WFM0392-LNXINSREP2 | Agenda: Primer Domingo del mes
+❌ [FILA 358][MISS] ANS: 323 | Servidor: XQL1216-WDWHACSBRDGPRD | Agenda: Diario
+❌ [FILA 359][MISS] ANS: 323 | Servidor: XQL1216-WDWHACSBRDGPRD | Agenda: Viernes
+❌ [FILA 360][MISS] ANS: 323 | Servidor: XQL1216-WDWHACSBRDGPRD | Agenda: Primer Viernes del mes
+❌ [FILA 361][MISS] ANS: 325 | Servidor: TFM0005785_LNXELKLOGST06 | Agenda: Diario
+❌ [FILA 362][MISS] ANS: 325 | Servidor: TFM0005785_LNXELKLOGST06 | Agenda: 2,3,4 Lunes 
+❌ [FILA 363][MISS] ANS: 325 | Servidor: TFM0005785_LNXELKLOGST06 | Agenda: Primer Lunes del mes
+❌ [FILA 364][MISS] ANS: 325 | Servidor: TFM4934_ELKBCKFS01 | Agenda: Diario
+❌ [FILA 365][MISS] ANS: 325 | Servidor: TFM4934_ELKBCKFS01 | Agenda: Domingo
+❌ [FILA 366][MISS] ANS: 325 | Servidor: TFM4934_ELKBCKFS01 | Agenda: Primer Domingo del mes
+❌ [FILA 367][MISS] ANS: 329 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Diario
+❌ [FILA 368][MISS] ANS: 329 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Miercoles 
+❌ [FILA 369][MISS] ANS: 329 | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Primer Miercoles del mes
+❌ [FILA 370][MISS] ANS: None | Servidor: XQL1128_COLBTAWEB11 | Agenda: Diario
+❌ [FILA 371][MISS] ANS: None | Servidor: XQL1128_COLBTAWEB11 | Agenda: Sábado
+❌ [FILA 372][MISS] ANS: None | Servidor: XQL1128_COLBTAWEB11 | Agenda: Primer Sábado del mes
+❌ [FILA 373][MISS] ANS: None | Servidor: XQL1128_COLBTAWEB11 | Agenda: Primer Sábado del año
+❌ [FILA 374][MISS] ANS: None | Servidor: XQL1129_COLBTAWEB12 | Agenda: Diario
+❌ [FILA 375][MISS] ANS: None | Servidor: XQL1129_COLBTAWEB12 | Agenda: Sábado
+❌ [FILA 376][MISS] ANS: None | Servidor: XQL1129_COLBTAWEB12 | Agenda: Primer Sábado del mes
+❌ [FILA 377][MISS] ANS: None | Servidor: XQL1129_COLBTAWEB12 | Agenda: Primer Sábado del año
+❌ [FILA 378][MISS] ANS: None | Servidor:  COLBTAWEB10 | Agenda: Diario
+❌ [FILA 379][MISS] ANS: None | Servidor:  COLBTAWEB10 | Agenda: Sábado
+❌ [FILA 380][MISS] ANS: None | Servidor:  COLBTAWEB10 | Agenda: Primer Sábado del mes
+❌ [FILA 381][MISS] ANS: None | Servidor:  COLBTAWEB10 | Agenda: Primer Sábado del año
+❌ [FILA 382][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 383][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 384][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 385][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 386][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 387][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 388][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 389][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 390][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 391][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 392][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 393][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 394][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 395][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 396][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 397][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 398][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 399][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 400][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 401][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 402][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 403][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 404][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 405][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 406][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 407][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 408][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 409][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 410][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 411][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 412][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 413][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 414][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 415][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 416][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 417][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 418][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 419][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 420][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 421][MISS] ANS: None | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Domingo
+❌ [FILA 422][MISS] ANS: None | Servidor: COLBTAAGDB02 | Agenda: Diario
+❌ [FILA 423][MISS] ANS: None | Servidor: COLBTAAGDB02 | Agenda: Viernes
+❌ [FILA 424][MISS] ANS: None | Servidor: COLBTAAGDB02 | Agenda: Primer Viernes del mes
+❌ [FILA 425][MISS] ANS: None | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Diario
+❌ [FILA 426][MISS] ANS: None | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Viernes
+❌ [FILA 427][MISS] ANS: None | Servidor: bogexaprvm1-ao73q1
+bogexaprvm1-ao73q2
+bogexaprvm1-ao73q3
+bogexaprvm1-ao73q4
+bogexaprvm1-ao73q5
+bogexaprvm1-ao73q6
+bogexaprvm1-ao73q7
+bogexaprvm1-ao73q8 | Agenda: Primer Viernes del mes
+❌ [FILA 428][MISS] ANS: None | Servidor: AGENDAMIENTO1, AGENDAMIENTO1-bck 192.168.61.15 | Agenda: Diario
+❌ [FILA 429][MISS] ANS: None | Servidor: AGENDAMIENTO1, AGENDAMIENTO1-bck 192.168.61.15 | Agenda: Domingo
+❌ [FILA 430][MISS] ANS: None | Servidor: AGENDAMIENTO1, AGENDAMIENTO1-bck 192.168.61.15 | Agenda: Primer Domingo del mes
+❌ [FILA 431][MISS] ANS: None | Servidor: AGENDAMIENTO1, AGENDAMIENTO1-bck 192.168.61.15 | Agenda: Primer Domingo del año
+❌ [FILA 432][MISS] ANS: None | Servidor: AGENDAMIENTO4 , AGENDAMIENTO4-bck 192.168.61.17 | Agenda: Diario
+❌ [FILA 433][MISS] ANS: None | Servidor: AGENDAMIENTO4 , AGENDAMIENTO4-bck 192.168.61.17 | Agenda: Domingo
+❌ [FILA 434][MISS] ANS: None | Servidor: AGENDAMIENTO4 , AGENDAMIENTO4-bck 192.168.61.17 | Agenda: Primer Domingo del mes
+❌ [FILA 435][MISS] ANS: None | Servidor: AGENDAMIENTO4 , AGENDAMIENTO4-bck 192.168.61.17 | Agenda: Primer Domingo del año
+❌ [FILA 436][MISS] ANS: None | Servidor: COLBTAFILE01 | Agenda: Diario
+❌ [FILA 437][MISS] ANS: None | Servidor: COLBTAFILE01 | Agenda: Viernes
+❌ [FILA 438][MISS] ANS: None | Servidor: COLBTAFILE01 | Agenda: Primer Viernes del mes
+❌ [FILA 439][MISS] ANS: None | Servidor: COLBTAFILE01 | Agenda: Primer Sábado del mes
+❌ [FILA 440][MISS] ANS: None | Servidor: COLBTASGA01 | Agenda: Diario
+❌ [FILA 441][MISS] ANS: None | Servidor: COLBTASGA01 | Agenda: Viernes
+❌ [FILA 442][MISS] ANS: None | Servidor: COLBTASGA01 | Agenda: Primer Viernes del mes
+❌ [FILA 443][MISS] ANS: 308 | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Diario
+❌ [FILA 444][MISS] ANS: 308 | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Viernes
+❌ [FILA 445][MISS] ANS: 308 | Servidor: TFM5050-WCOSQLNOD3, TFM5051-WCOSQLNOD4 | Agenda: Primer Viernes del mes
+❌ [FILA 446][MISS] ANS: 353 | Servidor: TFM0005834 - AMXDQACCO01 | Agenda: Sábado 
+❌ [FILA 447][MISS] ANS: 353 | Servidor: TFM0005835 - AMXDQASDS01 | Agenda: Sábado 
+❌ [FILA 448][MISS] ANS: 353 | Servidor: TFM0005836 - AMXPRDCCO01 | Agenda: Sábado 
+❌ [FILA 449][MISS] ANS: 353 | Servidor: TFM0005837 - AMXPRDDSE01 | Agenda: Sábado 
+❌ [FILA 450][MISS] ANS: 353 | Servidor: TFM0005834 - AMXDQACCO01 | Agenda: Diario
+❌ [FILA 451][MISS] ANS: 353 | Servidor: TFM0005835 - AMXDQASDS01 | Agenda: Diario
+❌ [FILA 452][MISS] ANS: 353 | Servidor: TFM0005836 - AMXPRDCCO01 | Agenda: Diario
+❌ [FILA 453][MISS] ANS: 353 | Servidor: TFM0005837 - AMXPRDDSE01 | Agenda: Diario
+❌ [FILA 454][MISS] ANS: 353 | Servidor: TFM0005834 - AMXDQACCO01 | Agenda: Primer Sábado del mes
+❌ [FILA 455][MISS] ANS: 353 | Servidor: TFM0005835 - AMXDQASDS01 | Agenda: Primer Sábado del mes
+❌ [FILA 456][MISS] ANS: 353 | Servidor: TFM0005836 - AMXPRDCCO01 | Agenda: Primer Sábado del mes
+❌ [FILA 457][MISS] ANS: 353 | Servidor: TFM0005837 - AMXPRDDSE01 | Agenda: Primer Sábado del mes
+❌ [FILA 458][MISS] ANS: None | Servidor: AMXDEVHANA | Agenda: Diario
+❌ [FILA 459][MISS] ANS: None | Servidor: AMXDEVHANA | Agenda: Domingo
+❌ [FILA 460][MISS] ANS: None | Servidor: AMXDEVHANA | Agenda: Primer Domingo del mes
+❌ [FILA 461][MISS] ANS: None | Servidor: AMXPRDHANA | Agenda: Diario
+❌ [FILA 462][MISS] ANS: None | Servidor: AMXPRDHANA | Agenda: Sábado
+❌ [FILA 463][MISS] ANS: None | Servidor: AMXPRDHANA | Agenda: Primer Sábado del mes
+❌ [FILA 464][MISS] ANS: None | Servidor: AMXPRDHANA01_KLN0024 | Agenda: Diario
+❌ [FILA 465][MISS] ANS: None | Servidor: AMXPRDHANA01_KLN0024 | Agenda: Sábado
+❌ [FILA 466][MISS] ANS: None | Servidor: AMXPRDHANA01_KLN0024 | Agenda: Primer Sábado del mes
+❌ [FILA 467][MISS] ANS: None | Servidor: AMXQASNBI01 | Agenda: Diario
+❌ [FILA 468][MISS] ANS: None | Servidor: AMXQASNBI01 | Agenda: Sábado
+❌ [FILA 469][MISS] ANS: None | Servidor: AMXQASNBI01 | Agenda: Primer Sábado del mes
+❌ [FILA 470][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01 | Agenda: Diario
+❌ [FILA 471][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01 | Agenda: Viernes
+❌ [FILA 472][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01 | Agenda: Primer Viernes del mes
+❌ [FILA 473][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01 | Agenda: Diario
+❌ [FILA 474][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01 | Agenda: Viernes
+❌ [FILA 475][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01 | Agenda: Primer Viernes del mes
+❌ [FILA 476][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01 | Agenda: Diario
+❌ [FILA 477][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01 | Agenda: Viernes
+❌ [FILA 478][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01 | Agenda: Primer Viernes del mes
+❌ [FILA 479][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01 | Agenda: Diario
+❌ [FILA 480][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01 | Agenda: Domingos
+❌ [FILA 481][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01 | Agenda: Primer Domingo del mes
+❌ [FILA 482][MISS] ANS: None | Servidor: TEM0210_AMXDEVSBO01 | Agenda: Diario
+❌ [FILA 483][MISS] ANS: None | Servidor: TEM0210_AMXDEVSBO01 | Agenda: Domingos
+❌ [FILA 484][MISS] ANS: None | Servidor: TEM0210_AMXDEVSBO01 | Agenda: Primer Domingo del mes
+❌ [FILA 485][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01 | Agenda: Diario
+❌ [FILA 486][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01 | Agenda: Domingos
+❌ [FILA 487][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01 | Agenda: Primer Domingo del mes
+❌ [FILA 488][MISS] ANS: None | Servidor: TEM0234_AMXQASECC01 | Agenda: Diario
+❌ [FILA 489][MISS] ANS: None | Servidor: TEM0234_AMXQASECC01 | Agenda: Sábado
+❌ [FILA 490][MISS] ANS: None | Servidor: TEM0234_AMXQASECC01 | Agenda: Primer Sábado del mes
+❌ [FILA 491][MISS] ANS: None | Servidor: TEM0237_AMXQASSBO01 | Agenda: Diario
+❌ [FILA 492][MISS] ANS: None | Servidor: TEM0237_AMXQASSBO01 | Agenda: Sábado
+❌ [FILA 493][MISS] ANS: None | Servidor: TEM0237_AMXQASSBO01 | Agenda: Primer Sábado del mes
+❌ [FILA 494][MISS] ANS: None | Servidor: TEM0240_AMXPRDNBI02 | Agenda: Diario
+❌ [FILA 495][MISS] ANS: None | Servidor: TEM0240_AMXPRDNBI02 | Agenda: Sábado
+❌ [FILA 496][MISS] ANS: None | Servidor: TEM0240_AMXPRDNBI02 | Agenda: Primer Sábado del mes
+❌ [FILA 497][MISS] ANS: None | Servidor: TEM0241_AMXPRDNBI03 | Agenda: Diario
+❌ [FILA 498][MISS] ANS: None | Servidor: TEM0241_AMXPRDNBI03 | Agenda: Sábado
+❌ [FILA 499][MISS] ANS: None | Servidor: TEM0241_AMXPRDNBI03 | Agenda: Primer Sábado del mes
+❌ [FILA 500][MISS] ANS: None | Servidor: TEM0242_AMXPRDNBI04 | Agenda: Diario
+❌ [FILA 501][MISS] ANS: None | Servidor: TEM0242_AMXPRDNBI04 | Agenda: Sábado
+❌ [FILA 502][MISS] ANS: None | Servidor: TEM0242_AMXPRDNBI04 | Agenda: Primer Sábado del mes
+❌ [FILA 503][MISS] ANS: None | Servidor: TEM0243_AMXPRDNBI05 | Agenda: Diario
+❌ [FILA 504][MISS] ANS: None | Servidor: TEM0243_AMXPRDNBI05 | Agenda: Sábado
+❌ [FILA 505][MISS] ANS: None | Servidor: TEM0243_AMXPRDNBI05 | Agenda: Primer Sábado del mes
+❌ [FILA 506][MISS] ANS: None | Servidor: TEM0244_AMXPRDNBI06 | Agenda: Diario
+❌ [FILA 507][MISS] ANS: None | Servidor: TEM0244_AMXPRDNBI06 | Agenda: Sábado
+❌ [FILA 508][MISS] ANS: None | Servidor: TEM0244_AMXPRDNBI06 | Agenda: Primer Sábado del mes
+❌ [FILA 509][MISS] ANS: None | Servidor: TEM0247_AMXPRDEPR01 | Agenda: Diario
+❌ [FILA 510][MISS] ANS: None | Servidor: TEM0247_AMXPRDEPR01 | Agenda: Domingos
+❌ [FILA 511][MISS] ANS: None | Servidor: TEM0247_AMXPRDEPR01 | Agenda: Primer Domingo del mes
+❌ [FILA 512][MISS] ANS: None | Servidor: TFM1310_AMXQASECC02 | Agenda: Diario
+❌ [FILA 513][MISS] ANS: None | Servidor: TFM1310_AMXQASECC02 | Agenda: Sábado
+❌ [FILA 514][MISS] ANS: None | Servidor: TFM1310_AMXQASECC02 | Agenda: Primer Sábado del mes
+❌ [FILA 515][MISS] ANS: None | Servidor: TFM4653_AMXRESTSAP00 | Agenda: Diario
+❌ [FILA 516][MISS] ANS: None | Servidor: TFM4653_AMXRESTSAP00 | Agenda: Domingos
+❌ [FILA 517][MISS] ANS: None | Servidor: TFM4653_AMXRESTSAP00 | Agenda: Primer Domingo del mes
+❌ [FILA 518][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01 | Agenda: Diario
+❌ [FILA 519][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01 | Agenda: Domingos
+❌ [FILA 520][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01 | Agenda: Primer Domingo del mes
+❌ [FILA 521][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01 | Agenda: Diario
+❌ [FILA 522][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01 | Agenda: Viernes
+❌ [FILA 523][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01 | Agenda: Primer Viernes del mes
+❌ [FILA 524][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01 | Agenda: Diario
+❌ [FILA 525][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01 | Agenda: Sábado
+❌ [FILA 526][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01 | Agenda: Primer Sábado del mes
+❌ [FILA 527][MISS] ANS: None | Servidor: XQL1401_WCAMXFINPROD01 | Agenda: Diario
+❌ [FILA 528][MISS] ANS: None | Servidor: XQL1401_WCAMXFINPROD01 | Agenda: Viernes
+❌ [FILA 529][MISS] ANS: None | Servidor: XQL1401_WCAMXFINPROD01 | Agenda: Primer Viernes del mes
+❌ [FILA 530][MISS] ANS: None | Servidor: ZGZK268_AMXPRDECC01 | Agenda: Diario
+❌ [FILA 531][MISS] ANS: None | Servidor: ZGZK268_AMXPRDECC01 | Agenda: Domingos
+❌ [FILA 532][MISS] ANS: None | Servidor: ZGZK268_AMXPRDECC01 | Agenda: Primer Domingo del mes
+❌ [FILA 533][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00 | Agenda: Diario
+❌ [FILA 534][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00 | Agenda: Sábado
+❌ [FILA 535][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00 | Agenda: Primer Sábado del mes
+❌ [FILA 536][MISS] ANS: None | Servidor: ZKQR306_AMXPRDNBI00 | Agenda: Diario
+❌ [FILA 537][MISS] ANS: None | Servidor: ZKQR306_AMXPRDNBI00 | Agenda: Sábado
+❌ [FILA 538][MISS] ANS: None | Servidor: ZKQR306_AMXPRDNBI00 | Agenda: Primer Sábado del mes
+❌ [FILA 539][MISS] ANS: None | Servidor: ZKQR308_AMXPRDECC02 | Agenda: Diario
+❌ [FILA 540][MISS] ANS: None | Servidor: ZKQR308_AMXPRDECC02 | Agenda: Sábado
+❌ [FILA 541][MISS] ANS: None | Servidor: ZKQR308_AMXPRDECC02 | Agenda: Primer Sábado del mes
+❌ [FILA 542][MISS] ANS: None | Servidor: ZKQR310_AMXDGECC01 | Agenda: Diario
+❌ [FILA 543][MISS] ANS: None | Servidor: ZKQR310_AMXDGECC01 | Agenda: Sábado
+❌ [FILA 544][MISS] ANS: None | Servidor: ZKQR310_AMXDGECC01 | Agenda: Primer Sábado del mes
+❌ [FILA 545][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01 | Agenda: Diario
+❌ [FILA 546][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01 | Agenda: Domingos
+❌ [FILA 547][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01 | Agenda: Primer Domingo del mes
+❌ [FILA 548][MISS] ANS: None | Servidor: ZKQR313_AMXPRDECC00 | Agenda: Diario
+❌ [FILA 549][MISS] ANS: None | Servidor: ZKQR313_AMXPRDECC00 | Agenda: Viernes
+❌ [FILA 550][MISS] ANS: None | Servidor: ZKQR313_AMXPRDECC00 | Agenda: Primer Viernes del mes
+❌ [FILA 551][MISS] ANS: None | Servidor: AMXDEVEPR02  | Agenda: Diario
+❌ [FILA 552][MISS] ANS: None | Servidor: AMXDEVEPR02  | Agenda: Domingos
+❌ [FILA 553][MISS] ANS: None | Servidor: AMXDEVEPR02  | Agenda: Primer Domingo del mes
+❌ [FILA 554][MISS] ANS: None | Servidor: AMXQASNBI01  | Agenda: Diario
+❌ [FILA 555][MISS] ANS: None | Servidor: AMXQASNBI01  | Agenda: Domingos
+❌ [FILA 556][MISS] ANS: None | Servidor: AMXQASNBI01  | Agenda: Primer Domingo del mes
+❌ [FILA 557][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01  | Agenda: Diario
+❌ [FILA 558][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01  | Agenda: Sábado
+❌ [FILA 559][MISS] ANS: None | Servidor: TEM0205_AMXDEVECC01  | Agenda: Primer Sábado del mes
+❌ [FILA 560][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01  | Agenda: Diario
+❌ [FILA 561][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01  | Agenda: Domingos
+❌ [FILA 562][MISS] ANS: None | Servidor: TEM0208_AMXDEVEPR01  | Agenda: Primer Domingo del mes
+❌ [FILA 563][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01  | Agenda: Diario
+❌ [FILA 564][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01  | Agenda: Sábado
+❌ [FILA 565][MISS] ANS: None | Servidor: TEM0209_AMXQASEPR01  | Agenda: Primer Sábado del mes
+❌ [FILA 566][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01  | Agenda: Diario
+❌ [FILA 567][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01  | Agenda: Domingos
+❌ [FILA 568][MISS] ANS: None | Servidor: TEM0210_AMXDEVNBI01  | Agenda: Primer Domingo del mes
+❌ [FILA 569][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01  | Agenda: Diario
+❌ [FILA 570][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01  | Agenda: Domingos
+❌ [FILA 571][MISS] ANS: None | Servidor: TEM0232_AMXPRDSBO01  | Agenda: Primer Domingo del mes
+❌ [FILA 572][MISS] ANS: None | Servidor: TEM0234_AMXQASECC01  | Agenda: Domingos
+❌ [FILA 573][MISS] ANS: None | Servidor: TEM0234_AMXQASECC01  | Agenda: Primer Domingo del mes
+❌ [FILA 574][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00  | Agenda: Diario
+❌ [FILA 575][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00  | Agenda: Domingos
+❌ [FILA 576][MISS] ANS: None | Servidor: ZKQR305_AMXDGECC00  | Agenda: Primer Domingo del mes
+❌ [FILA 577][MISS] ANS: None | Servidor: ZKQR313_AMXPRDECC00, ZGZK268_AMXPRDECC01, ZKQR308_AMXPRDECC02 | Agenda: Diario
+❌ [FILA 578][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Diario
+❌ [FILA 579][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Sábado
+❌ [FILA 580][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Primer Sábado del mes
+❌ [FILA 581][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Diario
+❌ [FILA 582][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Domingos
+❌ [FILA 583][MISS] ANS: None | Servidor: ZKQR311_AMXPRDNBI01  | Agenda: Primer Domingo del mes
+❌ [FILA 584][MISS] ANS: None | Servidor: AMXDEVHANA  | Agenda: Diario
+❌ [FILA 585][MISS] ANS: None | Servidor: AMXDEVHANA  | Agenda: Domingos
+❌ [FILA 586][MISS] ANS: None | Servidor: AMXDEVHANA  | Agenda: Primer Domingo del mes
+❌ [FILA 587][MISS] ANS: None | Servidor: AMXPRDHANA01  | Agenda: Diario
+❌ [FILA 588][MISS] ANS: None | Servidor: AMXPRDHANA01  | Agenda: Sábado
+❌ [FILA 589][MISS] ANS: None | Servidor: AMXPRDHANA01  | Agenda: Primer Sábado del mes
+❌ [FILA 590][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01  | Agenda: Diario
+❌ [FILA 591][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01  | Agenda: Domingos
+❌ [FILA 592][MISS] ANS: None | Servidor: TLU0000050_AMXPRDHBDB01  | Agenda: Primer Domingo del mes
+❌ [FILA 593][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01  | Agenda: Diario
+❌ [FILA 594][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01  | Agenda: Domingos
+❌ [FILA 595][MISS] ANS: None | Servidor: TLU0030_AMXDEVHBDB01  | Agenda: Primer Domingo del mes
+❌ [FILA 596][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01  | Agenda: Diario
+❌ [FILA 597][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01  | Agenda: Domingos
+❌ [FILA 598][MISS] ANS: None | Servidor: TLU0040_AMXQAHBDB01  | Agenda: Primer Domingo del mes
+❌ [FILA 599][MISS] ANS: None | Servidor: AMXPRDECC04   | Agenda: Diario
+❌ [FILA 600][MISS] ANS: None | Servidor: AMXPRDECC04   | Agenda: Sábado
+❌ [FILA 601][MISS] ANS: None | Servidor: AMXPRDECC04   | Agenda: Primer Sábado del mes
+❌ [FILA 602][MISS] ANS: None | Servidor: AMXDEVDMS01   | Agenda: Diario
+❌ [FILA 603][MISS] ANS: None | Servidor: AMXDEVDMS01   | Agenda: Domingos
+❌ [FILA 604][MISS] ANS: None | Servidor: AMXDEVDMS01   | Agenda: Primer Domingo del mes
+❌ [FILA 605][MISS] ANS: None | Servidor: AMXDEVECC01   | Agenda: Diario
+❌ [FILA 606][MISS] ANS: None | Servidor: AMXDEVECC01   | Agenda: Sábado
+❌ [FILA 607][MISS] ANS: None | Servidor: AMXDEVECC01   | Agenda: Primer Sábado del mes
+❌ [FILA 608][MISS] ANS: None | Servidor: AMXDEVEPR01   | Agenda: Diario
+❌ [FILA 609][MISS] ANS: None | Servidor: AMXDEVEPR01   | Agenda: Sábado
+❌ [FILA 610][MISS] ANS: None | Servidor: AMXDEVEPR01   | Agenda: Primer Sábado del mes
+❌ [FILA 611][MISS] ANS: None | Servidor: AMXDEVEPR02   | Agenda: Diario
+❌ [FILA 612][MISS] ANS: None | Servidor: AMXDEVEPR02   | Agenda: Sábado
+❌ [FILA 613][MISS] ANS: None | Servidor: AMXDEVEPR02   | Agenda: Primer Sábado del mes
+❌ [FILA 614][MISS] ANS: None | Servidor: AMXDEVEROU01   | Agenda: Diario
+❌ [FILA 615][MISS] ANS: None | Servidor: AMXDEVEROU01   | Agenda: Sábado
+❌ [FILA 616][MISS] ANS: None | Servidor: AMXDEVEROU01   | Agenda: Primer Sábado del mes
+❌ [FILA 617][MISS] ANS: None | Servidor: AMXDEVNBI01   | Agenda: Diario
+❌ [FILA 618][MISS] ANS: None | Servidor: AMXDEVNBI01   | Agenda: Sábado
+❌ [FILA 619][MISS] ANS: None | Servidor: AMXDEVNBI01   | Agenda: Primer Sábado del mes
+❌ [FILA 620][MISS] ANS: None | Servidor: AMXDEVPO01   | Agenda: Diario
+❌ [FILA 621][MISS] ANS: None | Servidor: AMXDEVPO01   | Agenda: Domingos
+❌ [FILA 622][MISS] ANS: None | Servidor: AMXDEVPO01   | Agenda: Primer Domingo del mes
+❌ [FILA 623][MISS] ANS: None | Servidor: AMXDEVSBO01   | Agenda: Diario
+❌ [FILA 624][MISS] ANS: None | Servidor: AMXDEVSBO01   | Agenda: Sábado
+❌ [FILA 625][MISS] ANS: None | Servidor: AMXDEVSBO01   | Agenda: Primer Sábado del mes
+❌ [FILA 626][MISS] ANS: None | Servidor: AMXPRDDMS01   | Agenda: Diario
+❌ [FILA 627][MISS] ANS: None | Servidor: AMXPRDDMS01   | Agenda: Viernes
+❌ [FILA 628][MISS] ANS: None | Servidor: AMXPRDDMS01   | Agenda: Primer Viernes del mes
+❌ [FILA 629][MISS] ANS: None | Servidor: AMXPRDECC03   | Agenda: Diario
+❌ [FILA 630][MISS] ANS: None | Servidor: AMXPRDECC03   | Agenda: Domingos
+❌ [FILA 631][MISS] ANS: None | Servidor: AMXPRDECC03   | Agenda: Primer Domingo del mes
+❌ [FILA 632][MISS] ANS: None | Servidor: AMXPRDECC05   | Agenda: Diario
+❌ [FILA 633][MISS] ANS: None | Servidor: AMXPRDECC05   | Agenda: Domingos
+❌ [FILA 634][MISS] ANS: None | Servidor: AMXPRDECC05   | Agenda: Primer Domingo del mes
+❌ [FILA 635][MISS] ANS: None | Servidor: AMXPRDECC06   | Agenda: Diario
+❌ [FILA 636][MISS] ANS: None | Servidor: AMXPRDECC06   | Agenda: Viernes
+❌ [FILA 637][MISS] ANS: None | Servidor: AMXPRDECC06   | Agenda: Primer Viernes del mes
+❌ [FILA 638][MISS] ANS: None | Servidor: AMXPRDECC07   | Agenda: Diario
+❌ [FILA 639][MISS] ANS: None | Servidor: AMXPRDECC07   | Agenda: Viernes
+❌ [FILA 640][MISS] ANS: None | Servidor: AMXPRDECC07   | Agenda: Primer Viernes del mes
+❌ [FILA 641][MISS] ANS: None | Servidor: AMXPRDECC08   | Agenda: Diario
+❌ [FILA 642][MISS] ANS: None | Servidor: AMXPRDECC08   | Agenda: Viernes
+❌ [FILA 643][MISS] ANS: None | Servidor: AMXPRDECC08   | Agenda: Primer Viernes del mes
+❌ [FILA 644][MISS] ANS: None | Servidor: AMXPRDECC09   | Agenda: Diario
+❌ [FILA 645][MISS] ANS: None | Servidor: AMXPRDECC09   | Agenda: Domingos
+❌ [FILA 646][MISS] ANS: None | Servidor: AMXPRDECC09   | Agenda: Primer Domingo del mes
+❌ [FILA 647][MISS] ANS: None | Servidor: AMXPRDECC10   | Agenda: Diario
+❌ [FILA 648][MISS] ANS: None | Servidor: AMXPRDECC10   | Agenda: Domingos
+❌ [FILA 649][MISS] ANS: None | Servidor: AMXPRDECC10   | Agenda: Primer Domingo del mes
+❌ [FILA 650][MISS] ANS: None | Servidor: AMXPRDECC11   | Agenda: Diario
+❌ [FILA 651][MISS] ANS: None | Servidor: AMXPRDECC11   | Agenda: Domingos
+❌ [FILA 652][MISS] ANS: None | Servidor: AMXPRDECC11   | Agenda: Primer Domingo del mes
+❌ [FILA 653][MISS] ANS: None | Servidor: AMXPRDECC12   | Agenda: Diario
+❌ [FILA 654][MISS] ANS: None | Servidor: AMXPRDECC12   | Agenda: Domingos
+❌ [FILA 655][MISS] ANS: None | Servidor: AMXPRDECC12   | Agenda: Primer Domingo del mes
+❌ [FILA 656][MISS] ANS: None | Servidor: AMXPRDECC13   | Agenda: Diario
+❌ [FILA 657][MISS] ANS: None | Servidor: AMXPRDECC13   | Agenda: Sábado
+❌ [FILA 658][MISS] ANS: None | Servidor: AMXPRDECC13   | Agenda: Primer Sábado del mes
+❌ [FILA 659][MISS] ANS: None | Servidor: AMXPRDECC14   | Agenda: Diario
+❌ [FILA 660][MISS] ANS: None | Servidor: AMXPRDECC14   | Agenda: Viernes
+❌ [FILA 661][MISS] ANS: None | Servidor: AMXPRDECC14   | Agenda: Primer Viernes del mes
+❌ [FILA 662][MISS] ANS: None | Servidor: AMXPRDEPR01   | Agenda: Diario
+❌ [FILA 663][MISS] ANS: None | Servidor: AMXPRDEPR01   | Agenda: Viernes
+❌ [FILA 664][MISS] ANS: None | Servidor: AMXPRDEPR01   | Agenda: Primer Viernes del mes
+❌ [FILA 665][MISS] ANS: None | Servidor: AMXPRDEROU01   | Agenda: Diario
+❌ [FILA 666][MISS] ANS: None | Servidor: AMXPRDEROU01   | Agenda: Sábado
+❌ [FILA 667][MISS] ANS: None | Servidor: AMXPRDEROU01   | Agenda: Primer Sábado del mes
+❌ [FILA 668][MISS] ANS: None | Servidor: AMXPRDHANA01   | Agenda: Diario
+❌ [FILA 669][MISS] ANS: None | Servidor: AMXPRDHANA01   | Agenda: Domingos
+❌ [FILA 670][MISS] ANS: None | Servidor: AMXPRDHANA01   | Agenda: Primer Domingo del mes
+❌ [FILA 671][MISS] ANS: None | Servidor: AMXPRDNBI02   | Agenda: Diario
+❌ [FILA 672][MISS] ANS: None | Servidor: AMXPRDNBI02   | Agenda: Sábado
+❌ [FILA 673][MISS] ANS: None | Servidor: AMXPRDNBI02   | Agenda: Primer Sábado del mes
+❌ [FILA 674][MISS] ANS: None | Servidor: AMXPRDNBI03   | Agenda: Diario
+❌ [FILA 675][MISS] ANS: None | Servidor: AMXPRDNBI03   | Agenda: Sábado
+❌ [FILA 676][MISS] ANS: None | Servidor: AMXPRDNBI03   | Agenda: Primer Sábado del mes
+❌ [FILA 677][MISS] ANS: None | Servidor: AMXPRDNBI04   | Agenda: Diario
+❌ [FILA 678][MISS] ANS: None | Servidor: AMXPRDNBI04   | Agenda: Domingos
+❌ [FILA 679][MISS] ANS: None | Servidor: AMXPRDNBI04   | Agenda: Primer Domingo del mes
+❌ [FILA 680][MISS] ANS: None | Servidor: AMXPRDNBI05   | Agenda: Diario
+❌ [FILA 681][MISS] ANS: None | Servidor: AMXPRDNBI05   | Agenda: Sábado
+❌ [FILA 682][MISS] ANS: None | Servidor: AMXPRDNBI05   | Agenda: Primer Sábado del mes
+❌ [FILA 683][MISS] ANS: None | Servidor: AMXPRDNBI06   | Agenda: Diario
+❌ [FILA 684][MISS] ANS: None | Servidor: AMXPRDNBI06   | Agenda: Sábado
+❌ [FILA 685][MISS] ANS: None | Servidor: AMXPRDNBI06   | Agenda: Primer Sábado del mes
+❌ [FILA 686][MISS] ANS: None | Servidor: AMXPRDPO00   | Agenda: Diario
+❌ [FILA 687][MISS] ANS: None | Servidor: AMXPRDPO00   | Agenda: Sábado
+❌ [FILA 688][MISS] ANS: None | Servidor: AMXPRDPO00   | Agenda: Primer Sábado del mes
+❌ [FILA 689][MISS] ANS: None | Servidor: AMXPRDPO01   | Agenda: Diario
+❌ [FILA 690][MISS] ANS: None | Servidor: AMXPRDPO01   | Agenda: Sábado
+❌ [FILA 691][MISS] ANS: None | Servidor: AMXPRDPO01   | Agenda: Primer Sábado del mes
+❌ [FILA 692][MISS] ANS: None | Servidor: AMXPRDRTR01   | Agenda: Diario
+❌ [FILA 693][MISS] ANS: None | Servidor: AMXPRDRTR01   | Agenda: Domingos
+❌ [FILA 694][MISS] ANS: None | Servidor: AMXPRDRTR01   | Agenda: Primer Domingo del mes
+❌ [FILA 695][MISS] ANS: None | Servidor: AMXPRDSBO01   | Agenda: Diario
+❌ [FILA 696][MISS] ANS: None | Servidor: AMXPRDSBO01   | Agenda: Sábado
+❌ [FILA 697][MISS] ANS: None | Servidor: AMXPRDSBO01   | Agenda: Primer Sábado del mes
+❌ [FILA 698][MISS] ANS: None | Servidor: AMXPRDWIA01   | Agenda: Diario
+❌ [FILA 699][MISS] ANS: None | Servidor: AMXPRDWIA01   | Agenda: Domingos
+❌ [FILA 700][MISS] ANS: None | Servidor: AMXPRDWIA01   | Agenda: Primer Domingo del mes
+❌ [FILA 701][MISS] ANS: None | Servidor: AMXQASEPR01   | Agenda: Diario
+❌ [FILA 702][MISS] ANS: None | Servidor: AMXQASEPR01   | Agenda: Viernes
+❌ [FILA 703][MISS] ANS: None | Servidor: AMXQASEPR01   | Agenda: Primer Viernes del mes
+❌ [FILA 704][MISS] ANS: None | Servidor: AMXQASNBI01   | Agenda: Diario
+❌ [FILA 705][MISS] ANS: None | Servidor: AMXQASNBI01   | Agenda: Sábado
+❌ [FILA 706][MISS] ANS: None | Servidor: AMXQASNBI01   | Agenda: Primer Sábado del mes
+❌ [FILA 707][MISS] ANS: None | Servidor: AMXQASPO01   | Agenda: Diario
+❌ [FILA 708][MISS] ANS: None | Servidor: AMXQASPO01   | Agenda: Domingos
+❌ [FILA 709][MISS] ANS: None | Servidor: AMXQASPO01   | Agenda: Primer Domingo del mes
+❌ [FILA 710][MISS] ANS: None | Servidor: AMXQASSBO01   | Agenda: Diario
+❌ [FILA 711][MISS] ANS: None | Servidor: AMXQASSBO01   | Agenda: Sábado
+❌ [FILA 712][MISS] ANS: None | Servidor: AMXQASSBO01   | Agenda: Primer Sábado del mes
+❌ [FILA 713][MISS] ANS: None | Servidor: AMXRESTSAP00  | Agenda: Diario
+❌ [FILA 714][MISS] ANS: None | Servidor: AMXRESTSAP00  | Agenda: Viernes
+❌ [FILA 715][MISS] ANS: None | Servidor: AMXRESTSAP00  | Agenda: Primer Viernes del mes
+❌ [FILA 716][MISS] ANS: None | Servidor: AMCQASNBI01  | Agenda: Diario
+❌ [FILA 717][MISS] ANS: None | Servidor: AMCQASNBI01  | Agenda: Sábado
+❌ [FILA 718][MISS] ANS: None | Servidor: AMCQASNBI01  | Agenda: Primer Sábado del mes
+❌ [FILA 719][MISS] ANS: None | Servidor: TFM3177_amcprdsol01  | Agenda: Diario
+❌ [FILA 720][MISS] ANS: None | Servidor: TFM3177_amcprdsol01  | Agenda: Domingo
+❌ [FILA 721][MISS] ANS: None | Servidor: TFM3177_amcprdsol01  | Agenda: Primer Domingo del mes
+❌ [FILA 722][MISS] ANS: None | Servidor: TFM4875_LNXRHAMCPR1  | Agenda: Diario
+❌ [FILA 723][MISS] ANS: None | Servidor: TFM4875_LNXRHAMCPR1  | Agenda: Viernes
+❌ [FILA 724][MISS] ANS: None | Servidor: TFM4875_LNXRHAMCPR1  | Agenda: Primer Viernes del mes
+❌ [FILA 725][MISS] ANS: None | Servidor: TFM4914_LNXRHAMCOPR2  | Agenda: Diario
+❌ [FILA 726][MISS] ANS: None | Servidor: TFM4914_LNXRHAMCOPR2  | Agenda: Viernes
+❌ [FILA 727][MISS] ANS: None | Servidor: TFM4914_LNXRHAMCOPR2  | Agenda: Primer Viernes del mes
+❌ [FILA 728][MISS] ANS: None | Servidor: UMX0006_AMCDEVNBI01  | Agenda: Diario
+❌ [FILA 729][MISS] ANS: None | Servidor: UMX0006_AMCDEVNBI01  | Agenda: Domingo
+❌ [FILA 730][MISS] ANS: None | Servidor: UMX0006_AMCDEVNBI01  | Agenda: Primer Domingo del mes
+❌ [FILA 731][MISS] ANS: None | Servidor: UMX0007_AMCDEVSBO01  | Agenda: Diario
+❌ [FILA 732][MISS] ANS: None | Servidor: UMX0007_AMCDEVSBO01  | Agenda: Sábado
+❌ [FILA 733][MISS] ANS: None | Servidor: UMX0007_AMCDEVSBO01  | Agenda: Primer Sábado del mes
+❌ [FILA 734][MISS] ANS: None | Servidor: UMX0009_AMCQASSBO01  | Agenda: Diario
+❌ [FILA 735][MISS] ANS: None | Servidor: UMX0009_AMCQASSBO01  | Agenda: Viernes
+❌ [FILA 736][MISS] ANS: None | Servidor: UMX0009_AMCQASSBO01  | Agenda: Primer Viernes del mes
+❌ [FILA 737][MISS] ANS: None | Servidor: UMX0014_AMCQASPRI01  | Agenda: Diario
+❌ [FILA 738][MISS] ANS: None | Servidor: UMX0014_AMCQASPRI01  | Agenda: Domingo
+❌ [FILA 739][MISS] ANS: None | Servidor: UMX0014_AMCQASPRI01  | Agenda: Primer Domingo del mes
+❌ [FILA 740][MISS] ANS: None | Servidor: UMX0016_AMCDEVPRI01  | Agenda: Diario
+❌ [FILA 741][MISS] ANS: None | Servidor: UMX0016_AMCDEVPRI01  | Agenda: Domingo
+❌ [FILA 742][MISS] ANS: None | Servidor: UMX0016_AMCDEVPRI01  | Agenda: Primer Domingo del mes
+❌ [FILA 743][MISS] ANS: None | Servidor: UMX0018_AMCPRDSBO01  | Agenda: Diario
+❌ [FILA 744][MISS] ANS: None | Servidor: UMX0018_AMCPRDSBO01  | Agenda: Viernes
+❌ [FILA 745][MISS] ANS: None | Servidor: UMX0018_AMCPRDSBO01  | Agenda: Primer Viernes del mes
+❌ [FILA 746][MISS] ANS: None | Servidor: UMX0020_AMCDEVEPR01  | Agenda: Diario
+❌ [FILA 747][MISS] ANS: None | Servidor: UMX0020_AMCDEVEPR01  | Agenda: Viernes
+❌ [FILA 748][MISS] ANS: None | Servidor: UMX0020_AMCDEVEPR01  | Agenda: Primer Viernes del mes
+❌ [FILA 749][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Diario
+❌ [FILA 750][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Domingo
+❌ [FILA 751][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Primer Domingo del mes
+❌ [FILA 752][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Diario
+❌ [FILA 753][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Domingo
+❌ [FILA 754][MISS] ANS: None | Servidor: UMX0023_AMCQASEPR01  | Agenda: Primer Domingo del mes
+❌ [FILA 755][MISS] ANS: None | Servidor: UMX0036_AMCDEVECC01  | Agenda: Diario
+❌ [FILA 756][MISS] ANS: None | Servidor: UMX0036_AMCDEVECC01  | Agenda: Domingo
+❌ [FILA 757][MISS] ANS: None | Servidor: UMX0036_AMCDEVECC01  | Agenda: Primer Domingo del mes
+❌ [FILA 758][MISS] ANS: None | Servidor: UMX0046_AMCQASEPR02  | Agenda: Diario
+❌ [FILA 759][MISS] ANS: None | Servidor: UMX0046_AMCQASEPR02  | Agenda: Domingo
+❌ [FILA 760][MISS] ANS: None | Servidor: UMX0046_AMCQASEPR02  | Agenda: Primer Domingo del mes
+❌ [FILA 761][MISS] ANS: None | Servidor: UMX0046_amcqasepr02  | Agenda: Diario
+❌ [FILA 762][MISS] ANS: None | Servidor: UMX0046_amcqasepr02  | Agenda: Domingo
+❌ [FILA 763][MISS] ANS: None | Servidor: UMX0046_amcqasepr02  | Agenda: Primer Domingo del mes
