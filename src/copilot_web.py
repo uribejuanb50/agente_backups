@@ -98,6 +98,47 @@ out.botones = out.botones.filter(b => b.aria || b.automation || b.testid || b.te
 return JSON.stringify(out);
 """
 
+JS_GRABADOR_INSTALAR = r"""
+if (window.__grabInstalado) return 'ya';
+window.__grabInstalado = true; window.__grab = null;
+function q(v){ return String(v).replace(/\\/g, '\\\\').replace(/"/g, '\\"'); }
+function esc(v){ return (window.CSS && CSS.escape) ? CSS.escape(v) : v; }
+function selector(el){
+  const t = el.tagName.toLowerCase(), at = n => el.getAttribute(n), op = [];
+  if (at('data-automation-id')) op.push(`${t}[data-automation-id="${q(at('data-automation-id'))}"]`);
+  if (at('data-testid')) op.push(`${t}[data-testid="${q(at('data-testid'))}"]`);
+  if (at('data-lexical-editor') === 'true') op.push('[data-lexical-editor="true"][contenteditable="true"]');
+  if (el.id && !/\d{3,}|:r|^r\d|[a-f0-9]{8,}/i.test(el.id)) op.push('#' + esc(el.id));
+  if (at('aria-label')) op.push(`${t}[aria-label="${q(at('aria-label'))}"]`);
+  const cl = Array.from(el.classList).filter(c => /__|^fai-/.test(c) && !/^___/.test(c));
+  if (cl.length) op.push(t + '.' + cl.slice(0, 3).map(esc).join('.'));
+  if (at('contenteditable') === 'true') op.push(`[contenteditable="true"]${at('role') ? `[role="${q(at('role'))}"]` : ''}`);
+  if (at('placeholder')) op.push(`${t}[placeholder="${q(at('placeholder'))}"]`);
+  if (at('title')) op.push(`${t}[title="${q(at('title'))}"]`);
+  const validas = op.filter(s => { try { return document.querySelector(s) === el; } catch(e){ return false; } });
+  return {sel: validas[0] || op[0] || t, opciones: validas.length ? validas : op};
+}
+document.addEventListener('pointerdown', ev => {
+  const camino = ev.composedPath ? ev.composedPath() : [ev.target];
+  let obj = null;
+  for (const n of camino){
+    if (!n || !n.getAttribute) continue;
+    if (n.getAttribute('contenteditable') === 'true' || n.tagName === 'TEXTAREA' || n.tagName === 'INPUT'){ obj = n; break; }
+    if (n.tagName === 'BUTTON' || n.getAttribute('role') === 'button' || n.tagName === 'A'){ obj = n; break; }
+  }
+  obj = obj || ev.target;
+  const r = selector(obj);
+  window.__grab = {sel: r.sel, opciones: r.opciones, tag: obj.tagName.toLowerCase(),
+                   aria: obj.getAttribute('aria-label') || '', texto: (obj.innerText || '').trim().slice(0, 60)};
+}, true);
+return 'ok';
+"""
+
+JS_GRABADOR_LEER = r"""
+const g = window.__grab; window.__grab = null;
+return g ? JSON.stringify(g) : null;
+"""
+
 
 class ErrorCopilot(Exception):
     pass
@@ -125,6 +166,13 @@ class Pestana:
     lotes_hechos: int = 0
 
 
+def mensaje_corto(e: BaseException) -> str:
+    """Selenium mete el stacktrace en el mensaje; para la bitácora basta la primera línea."""
+    m = getattr(e, "msg", None) or str(e) or type(e).__name__
+    m = m.strip().split("\n")[0].replace("Message: ", "")
+    return m[:300]
+
+
 def _sin_espacios(s: str) -> str:
     return re.sub(r"\s+", "", s or "")
 
@@ -144,6 +192,8 @@ class CopilotWeb:
         from selenium.webdriver.edge.options import Options
         from selenium.webdriver.edge.service import Service
 
+        import os
+        os.environ.setdefault("SE_AVOID_STATS", "true")       # evita el aviso "Error sending stats to Plausible"
         perfil = Path(self.a.perfil_edge).expanduser()
         perfil.mkdir(parents=True, exist_ok=True)
         op = Options()
@@ -220,8 +270,19 @@ class CopilotWeb:
     def _buscar(self, clave: str, preferida: Optional[list[int]] = None, solo_preferida: bool = False,
                 solo_especificos: bool = False):
         """Retorna (ruta_frame, elemento) del primer candidato visible, o (None, None).
-        Deja el driver posicionado en ese frame.
+        Deja el driver posicionado en ese frame. Nunca lanza excepción: si la página se está
+        recargando (elementos "stale"), simplemente no encuentra nada y se reintenta después.
         solo_especificos: ignora los 2 últimos selectores (genéricos, ej. 'textarea')."""
+        try:
+            return self._buscar_interno(clave, preferida, solo_preferida, solo_especificos)
+        except Exception:
+            try:
+                self.driver.switch_to.default_content()
+            except Exception:
+                pass
+            return None, None
+
+    def _buscar_interno(self, clave, preferida, solo_preferida, solo_especificos):
         sels = self.a.selectores.get(clave, [])
         if solo_especificos and len(sels) > 2:
             sels = sels[:-2]
@@ -287,7 +348,7 @@ class CopilotWeb:
 
         # 1) esperar a que cargue (o a que el usuario inicie sesión)
         limite = time.time() + max(30, int(self.a.timeout_login))
-        aviso = 0.0
+        aviso = time.time()
         while True:
             if self.debe_parar():
                 raise ErrorCopilot("Detenido por el usuario")
@@ -307,22 +368,26 @@ class CopilotWeb:
                 aviso = time.time()
             self._esperar(2)
 
-        # 2) cerrar popups y abrir el panel
+        # 2) cerrar popups de bienvenida (nunca el del chat) y abrir el panel
         self._cerrar_popups()
-        ruta_btn, btn = self._buscar("abrir_copilot")
-        if btn is not None:
-            self._click(btn)
-        limite = time.time() + 45
-        while time.time() < limite:
-            ruta, el = self._buscar("entrada")
-            if el is not None:
-                p.ruta_entrada = ruta
-                self.log("ok", f"{p.nombre}: Copilot listo (frame {ruta or 'principal'})")
-                return
-            self._cerrar_popups()
-            self._esperar(1.5)
+        for intento in range(3):
+            ruta_btn, btn = self._buscar("abrir_copilot")
+            if btn is not None:
+                try:
+                    self._click(btn)
+                except Exception:
+                    pass
+            limite = time.time() + 20
+            while time.time() < limite:
+                ruta, el = self._buscar("entrada")
+                if el is not None:
+                    p.ruta_entrada = ruta
+                    self.log("ok", f"{p.nombre}: Copilot listo (frame {ruta or 'principal'})")
+                    return
+                self._esperar(1)
+            self.log("aviso", f"{p.nombre}: no veo la caja del chat todavía, reintento abrir Copilot ({intento + 1}/3)")
         raise ErrorCopilot("Se abrió Copilot pero no encontré la caja de texto del chat. "
-                           "Usa 'Probar conexión' para generar el diagnóstico y ajustar el selector 'entrada'.")
+                           "Usa 'Calibrar con clics' para enseñarle al programa dónde está.")
 
     def _cerrar_popups(self) -> None:
         from selenium.webdriver.common.by import By
@@ -481,3 +546,69 @@ class CopilotWeb:
         d.switch_to.default_content()
         (base / "elementos.json").write_text(json.dumps(reporte, ensure_ascii=False, indent=2), encoding="utf-8")
         return base
+
+    # ------------------------------------------------------------------ calibración con clics
+    PASOS_CALIBRACION = [
+        ("abrir_copilot", "Haz clic en el botón de Copilot (el ícono que abre el chat en la carpeta).", True),
+        ("entrada", "Haz clic dentro de la caja donde se escribe la pregunta.", True),
+        ("enviar", "Escribe una letra en la caja y haz clic en el botón Enviar (o espera para omitir).", False),
+    ]
+
+    def calibrar(self, avisar: Callable[[int, int, str], None], timeout_paso: int = 180) -> dict[str, dict]:
+        """Abre la carpeta y registra en qué elementos hace clic el usuario, paso a paso.
+        Retorna {clave: {"sel":..., "opciones": [...], "aria":..., "texto":...}}."""
+        d = self.driver
+        d.get(self.a.url_carpeta)
+        self.log("info", "Calibración: cargando la carpeta… (inicia sesión en Edge si te lo pide)")
+        limite = time.time() + max(30, int(self.a.timeout_login))
+        while time.time() < limite:            # esperar a que la página esté lista (o al login)
+            try:
+                if d.execute_script("return document.readyState") == "complete":
+                    _, btn = self._buscar("abrir_copilot")
+                    if btn is not None or time.time() > limite - max(0, int(self.a.timeout_login) - 25):
+                        break
+            except Exception:
+                pass
+            self._esperar(1.5)
+        self._esperar(1.5)
+        resultados: dict[str, dict] = {}
+        total = len(self.PASOS_CALIBRACION)
+        for i, (clave, texto, obligatorio) in enumerate(self.PASOS_CALIBRACION, start=1):
+            avisar(i, total, texto)
+            self._leer_grab()                  # descartar clics viejos
+            espera = timeout_paso if obligatorio else 60
+            fin = time.time() + espera
+            g = None
+            while time.time() < fin and g is None:
+                self._esperar(0.6)
+                g = self._leer_grab()
+            if g is None:
+                if obligatorio:
+                    raise ErrorCopilot(f"No registré ningún clic en el paso {i} ({clave}).")
+                self.log("aviso", f"Paso {i} omitido ({clave}).")
+                continue
+            resultados[clave] = g
+            self.log("ok", f"Paso {i}: {clave} → {g['sel']}" + (f"  («{g['aria']}»)" if g.get("aria") else ""))
+            time.sleep(1.2)                    # dejar que la interfaz reaccione al clic
+        return resultados
+
+    def _leer_grab(self) -> dict | None:
+        """Instala el grabador (en la página y sus frames) y lee el último clic registrado."""
+        d = self.driver
+        hallado = None
+        for ruta in self._rutas_frames(max_prof=2):
+            try:
+                if not self._ir_a(ruta):
+                    continue
+                d.execute_script(JS_GRABADOR_INSTALAR)
+                crudo = d.execute_script(JS_GRABADOR_LEER)
+                if crudo and hallado is None:
+                    hallado = json.loads(crudo)
+                    hallado["ruta"] = ruta
+            except Exception:
+                continue
+        try:
+            d.switch_to.default_content()
+        except Exception:
+            pass
+        return hallado

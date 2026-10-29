@@ -23,7 +23,7 @@ from tkinter import filedialog, messagebox, ttk
 
 from .ajustes import RAIZ, Ajustes
 from .control import FilaControl, leer_control, listar_hojas
-from .motor import Motor, PruebaConexion
+from .motor import Calibracion, Motor, PruebaConexion
 from .planificador import Plan, armar_lote, construir_plan
 from .prompt_copilot import construir_prompt
 
@@ -126,6 +126,8 @@ class App(tk.Tk):
         self.grupos: dict[str, dict] = {}
         self.motor: Motor | None = None
         self.prueba: PruebaConexion | None = None
+        self.calib: Calibracion | None = None
+        self.win_calib = None
         self.cola: queue.Queue = queue.Queue()
         self.ruta_resultado: Path | None = None
         self._job_resumen = None
@@ -281,8 +283,11 @@ class App(tk.Tk):
         fp.grid(row=6, column=0, columnspan=3, sticky="ew", pady=(12, 0))
         self.btn_probar = ttk.Button(fp, text="Probar conexión", style="Secundario.TButton", command=self._probar)
         self.btn_probar.pack(side="left")
-        self.lbl_probar = tk.Label(fp, text="Abre Edge, llega al chat y hace una pregunta de prueba.",
-                                   bg=C["tarjeta"], fg=C["suave"], font=("Segoe UI", 9))
+        self.btn_calibrar = ttk.Button(fp, text="Calibrar con clics", style="Secundario.TButton", command=self._calibrar)
+        self.btn_calibrar.pack(side="left", padx=(6, 0))
+        self.lbl_probar = tk.Label(fp, text="Probar: hace una pregunta de prueba.  Calibrar: le enseñas con 3 clics "
+                                            "dónde está Copilot (si Microsoft cambia la página).",
+                                   bg=C["tarjeta"], fg=C["suave"], font=("Segoe UI", 9), wraplength=420, justify="left")
         self.lbl_probar.pack(side="left", padx=12)
 
         # Salida
@@ -644,7 +649,7 @@ class App(tk.Tk):
                      "(hojas: Resumen, Consolidado, Detalle por fecha, Lotes Copilot)", fg=C["suave"])
 
     def _probar(self):
-        if self.prueba and self.prueba.is_alive():
+        if self._ocupado_navegador():
             return
         a = self._volcar_valores().copia()
         carpeta = Path(a.carpeta_salida) if a.carpeta_salida else RAIZ / "diagnostico"
@@ -654,6 +659,79 @@ class App(tk.Tk):
         self.btn_probar.configure(state="disabled")
         self.lbl_probar.configure(text="Probando… mira la ventana de Edge (inicia sesión si te lo pide).", fg=C["azul"])
         self._pildora("Probando conexión", C["azul"])
+
+    def _ocupado_navegador(self) -> bool:
+        return any(h and h.is_alive() for h in (self.motor, self.prueba, self.calib))
+
+    def _calibrar(self):
+        if self._ocupado_navegador():
+            messagebox.showinfo("Calibrar", "Espera a que termine la prueba o la ejecución en curso.")
+            return
+        a = self._volcar_valores().copia()
+        if not a.url_carpeta:
+            messagebox.showwarning("Calibrar", "Primero escribe la URL de la carpeta.")
+            return
+        self.calib = Calibracion(a, self.cola)
+        self.calib.start()
+        self.btn_calibrar.configure(state="disabled")
+        self.btn_probar.configure(state="disabled")
+        self._pildora("Calibrando", C["azul"])
+        self._abrir_ventana_calib("Abriendo Edge… espera a que cargue la carpeta (inicia sesión si te lo pide).", 0, 3)
+
+    def _abrir_ventana_calib(self, texto: str, i: int, n: int):
+        """Ventanita siempre visible encima de Edge con la instrucción del paso actual."""
+        if self.win_calib is None or not self.win_calib.winfo_exists():
+            w = tk.Toplevel(self)
+            w.title("Calibración")
+            w.configure(bg=C["tarjeta"], highlightbackground=C["rojo"], highlightthickness=2)
+            w.attributes("-topmost", True)
+            w.resizable(False, False)
+            ancho = 430
+            w.geometry(f"{ancho}x190+{self.winfo_screenwidth() - ancho - 30}+80")
+            cab = tk.Frame(w, bg=C["rojo"])
+            cab.pack(fill="x")
+            w.lbl_paso = tk.Label(cab, text="", bg=C["rojo"], fg="#FFFFFF", font=("Segoe UI Semibold", 10), padx=14, pady=6)
+            w.lbl_paso.pack(anchor="w")
+            w.lbl_txt = tk.Label(w, text="", bg=C["tarjeta"], fg=C["texto"], font=("Segoe UI", 12),
+                                 wraplength=ancho - 30, justify="left", padx=14, pady=12)
+            w.lbl_txt.pack(fill="both", expand=True, anchor="w")
+            pie = tk.Frame(w, bg=C["tarjeta"])
+            pie.pack(fill="x", padx=12, pady=(0, 10))
+            ttk.Button(pie, text="Cancelar", style="Chico.TButton",
+                       command=lambda: self.calib and self.calib.parar.set()).pack(side="right")
+            tk.Label(pie, text="Haz los clics en la ventana de Edge", bg=C["tarjeta"], fg=C["suave"],
+                     font=("Segoe UI", 9)).pack(side="left")
+            w.protocol("WM_DELETE_WINDOW", lambda: self.calib and self.calib.parar.set())
+            self.win_calib = w
+        self.win_calib.lbl_paso.configure(text=f"Paso {i} de {n}" if i else "Preparando")
+        self.win_calib.lbl_txt.configure(text=texto)
+        self.win_calib.lift()
+
+    def _fin_calibracion(self, resultado: dict):
+        if self.win_calib is not None:
+            try:
+                self.win_calib.destroy()
+            except Exception:
+                pass
+            self.win_calib = None
+        self.btn_calibrar.configure(state="normal")
+        self.btn_probar.configure(state="normal")
+        if not resultado:
+            self._pildora("Revisar conexión", C["ambar"])
+            self.lbl_probar.configure(text="✗  Calibración sin resultados. Revisa la bitácora (paso 3).", fg=C["rojo"])
+            return
+        nombres = {"abrir_copilot": "Botón de Copilot", "entrada": "Caja del chat", "enviar": "Botón enviar"}
+        for clave, g in resultado.items():
+            opciones = [x for x in (g.get("opciones") or [g["sel"]]) if x]
+            self.a.selectores_calibrados[clave] = list(dict.fromkeys(opciones))
+        from .ajustes import combinar_selectores
+        self.a.selectores = combinar_selectores(self.a.selectores_calibrados, self.a.selectores)
+        self.a.guardar()
+        resumen = "\n".join(f"• {nombres.get(k, k)}: {g['sel']}" for k, g in resultado.items())
+        self.lbl_probar.configure(text="✓  Calibración guardada. Ahora usa 'Probar conexión'.", fg=C["verde"])
+        self._pildora("Listo", C["rojo_osc"])
+        messagebox.showinfo("Calibración guardada", f"Quedó guardado en ajustes.json:\n\n{resumen}\n\n"
+                                                    "Ahora usa 'Probar conexión' para verificar.")
 
     # ------------------------------------------------------------------ paso 2: tabla
     def _rango(self) -> tuple[date | None, date | None]:
@@ -939,7 +1017,8 @@ class App(tk.Tk):
         return plan, a
 
     def _iniciar(self):
-        if self.motor and self.motor.is_alive():
+        if self._ocupado_navegador():
+            messagebox.showinfo("Iniciar", "Espera a que termine la prueba o la calibración (usan el mismo perfil de Edge).")
             return
         v = self._validar_inicio()
         if not v:
@@ -1028,6 +1107,11 @@ class App(tk.Tk):
                     self._mostrar_progreso(d)
                 elif tipo == "fin":
                     self._fin(d)
+                elif tipo == "calibrar_paso":
+                    self._abrir_ventana_calib(d["texto"], d["i"], d["n"])
+                    self._log("info", f"Calibración paso {d['i']}/{d['n']}: {d['texto']}")
+                elif tipo == "calibrar_fin":
+                    self._fin_calibracion(d["resultado"])
                 elif tipo == "prueba_fin":
                     self.btn_probar.configure(state="normal")
                     if d["ok"]:
@@ -1096,11 +1180,11 @@ class App(tk.Tk):
         self.pildora.configure(text=f"●  {txt}", bg=color)
 
     def _al_cerrar(self):
-        corriendo = (self.motor and self.motor.is_alive()) or (self.prueba and self.prueba.is_alive())
+        corriendo = self._ocupado_navegador()
         if corriendo:
             if not messagebox.askyesno("Salir", "Hay una ejecución en curso. El avance queda guardado.\n¿Salir de todas formas?"):
                 return
-            for hilo in (self.motor, self.prueba):
+            for hilo in (self.motor, self.prueba, self.calib):
                 if hilo and hilo.is_alive():
                     hilo.parar.set()
                     hilo.join(timeout=8)          # dejar que guarde el avance y cierre Edge

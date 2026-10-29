@@ -26,10 +26,14 @@ python main.py
 - `consolidado.py` escribe el Excel: Resumen, Consolidado, Detalle por fecha, Lotes Copilot.
 
 ## Si Microsoft cambia la interfaz de Copilot
-Los selectores están en `ajustes.json` → `selectores` (listas; gana el primero visible).
-"Probar conexión" genera `diagnostico_copilot_*/elementos.json` con los botones y cajas encontrados
-en cada frame: con eso se ajusta el selector que falle (`abrir_copilot`, `entrada`, `enviar`,
-`detener`, `nuevo_chat`).
+1. Paso 1 → **Calibrar con clics**: se abre Edge y una ventanita roja te guía en 3 clics
+   (botón de Copilot → caja del chat → botón Enviar). Lo grabado queda en `ajustes.json`
+   → `selectores_calibrados` y tiene prioridad sobre los selectores por defecto.
+2. **Probar conexión** para verificar. Genera `diagnostico_copilot_*/elementos.json` con los
+   botones y cajas encontrados, por si hay que ajustar algo a mano en `ajustes.json` → `selectores`.
+
+Los selectores usan atributos estables (`data-automation-id`, `data-lexical-editor`, `aria-label`,
+clases `fai-…`). Las clases tipo `r18fti29` / `___1ld5kid` las genera Fluent UI y cambian: no sirven.
 
 Los módulos anteriores (`manejo_*`, `visuales`, `auditoria*`, `extraccion`, `preprocesamiento`)
 quedan intactos pero ya no se usan.

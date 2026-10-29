@@ -23,7 +23,7 @@ from pathlib import Path
 
 from .ajustes import Ajustes
 from .consolidado import contar_estados, escribir_excel, evaluar_filas
-from .copilot_web import CopilotWeb, ErrorCopilot, ErrorPromptLargo, Pestana
+from .copilot_web import CopilotWeb, ErrorCopilot, ErrorPromptLargo, Pestana, mensaje_corto
 from .planificador import Plan, Unidad, armar_lote
 from .prompt_copilot import (ancla_prompt, construir_prompt, extraer_respuesta, generar_codigo,
                              unidades_completas, validar_lineas)
@@ -205,7 +205,7 @@ class Motor(threading.Thread):
                     except Exception as e:
                         if self.parar.is_set():
                             break
-                        self._fallo_pestana(p, q, f"{type(e).__name__}: {e}", fallos)
+                        self._fallo_pestana(p, q, mensaje_corto(e), fallos)
                 if not self.web.pestanas:
                     raise ErrorCopilot("No quedan pestañas de Copilot funcionando")
                 time.sleep(1.2)
@@ -222,10 +222,11 @@ class Motor(threading.Thread):
             self._guardar(f"Interrumpida: {e}")
             self._emit("fin", ruta=str(self.ruta_excel_real), estado=f"Interrumpida: {e}")
         except Exception as e:
-            self.log("error", f"Error inesperado: {e}")
+            corto = mensaje_corto(e)
+            self.log("error", f"Error inesperado: {corto}")
             self.log("debug", traceback.format_exc())
-            self._guardar(f"Interrumpida: {e}")
-            self._emit("fin", ruta=str(self.ruta_excel_real), estado=f"Interrumpida: {e}")
+            self._guardar(f"Interrumpida: {corto}")
+            self._emit("fin", ruta=str(self.ruta_excel_real), estado=f"Interrumpida: {corto}")
         finally:
             self.web.cerrar()
 
@@ -412,7 +413,7 @@ class PruebaConexion(threading.Thread):
                 self.log("aviso", "Copilot no devolvió los marcadores en 150 s. Revisa la ventana de Edge y el diagnóstico.")
                 web.diagnostico(self.carpeta)
         except Exception as e:
-            self.log("error", f"Prueba fallida: {e}")
+            self.log("error", f"Prueba fallida: {mensaje_corto(e)}")
             try:
                 if web.driver:
                     web.diagnostico(self.carpeta)
@@ -421,3 +422,36 @@ class PruebaConexion(threading.Thread):
         finally:
             web.cerrar()
             self.cola.put(("prueba_fin", {"ok": ok}))
+
+
+# --------------------------------------------------------------------------------------
+class Calibracion(threading.Thread):
+    """Graba en qué elementos hace clic el usuario (botón de Copilot, caja, enviar) y los
+    devuelve como selectores para guardarlos en ajustes.json."""
+
+    def __init__(self, ajustes: Ajustes, cola: queue.Queue):
+        super().__init__(daemon=True)
+        self.a, self.cola = ajustes, cola
+        self.parar = threading.Event()
+
+    def log(self, nivel, msg):
+        self.cola.put(("log", {"nivel": nivel, "msg": msg}))
+
+    def run(self):
+        web = CopilotWeb(self.a, log=self.log, debe_parar=self.parar.is_set)
+        resultado: dict = {}
+        try:
+            web.abrir_navegador()
+            resultado = web.calibrar(lambda i, n, txt: self.cola.put(("calibrar_paso", {"i": i, "n": n, "texto": txt})))
+            # comprobar que con lo grabado se encuentra la caja del chat
+            if "entrada" in resultado:
+                self.a.selectores["entrada"] = list(dict.fromkeys(resultado["entrada"]["opciones"] + self.a.selectores["entrada"]))
+                _, el = web._buscar("entrada")
+                self.log("ok" if el is not None else "aviso",
+                         "La caja del chat se encuentra con el selector grabado." if el is not None
+                         else "Ojo: con el selector grabado no vuelvo a encontrar la caja.")
+        except Exception as e:
+            self.log("error", f"Calibración interrumpida: {mensaje_corto(e)}")
+        finally:
+            web.cerrar()
+            self.cola.put(("calibrar_fin", {"resultado": resultado}))

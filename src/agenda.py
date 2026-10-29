@@ -137,7 +137,9 @@ def interpretar_agenda(texto: str) -> Regla:
 
     # --- días del mes (sin nombre de día de semana) ---------------------------
     if not dias_semana:
-        if "fin de mes" in t or re.search(r"ultimo dia del mes", t):
+        if re.search(r"\b(primer|primero|1er|1ro) dia\b", t):
+            return Regla("Día 1 de cada mes", True, lambda d: d.day == 1)
+        if "fin de mes" in t or re.search(r"\bultimo dia\b", t):
             return Regla("Último día de cada mes", True,
                          lambda d: d.day == calendar.monthrange(d.year, d.month)[1])
         nums = [int(n) for n in re.findall(r"\b(\d{1,2})(?:ro|ero|er|o|vo|to|do)?\b", t)]
