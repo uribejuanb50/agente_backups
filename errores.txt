@@ -1,0 +1,64 @@
+Error mostrado en el cmd:
+(venv) D:\OneDrive - Comunicacion Celular S.A.- Comcel S.A\Documentos\fercho_mejora_continua\backups>python main.py
+There was an error managing msedgedriver (error sending request for url (https://msedgedriver.microsoft.com/LATEST_RELEASE_156_WINDOWS)); using driver found in the cache
+Error sending stats to Plausible: error sending request for url (https://plausible.io/api/event)
+
+Error mostrado en la aplciacion:
+10:24:02  Prueba: abriendo la carpeta en OneDrive…
+10:24:51  ✗ Prueba fallida: Se abrió Copilot pero no encontré la caja de texto del chat. Usa 'Probar conexión' para generar el diagnóstico y ajustar el selector 'entrada'.
+10:29:11  Resultado: D:\OneDrive - Comunicacion Celular S.A.- Comcel S.A\Documentos\fercho_mejora_continua\backups\out\Auditoria_Backups_20261029_102911.xlsx
+10:29:29  Pestaña 1: abriendo la carpeta en OneDrive…
+10:29:30  ✗ Error inesperado: Message: stale element reference: stale element not found in the current frame
+  (Session info: MicrosoftEdge=156.0.4314.50); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff6326009d5]
+	(No symbol) [0x7ff6325475b4]
+	(No symbol) [0x7ff63298f8df]
+	(No symbol) [0x7ff6322da864]
+	(No symbol) [0x7ff6322dcf87]
+	(No symbol) [0x7ff63235ee9f]
+	(No symbol) [0x7ff63234119a]
+	(No symbol) [0x7ff63231651d]
+	(No symbol) [0x7ff63235e458]
+	(No symbol) [0x7ff632315d5c]
+	(No symbol) [0x7ff632314f4a]
+	(No symbol) [0x7ff632315b83]
+	(No symbol) [0x7ff632455981]
+	(No symbol) [0x7ff632465638]
+	(No symbol) [0x7ff6326a96b5]
+	(No symbol) [0x7ff6326afd31]
+	(No symbol) [0x7ff63255368c]
+	(No symbol) [0x7ff63254dea4]
+	(No symbol) [0x7ff63254dfca]
+	(No symbol) [0x7ff63253f3d8]
+	(No symbol) [0x7ffde7eee957]
+	(No symbol) [0x7ffde8887c1c]
+ 
+10:30:50  ⚠ Interrumpida: Message: stale element reference: stale element not found in the current frame
+  (Session info: MicrosoftEdge=156.0.4314.50); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff6326009d5]
+	(No symbol) [0x7ff6325475b4]
+	(No symbol) [0x7ff63298f8df]
+	(No symbol) [0x7ff6322da864]
+	(No symbol) [0x7ff6322dcf87]
+	(No symbol) [0x7ff63235ee9f]
+	(No symbol) [0x7ff63234119a]
+	(No symbol) [0x7ff63231651d]
+	(No symbol) [0x7ff63235e458]
+	(No symbol) [0x7ff632315d5c]
+	(No symbol) [0x7ff632314f4a]
+	(No symbol) [0x7ff632315b83]
+	(No symbol) [0x7ff632455981]
+	(No symbol) [0x7ff632465638]
+	(No symbol) [0x7ff6326a96b5]
+	(No symbol) [0x7ff6326afd31]
+	(No symbol) [0x7ff63255368c]
+	(No symbol) [0x7ff63254dea4]
+	(No symbol) [0x7ff63254dfca]
+	(No symbol) [0x7ff63253f3d8]
+	(No symbol) [0x7ffde7eee957]
+	(No symbol) [0x7ffde8887c1c]
+. Excel: D:\OneDrive - Comunicacion Celular S.A.- Comcel S.A\Documentos\fercho_mejora_continua\backups\out\Auditoria_Backups_20261029_102911.xlsx
