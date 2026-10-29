@@ -25,8 +25,8 @@ from .ajustes import Ajustes
 from .consolidado import contar_estados, escribir_excel, evaluar_filas
 from .copilot_web import CopilotWeb, ErrorCopilot, ErrorPromptLargo, Pestana, mensaje_corto
 from .planificador import Plan, Unidad, armar_lote
-from .prompt_copilot import (ancla_prompt, construir_prompt, extraer_respuesta, generar_codigo,
-                             unidades_completas, validar_lineas)
+from .prompt_copilot import (ancla_prompt, construir_prompt, cuantos_caben, expandir_densas, extraer_respuesta,
+                             generar_codigo, unidades_completas, validar_lineas)
 
 
 @dataclass
@@ -93,15 +93,14 @@ class Motor(threading.Thread):
         return replace(u, fechas=list(t.fechas)) if t.fechas is not None else u
 
     def _tomar_lote(self, q: deque) -> list[Tarea]:
+        """Llena el prompt con todas las unidades que quepan en max_caracteres_prompt."""
         max_u = max(1, int(self.a.servidores_por_lote * self.factor))
         max_f = max(1, int(self.a.fechas_por_lote * self.factor))
-        candidatas = [q[i] for i in range(min(len(q), 60))]
+        candidatas = [q[i] for i in range(min(len(q), max_u))]
         vistas = [self._vista(t) for t in candidatas]
-        lote_v = armar_lote(vistas, max_u, max_f)
-        tareas = candidatas[:len(lote_v)]
-        # respetar el límite de caracteres del prompt
-        while len(tareas) > 1 and len(self._prompt(tareas, "XXXX")[0]) > self.a.max_caracteres_prompt:
-            tareas = tareas[:-1]
+        k = cuantos_caben(vistas, max_u, max_f, self.a.max_caracteres_prompt, self.a.nombre_carpeta,
+                          self.inicio, self.fin, self.a.ventana_cercania, self.a.modo_prompt)
+        tareas = candidatas[:max(1, k)]
         for _ in tareas:
             q.popleft()
         # un solo servidor con demasiadas fechas: partir sus fechas en dos
@@ -117,7 +116,7 @@ class Motor(threading.Thread):
 
     def _prompt(self, tareas: list[Tarea], codigo: str):
         return construir_prompt([self._vista(t) for t in tareas], self.a.nombre_carpeta, self.inicio, self.fin,
-                                self.a.ventana_cercania, codigo, compacto=self.a.prompt_compacto)
+                                self.a.ventana_cercania, codigo, modo=self.a.modo_prompt)
 
     # ------------------------------------------------------------------ persistencia
     def _guardar(self, estado_txt: str):
@@ -237,9 +236,9 @@ class Motor(threading.Thread):
         anterior = self.a.max_caracteres_prompt
         self.a.max_caracteres_prompt = max(400, min(anterior - 200, limite))
         msg = f"La caja de Copilot acepta ≈ {int(e.largo_prompt * proporcion)} caracteres; ajusto el máximo a {self.a.max_caracteres_prompt}"
-        if not self.a.prompt_compacto:
-            self.a.prompt_compacto = True
-            msg += " y paso al prompt compacto"
+        if self.a.modo_prompt != "denso":
+            self.a.modo_prompt = "denso"
+            msg += " y paso al formato denso"
         self.log("aviso", msg)
         if p.lote:
             for t in reversed(p.lote["tareas"]):
@@ -279,7 +278,8 @@ class Motor(threading.Thread):
         vistas = [self._vista(t) for t in tareas]
         codigo = generar_codigo()
         texto, mapa = self._prompt(tareas, codigo)
-        n = len(self.lotes) + sum(1 for x in self.web.pestanas if x.lote) + 1
+        self.contador_lotes = max(getattr(self, "contador_lotes", 0), len(self.lotes)) + 1
+        n = self.contador_lotes
         p.lote = {"n": n, "tareas": tareas, "vistas": vistas, "mapa": mapa, "prompt": texto,
                   "enviado": datetime.now().strftime("%H:%M:%S"), "lecturas_frames": 0}
         p.codigo = codigo
@@ -310,7 +310,7 @@ class Motor(threading.Thread):
             motivo = "completo"
         elif not generando and quieto >= self.a.estabilidad_seg and transcurrido > 25:
             cola_txt = texto[texto.rfind(ancla_prompt(p.codigo)):].lower() if ancla_prompt(p.codigo) in texto else ""
-            if not r.lineas and any(fr.lower() in cola_txt for fr in self.a.frases_limite):
+            if not r.total and any(fr.lower() in cola_txt for fr in self.a.frases_limite):
                 self.log("aviso", f"{p.nombre}: Copilot indica un límite/errores; espero {self.a.pausa_limite_seg} s")
                 for t in reversed(lote["tareas"]):
                     q.appendleft(t)
@@ -318,7 +318,7 @@ class Motor(threading.Thread):
                 self.web._esperar(self.a.pausa_limite_seg)
                 self.web.nuevo_chat(p)
                 return
-            motivo = "parcial" if r.lineas else "sin formato"
+            motivo = "parcial" if r.total else "sin formato"
         elif transcurrido > self.a.timeout_respuesta:
             motivo = "tiempo agotado"
         if motivo is None:
@@ -327,7 +327,9 @@ class Motor(threading.Thread):
 
     def _procesar(self, p: Pestana, q: deque, r, texto: str, motivo: str, duracion: float):
         lote = p.lote
-        res, avisos = validar_lineas(r.lineas, lote["mapa"], self.plan.unidades, self.inicio, self.fin,
+        vistas = {v.id: v for v in lote["vistas"]}
+        lineas = r.lineas + expandir_densas(r.densas, lote["mapa"], vistas, self.inicio, self.fin)
+        res, avisos = validar_lineas(lineas, lote["mapa"], self.plan.unidades, self.inicio, self.fin,
                                      self.a.ventana_cercania, lote["n"])
         if r.aviso:
             avisos.insert(0, r.aviso)

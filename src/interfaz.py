@@ -24,8 +24,8 @@ from tkinter import filedialog, messagebox, ttk
 from .ajustes import RAIZ, Ajustes
 from .control import FilaControl, leer_control, listar_hojas
 from .motor import Calibracion, Motor, PruebaConexion
-from .planificador import Plan, armar_lote, construir_plan
-from .prompt_copilot import construir_prompt
+from .planificador import Plan, construir_plan
+from .prompt_copilot import construir_prompt, cuantos_caben
 
 # ------------------------------------------------------------------ paleta
 C = {
@@ -41,7 +41,13 @@ ESTADO_KPI = [
     ("SIN RESPUESTA", "Sin respuesta", "#ECEEF1", "#4B5563"),
     ("PENDIENTE", "Pendientes", "#F4F5F7", "#6B7280"),
 ]
-SEG_POR_LOTE_ESTIMADO = 90
+SEG_BASE_LOTE = 60          # estimación: tiempo fijo por consulta (abrir chat, pegar, empezar a responder)
+SEG_POR_SERVIDOR = 5        # estimación: tiempo extra de búsqueda por servidor en la consulta
+MODOS_PROMPT_UI = {
+    "denso": "Denso: 1 línea por servidor (lotes grandes, recomendado)",
+    "compacto": "Compacto: 1 línea por fecha, instrucciones cortas",
+    "detallado": "Detallado: 1 línea por fecha, instrucciones largas",
+}
 
 
 def _dpi():
@@ -307,16 +313,18 @@ class App(tk.Tk):
         t4.grid(row=1, column=1, sticky="nsew", pady=(0, 12))
         b = t4.cuerpo
         self.v_pestanas = tk.IntVar()
+        self.v_chars = tk.IntVar()
         self.v_srv_lote = tk.IntVar()
         self.v_fch_lote = tk.IntVar()
         self.v_timeout = tk.IntVar()
         self.v_reint = tk.IntVar()
         self.v_nuevo_chat = tk.BooleanVar()
         campos = [
+            ("Caracteres por consulta (máx.)", self.v_chars, 1000, 20000),
+            ("Servidores por consulta (máx.)", self.v_srv_lote, 1, 300),
+            ("Fechas por consulta (máx.)", self.v_fch_lote, 5, 2000),
+            ("Espera máx. por respuesta (s)", self.v_timeout, 60, 3600),
             ("Pestañas de Copilot en paralelo", self.v_pestanas, 1, 4),
-            ("Servidores por consulta", self.v_srv_lote, 1, 20),
-            ("Fechas por consulta (máx.)", self.v_fch_lote, 5, 120),
-            ("Espera máx. por respuesta (s)", self.v_timeout, 60, 1800),
             ("Reintentos por servidor", self.v_reint, 0, 5),
         ]
         for i, (txt, var, lo, hi) in enumerate(campos):
@@ -325,9 +333,14 @@ class App(tk.Tk):
                         command=self._programar_resumen).grid(row=i, column=1, sticky="e", padx=(12, 0), pady=4)
         ttk.Checkbutton(b, text="Chat nuevo en cada consulta (recomendado)", variable=self.v_nuevo_chat).grid(
             row=len(campos), column=0, columnspan=2, sticky="w", pady=(8, 0))
-        self.v_compacto = tk.BooleanVar()
-        ttk.Checkbutton(b, text="Prompt compacto (se activa solo si Copilot corta el texto)",
-                        variable=self.v_compacto).grid(row=len(campos) + 1, column=0, columnspan=2, sticky="w")
+        self.v_modo_prompt = tk.StringVar()
+        ttk.Label(b, text="Formato del prompt").grid(row=len(campos) + 1, column=0, sticky="w", pady=(8, 0))
+        self.cb_modo_prompt = ttk.Combobox(b, textvariable=self.v_modo_prompt, state="readonly", width=44,
+                                           values=list(MODOS_PROMPT_UI.values()))
+        self.cb_modo_prompt.grid(row=len(campos) + 2, column=0, columnspan=2, sticky="ew", pady=(2, 0))
+        self.cb_modo_prompt.bind("<<ComboboxSelected>>", lambda e: self._programar_resumen())
+        for v in (self.v_chars, self.v_srv_lote, self.v_fch_lote, self.v_pestanas):
+            v.trace_add("write", lambda *_: self._programar_tabla())
         b.columnconfigure(0, weight=1)
         cont.rowconfigure(1, weight=1)
 
@@ -504,12 +517,13 @@ class App(tk.Tk):
         self.v_driver.set(a.ruta_driver)
         self.v_salida.set(a.carpeta_salida)
         self.v_pestanas.set(a.pestanas)
+        self.v_chars.set(a.max_caracteres_prompt)
         self.v_srv_lote.set(a.servidores_por_lote)
         self.v_fch_lote.set(a.fechas_por_lote)
         self.v_timeout.set(a.timeout_respuesta)
         self.v_reint.set(a.reintentos)
         self.v_nuevo_chat.set(a.nuevo_chat_por_lote)
-        self.v_compacto.set(a.prompt_compacto)
+        self.v_modo_prompt.set(MODOS_PROMPT_UI.get(a.modo_prompt, MODOS_PROMPT_UI["denso"]))
         hoy = date.today()
         self.v_ini.set(a.fecha_inicio or (hoy - timedelta(days=91)).isoformat())
         self.v_fin.set(a.fecha_fin or hoy.isoformat())
@@ -537,12 +551,13 @@ class App(tk.Tk):
         a.ruta_driver = self.v_driver.get().strip()
         a.carpeta_salida = self.v_salida.get().strip()
         a.pestanas = max(1, min(4, entero(self.v_pestanas, 1)))
-        a.servidores_por_lote = max(1, entero(self.v_srv_lote, 6))
-        a.fechas_por_lote = max(1, entero(self.v_fch_lote, 30))
-        a.timeout_respuesta = max(60, entero(self.v_timeout, 420))
+        a.max_caracteres_prompt = max(800, entero(self.v_chars, 4000))
+        a.servidores_por_lote = max(1, entero(self.v_srv_lote, 80))
+        a.fechas_por_lote = max(1, entero(self.v_fch_lote, 400))
+        a.timeout_respuesta = max(60, entero(self.v_timeout, 900))
         a.reintentos = max(0, entero(self.v_reint, 2))
         a.nuevo_chat_por_lote = bool(self.v_nuevo_chat.get())
-        a.prompt_compacto = bool(self.v_compacto.get())
+        a.modo_prompt = self._modo_prompt()
         a.fecha_inicio = self.v_ini.get().strip()
         a.fecha_fin = self.v_fin.get().strip()
         a.semilla = self.v_semilla.get().strip()
@@ -865,7 +880,7 @@ class App(tk.Tk):
         if not (ini and fin) or not self.filas:
             return None
         return construir_plan(self.filas, self.repeticiones, ini, fin, self.v_semilla.get().strip() or "AUD",
-                              self.v_modo.get(), sorted(self.forzar), self._entero(self.v_fch_lote, 30))
+                              self.v_modo.get(), sorted(self.forzar), self._entero(self.v_fch_lote, 400))
 
     @staticmethod
     def _entero(var, d):
@@ -874,14 +889,26 @@ class App(tk.Tk):
         except Exception:
             return d
 
-    def _estimar_lotes(self, plan: Plan) -> int:
+    def _modo_prompt(self) -> str:
+        txt = self.v_modo_prompt.get()
+        return next((k for k, v in MODOS_PROMPT_UI.items() if v == txt), "denso")
+
+    def _lotes_simulados(self, plan: Plan) -> list[list]:
+        """Arma los lotes igual que el motor (por caracteres) para estimar y mostrar el ejemplo."""
+        ini, fin = self._rango()
         unidades = list(plan.unidades.values())
-        n = 0
+        lotes = []
+        max_u = self._entero(self.v_srv_lote, 80)
         while unidades:
-            l = armar_lote(unidades, self._entero(self.v_srv_lote, 6), self._entero(self.v_fch_lote, 30))
-            unidades = unidades[len(l):]
-            n += 1
-        return n
+            k = max(1, cuantos_caben(unidades[:max_u], max_u, self._entero(self.v_fch_lote, 400),
+                                     self._entero(self.v_chars, 4000), self.v_carpeta.get().strip(), ini, fin,
+                                     self._entero(self.v_ventana, 7), self._modo_prompt()))
+            lotes.append(unidades[:k])
+            unidades = unidades[k:]
+        return lotes
+
+    def _estimar_lotes(self, plan: Plan) -> int:
+        return len(self._lotes_simulados(plan))
 
     def _actualizar_resumen(self):
         if not self.filas:
@@ -896,13 +923,16 @@ class App(tk.Tk):
         if not r["filas"]:
             self.lbl_resumen.configure(text="Pon N > 0 en al menos una agenda para armar la muestra.", fg=C["suave"])
             return
-        lotes = self._estimar_lotes(plan)
+        simulados = self._lotes_simulados(plan)
+        lotes = len(simulados)
         pest = max(1, min(4, self._entero(self.v_pestanas, 1)))
-        t = lotes * SEG_POR_LOTE_ESTIMADO / pest
+        t = sum(SEG_BASE_LOTE + SEG_POR_SERVIDOR * len(l) for l in simulados) / pest
+        prom = r["unidades"] / max(1, lotes)
         extra = f"  ·  {r['delegadas']} consultas con fechas elegidas por Copilot" if r["delegadas"] else ""
         self.lbl_resumen.configure(
             text=(f"{r['filas']} filas  →  {r['servidores']} servidores  ·  {r['fechas']} fechas a verificar{extra}\n"
-                  f"≈ {lotes} consultas a Copilot  ·  tiempo estimado ≈ {fmt_dur(t)} con {pest} pestaña(s)"),
+                  f"≈ {lotes} consultas a Copilot (≈ {prom:.0f} servidores c/u)  ·  tiempo estimado ≈ {fmt_dur(t)} "
+                  f"con {pest} pestaña(s)"),
             fg=C["texto"])
 
     def _ver_prompt(self):
@@ -910,11 +940,10 @@ class App(tk.Tk):
         if not plan or not plan.unidades:
             messagebox.showinfo("Prompt de ejemplo", "Primero carga el Excel y pon N > 0 en alguna agenda.")
             return
-        unidades = list(plan.unidades.values())
-        lote = armar_lote(unidades, self._entero(self.v_srv_lote, 6), self._entero(self.v_fch_lote, 30))
+        lote = self._lotes_simulados(plan)[0]
         ini, fin = self._rango()
         texto, _ = construir_prompt(lote, self.v_carpeta.get().strip(), ini, fin,
-                                    self._entero(self.v_ventana, 7), "EJ42", compacto=bool(self.v_compacto.get()))
+                                    self._entero(self.v_ventana, 7), "EJ42", modo=self._modo_prompt())
         win = tk.Toplevel(self)
         win.title("Prompt de ejemplo (primer lote)")
         win.geometry("860x640")
@@ -1141,9 +1170,11 @@ class App(tk.Tk):
         self.lbl_prog.configure(text="   ·   ".join(partes), fg=C["texto"])
 
     def _fin(self, d: dict):
-        if self.motor and self.motor.a.prompt_compacto and not self.v_compacto.get():
-            self.v_compacto.set(True)
-            self.a.max_caracteres_prompt = self.motor.a.max_caracteres_prompt
+        if self.motor and (self.motor.a.max_caracteres_prompt < self._entero(self.v_chars, 4000)
+                           or self.motor.a.modo_prompt != self._modo_prompt()):
+            # el motor aprendió que la caja acepta menos: dejarlo guardado para la próxima
+            self.v_chars.set(self.motor.a.max_caracteres_prompt)
+            self.v_modo_prompt.set(MODOS_PROMPT_UI[self.motor.a.modo_prompt])
             self._volcar_valores()
         self.ruta_resultado = Path(d["ruta"])
         estado = d["estado"]

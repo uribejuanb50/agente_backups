@@ -131,13 +131,14 @@ class Ajustes:
     ventana_cercania: int = 7             # días hacia atrás/adelante para buscar fecha cercana
     repeticiones: dict = field(default_factory=dict)     # clave de regla -> N
     forzar_copilot: list = field(default_factory=list)   # claves de regla que se delegan a Copilot aunque Python las entienda
-    # rendimiento
-    servidores_por_lote: int = 6
-    fechas_por_lote: int = 30
-    max_caracteres_prompt: int = 7000
-    prompt_compacto: bool = False         # instrucciones cortas (se activa solo si Copilot corta el texto)
+    # rendimiento: lotes GRANDES (menos idas y vueltas a Copilot); el límite real es de caracteres
+    servidores_por_lote: int = 80
+    fechas_por_lote: int = 400
+    max_caracteres_prompt: int = 4000
+    modo_prompt: str = "denso"            # "denso" (1 línea por servidor) | "compacto" | "detallado"
+    prompt_compacto: bool = False         # (compatibilidad con versiones anteriores)
     pestanas: int = 1
-    timeout_respuesta: int = 420
+    timeout_respuesta: int = 900
     estabilidad_seg: int = 15
     reintentos: int = 2
     nuevo_chat_por_lote: bool = True
@@ -146,6 +147,7 @@ class Ajustes:
     # calibración
     selectores: dict = field(default_factory=lambda: {k: list(v) for k, v in SELECTORES_DEFECTO.items()})
     selectores_calibrados: dict = field(default_factory=dict)   # grabados con "Calibrar con clics"
+    version_ajustes: int = 2
     frases_limite: list = field(default_factory=lambda: list(FRASES_LIMITE_DEFECTO))
 
     # ------------------------------------------------------------------
@@ -162,6 +164,15 @@ class Ajustes:
                 if k in nombres:
                     setattr(a, k, v)
             a.selectores = combinar_selectores(a.selectores_calibrados, a.selectores)
+            if int(datos.get("version_ajustes", 1)) < 2:
+                # v1 usaba lotes pequeños (6 servidores / 30 fechas): pasar a lotes grandes por caracteres
+                a.servidores_por_lote, a.fechas_por_lote = 80, 400
+                a.max_caracteres_prompt = 4000
+                a.modo_prompt = "denso"
+                a.timeout_respuesta = max(900, int(a.timeout_respuesta or 0))
+                a.version_ajustes = 2
+            if a.modo_prompt not in ("denso", "compacto", "detallado"):
+                a.modo_prompt = "denso"
         return a
 
     def guardar(self, ruta: Path = ARCHIVO_AJUSTES) -> None:

@@ -45,10 +45,64 @@ def _fmt(iso: str | date) -> str:
     return d.strftime("%d/%m/%Y")
 
 
+MODOS_PROMPT = ("denso", "compacto", "detallado")
+
+
+def _fechas_por_mes(fechas_iso: list[str]) -> str:
+    """['2026-08-02','2026-08-09','2026-09-04'] -> '2026-08[02,09] 2026-09[04]'"""
+    grupos: dict[str, list[str]] = {}
+    for iso in sorted(fechas_iso):
+        grupos.setdefault(iso[:7], []).append(iso[8:10])
+    return " ".join(f"{mes}[{','.join(dias)}]" for mes, dias in grupos.items())
+
+
+def _item_denso(sid: str, u: Unidad) -> str:
+    s = u.srv
+    nombre = s.nombre + (f" ({', '.join(s.alias)})" if s.alias else "")
+    if u.delegada:
+        return f'{sid} {nombre}: ELEGIR {u.n} · agenda "{u.agenda}"'
+    return f"{sid} {nombre}: {_fechas_por_mes(u.fechas)}"
+
+
+def _prompt_denso(lote: list[Unidad], carpeta: str, inicio: date, fin: date, ventana: int,
+                  codigo: str) -> tuple[str, dict[str, str]]:
+    """Formato para lotes grandes: fechas agrupadas por mes y UNA línea de respuesta por servidor."""
+    mapa = {f"S{i:02d}": u.id for i, u in enumerate(lote, start=1)}
+    items = [_item_denso(sid, u) for sid, u in zip(mapa, lote)]
+    deleg = ""
+    if any(u.delegada for u in lote):
+        deleg = (f'\nÍtems "ELEGIR n": elige tú n fechas entre {_fmt(inicio)} y {_fmt(fin)} que cumplan la agenda '
+                 f'indicada (si es "por demanda", fechas en que sí haya evidencia) y repórtalas igual que las demás.')
+    texto = (
+        f'Actúa como auditor de backups. Revisa SOLO los correos y adjuntos de la carpeta "{carpeta}" '
+        f"(incluidas subcarpetas). Sin evidencia = sin backup: no inventes.\n"
+        f"Evidencia = correo (asunto o cuerpo) o adjunto (Excel, CSV, PDF, TXT, imagen…) que muestre el backup "
+        f"del servidor ese día; el servidor puede aparecer con cualquiera de los nombres entre paréntesis.\n"
+        f"Para cada fecha pedida: ¿hay evidencia ese mismo día? Si no, busca la fecha con evidencia más cercana "
+        f"(máximo {ventana} días antes o después).\n"
+        f"Las fechas van agrupadas por mes: 2026-08[02,09] significa 02/08/2026 y 09/08/2026.{deleg}\n\n"
+        f"ÍTEMS ({len(lote)}):\n" + "\n".join(items) + "\n\n"
+        f"RESPONDE SOLO con un bloque de código, sin texto antes ni después, así:\n"
+        f"@@INICIO-<CÓDIGO>@@\n"
+        f"Sxx ; SI=dd/mm,dd/mm ; CERCA=dd/mm>dd/mm ; NO=dd/mm ; EV=correo o adjunto\n"
+        f"@@FIN-<CÓDIGO>@@\n"
+        f"Reglas: UNA línea por ítem, con su ID (S01, S02…). SI = fechas pedidas con evidencia ese día. "
+        f"CERCA = fecha pedida>fecha encontrada. NO = sin evidencia. Cada fecha pedida va en SI, CERCA o NO; "
+        f"deja vacío lo que no aplique (ej. CERCA=). EV = un nombre corto de correo o adjunto, o -. "
+        f"Incluye TODOS los ítems.\n"
+        f"Código de este lote: {codigo}"
+    )
+    return texto, mapa
+
+
 def construir_prompt(lote: list[Unidad], carpeta: str, inicio: date, fin: date, ventana: int,
-                     codigo: str, compacto: bool = False) -> tuple[str, dict[str, str]]:
+                     codigo: str, compacto: bool = False, modo: str | None = None) -> tuple[str, dict[str, str]]:
     """Retorna (texto_prompt, mapa_id_local -> id_unidad).
-    compacto=True usa instrucciones cortas (para cajas de Copilot con límite bajo de caracteres)."""
+    modo: "denso" (lotes grandes, 1 línea por servidor), "compacto" o "detallado" (1 línea por fecha)."""
+    modo = modo or ("compacto" if compacto else "detallado")
+    if modo == "denso":
+        return _prompt_denso(lote, carpeta, inicio, fin, ventana, codigo)
+    compacto = modo == "compacto"
     mapa: dict[str, str] = {}
     lineas_items: list[str] = []
     hay_delegadas = any(u.delegada for u in lote)
@@ -160,12 +214,26 @@ class LineaRespuesta:
 
 
 @dataclass
+class LineaDensa:
+    id_local: str
+    si: list[str]
+    cerca: list[tuple[str, str]]
+    no: list[str]
+    evidencia: str
+
+
+@dataclass
 class RespuestaLote:
     hay_inicio: bool = False
     hay_fin: bool = False
     bloque: str = ""
     lineas: list[LineaRespuesta] = field(default_factory=list)
+    densas: list[LineaDensa] = field(default_factory=list)
     aviso: str = ""
+
+    @property
+    def total(self) -> int:
+        return len(self.lineas) + len(self.densas)
 
 
 def _re_marca(tipo: str, codigo: str) -> re.Pattern:
@@ -195,6 +263,7 @@ def extraer_respuesta(texto_pagina: str, codigo: str) -> RespuestaLote:
             r.bloque = texto_pagina[pos + len(ancla):]
             r.aviso = "Copilot no usó los marcadores; se leyó el texto posterior al prompt"
     r.lineas = parsear_lineas(r.bloque)
+    r.densas = parsear_densas(r.bloque)
     return r
 
 
@@ -227,6 +296,123 @@ def parsear_lineas(bloque: str) -> list[LineaRespuesta]:
         num = int(ln.id_local[1:])
         ln.id_local = f"S{num:02d}"
     return out
+
+
+_DM = r"\d{1,2}/\d{1,2}(?:/\d{2,4})?"
+RE_DENSA = re.compile(r"(?P<id>S\d{1,3})\s*[;|:]\s*(?P<resto>(?:SI|CERCA|NO|EV)\s*=.*)$", re.I | re.M)
+
+
+def _campo(resto: str, nombre: str) -> str:
+    m = re.search(r"\b" + nombre + r"\s*=\s*([^;|]*)", resto, re.I)
+    return m.group(1).strip() if m else ""
+
+
+def parsear_densas(bloque: str) -> list[LineaDensa]:
+    b = bloque.replace("\r", "\n").replace("\u00a0", " ")
+    b = re.sub(r"[`*]+", "", b)
+    b = re.sub(r"(?m)^\s*(?:[-•·>]|\d+[.)])\s+", "", b)
+    b = b.replace("→", ">").replace("->", ">").replace("=>", ">")
+    b = re.sub(r"[ \t]+(?=S\d{1,3}\s*[;|:]\s*(?:SI|CERCA|NO|EV)\s*=)", "\n", b, flags=re.I)
+    out = []
+    for m in RE_DENSA.finditer(b):
+        resto = m.group("resto")
+        ev_m = re.search(r"\bEV\s*=\s*(.*)$", resto, re.I)
+        ev = (ev_m.group(1) if ev_m else "").strip().strip("-").strip()
+        ev = re.sub(r"\s*\[\d+\]\s*$", "", ev)
+        out.append(LineaDensa(
+            id_local=f"S{int(m.group('id')[1:]):02d}",
+            si=re.findall(_DM, _campo(resto, "SI")),
+            cerca=re.findall(r"(" + _DM + r")\s*>\s*(" + _DM + r")", _campo(resto, "CERCA")),
+            no=re.findall(_DM, _campo(resto, "NO")),
+            evidencia=ev[:200],
+        ))
+    return out
+
+
+def _resolver_dm(txt: str, candidatas: list[date], cerca_de: date | None = None,
+                 inicio: date | None = None, fin: date | None = None) -> date | None:
+    """'25/08' -> date. Usa las fechas pedidas, la fecha de referencia o el rango para deducir el año."""
+    partes = txt.split("/")
+    try:
+        d, m = int(partes[0]), int(partes[1])
+        if len(partes) > 2:
+            y = int(partes[2])
+            return date(y + 2000 if y < 100 else y, m, d)
+    except (ValueError, IndexError):
+        return None
+    for c in candidatas:
+        if c.day == d and c.month == m:
+            return c
+    anios = []
+    if cerca_de:
+        anios = [cerca_de.year, cerca_de.year - 1, cerca_de.year + 1]
+    elif inicio and fin:
+        anios = list(range(fin.year, inicio.year - 1, -1))
+    mejores = []
+    for y in anios:
+        try:
+            f = date(y, m, d)
+        except ValueError:
+            continue
+        if cerca_de:
+            mejores.append((abs((f - cerca_de).days), f))
+        elif inicio <= f <= fin:
+            return f
+    return min(mejores)[1] if mejores else None
+
+
+def expandir_densas(densas: list[LineaDensa], mapa: dict[str, str], vistas: dict[str, Unidad],
+                    inicio: date, fin: date) -> list[LineaRespuesta]:
+    """Convierte cada línea densa (1 por servidor) en líneas por fecha, para validarlas igual que las demás."""
+    out: list[LineaRespuesta] = []
+    for dl in densas:
+        uid = mapa.get(dl.id_local)
+        u = vistas.get(uid) if uid else None
+        if u is None:
+            out.append(LineaRespuesta(dl.id_local, "", "NO_ENCONTRADA", "", ""))   # validar avisará el ID raro
+            continue
+        pedidas = [date.fromisoformat(x) for x in u.fechas]
+
+        def res(txt):
+            return _resolver_dm(txt, pedidas, inicio=inicio, fin=fin)
+        for txt in dl.si:
+            f = res(txt)
+            if f:
+                out.append(LineaRespuesta(dl.id_local, f.isoformat(), "EXACTA", f.isoformat(), dl.evidencia))
+        for a, b in dl.cerca:
+            fa = res(a)
+            fb = _resolver_dm(b, [], cerca_de=fa) if fa else None
+            if fa:
+                out.append(LineaRespuesta(dl.id_local, fa.isoformat(), "CERCANA", fb.isoformat() if fb else "", dl.evidencia))
+        for txt in dl.no:
+            f = res(txt)
+            if f:
+                out.append(LineaRespuesta(dl.id_local, f.isoformat(), "NO_ENCONTRADA", "", ""))
+    return out
+
+
+def cuantos_caben(vistas: list[Unidad], max_unidades: int, max_fechas: int, max_caracteres: int,
+                  carpeta: str, inicio: date, fin: date, ventana: int, modo: str) -> int:
+    """Cuántas unidades (desde el inicio de la lista) caben en un prompt sin pasar los límites."""
+    limite_n, peso = 0, 0
+    for u in vistas[:max_unidades]:
+        if limite_n and peso + u.peso > max_fechas:
+            break
+        peso += u.peso
+        limite_n += 1
+    if limite_n <= 1:
+        return limite_n
+    largo = lambda k: len(construir_prompt(vistas[:k], carpeta, inicio, fin, ventana, "XXXX", modo=modo)[0])
+    if largo(limite_n) <= max_caracteres:
+        return limite_n
+    lo, hi = 1, limite_n          # búsqueda binaria: el mayor k que cabe
+    while lo < hi:
+        mid = (lo + hi + 1) // 2
+        if largo(mid) <= max_caracteres:
+            lo = mid
+        else:
+            hi = mid - 1
+    return lo
 
 
 def parsear_fecha(txt: str, preferidas: set[date] | None = None) -> date | None:
