@@ -267,20 +267,30 @@ def _re_marca(tipo: str, codigo: str) -> re.Pattern:
 
 
 def extraer_respuesta(texto_pagina: str, codigo: str) -> RespuestaLote:
-    """Busca el bloque de este lote dentro del texto visible de la página/panel."""
+    """Busca el bloque de este lote dentro del texto visible de la página/panel.
+    Si el bloque aparece varias veces (texto visible + texto del bloque de código), se queda con la
+    copia completa que tenga más líneas válidas."""
     r = RespuestaLote()
     if not texto_pagina:
         return r
-    ini = list(_re_marca("INICIO", codigo).finditer(texto_pagina))
-    if ini:
+    re_ini, re_fin = _re_marca("INICIO", codigo), _re_marca("FIN", codigo)
+    inicios = list(re_ini.finditer(texto_pagina))
+    if inicios:
         r.hay_inicio = True
-        desde = ini[-1].end()
-        m_fin = _re_marca("FIN", codigo).search(texto_pagina, desde)
-        if m_fin:
-            r.hay_fin = True
-            r.bloque = texto_pagina[desde:m_fin.start()]
-        else:
-            r.bloque = texto_pagina[desde:]
+        mejor = None
+        for m in inicios:
+            m_fin = re_fin.search(texto_pagina, m.end())
+            # el bloque termina en su FIN, o en el siguiente INICIO si no hay FIN antes
+            sig = re_ini.search(texto_pagina, m.end())
+            if m_fin and (not sig or m_fin.start() < sig.start()):
+                bloque, con_fin = texto_pagina[m.end():m_fin.start()], True
+            else:
+                bloque, con_fin = texto_pagina[m.end():sig.start() if sig else None], False
+            n = len(parsear_lineas(bloque)) + len(parsear_densas(bloque))
+            clave = (con_fin, n)
+            if mejor is None or clave > mejor[0]:
+                mejor = (clave, bloque)
+        (r.hay_fin, _), r.bloque = mejor
     else:
         # plan B: Copilot ignoró los marcadores -> leer lo que está después del prompt
         ancla = ancla_prompt(codigo)
@@ -298,7 +308,7 @@ def _limpiar(bloque: str) -> str:
     b = re.sub(r"[`*]+", "", b)                          # backticks y negritas
     b = re.sub(r"(?m)^\s*(?:[-•·>]|\d+[.)])\s+", "", b)  # viñetas o numeración
     # si Copilot juntó líneas en un párrafo, separar antes de cada "Sxx ;"
-    b = re.sub(r"[ \t]+(?=S\d{1,3}\s*[;|]\s*\d)", "\n", b)
+    b = re.sub(r"[ \t]*(?=(?<![A-Za-z0-9])S\d{1,3}\s*[;|]\s*\d{1,4}[/\-.]\d)|(?<=[A-Za-z.)\]])(?=S\d{1,3}\s*[;|]\s*\d{1,4}[/\-.]\d)", "\n", b)
     return b
 
 
@@ -338,7 +348,7 @@ def parsear_densas(bloque: str) -> list[LineaDensa]:
     b = re.sub(r"[`*]+", "", b)
     b = re.sub(r"(?m)^\s*(?:[-•·>]|\d+[.)])\s+", "", b)
     b = b.replace("→", ">").replace("->", ">").replace("=>", ">")
-    b = re.sub(r"[ \t]+(?=S\d{1,3}\s*[;|:]\s*(?:SI|CERCA|NO|EV)\s*=)", "\n", b, flags=re.I)
+    b = re.sub(r"[ \t]*(?=S\d{1,3}\s*[;|:]\s*(?:SI|CERCA|NO|EV)\s*=)", "\n", b, flags=re.I)
     out = []
     for m in RE_DENSA.finditer(b):
         resto = m.group("resto")

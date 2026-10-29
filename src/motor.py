@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import queue
+import re
 import threading
 import time
 import traceback
@@ -300,12 +301,21 @@ class Motor(threading.Thread):
         lote = p.lote
         ahora = time.time()
         transcurrido = ahora - p.t_envio
-        todos = transcurrido > 60 and int(transcurrido) // 30 > lote["lecturas_frames"]
-        if todos:
-            lote["lecturas_frames"] = int(transcurrido) // 30
-        texto = self.web.leer_texto(p, todos_los_frames=todos)
+        texto = self.web.leer_texto(p)
         r = extraer_respuesta(texto, p.codigo)
-        firma = f"{len(texto)}|{hash(texto[-800:])}"
+        # si el marcador no aparece donde está la caja, buscar en qué frame escribe Copilot (cada 10 s)
+        if not r.hay_inicio and transcurrido > 8 and ahora - lote.get("ult_busqueda", 0) > 10:
+            lote["ult_busqueda"] = ahora
+            ruta = self.web.localizar_texto(p, re.compile(r"@@\s*INICIO\s*[-_ ]?\s*" + re.escape(p.codigo), re.I))
+            if ruta is not None and ruta != p.ruta_entrada and ruta != p.ruta_respuesta:
+                p.ruta_respuesta = ruta
+                self.log("debug", f"{p.nombre}: las respuestas aparecen en el frame {ruta}")
+                texto = self.web.leer_texto(p)
+                r = extraer_respuesta(texto, p.codigo)
+        # "quieto" se mide sobre la RESPUESTA, no sobre toda la página (que puede tener animaciones)
+        ancla = ancla_prompt(p.codigo)
+        base = r.bloque if r.hay_inicio else (texto[texto.rfind(ancla):] if ancla in texto else texto[-3000:])
+        firma = f"{r.hay_inicio}|{r.hay_fin}|{len(base)}|{hash(base[-600:])}"
         if firma != p.firma_texto:
             p.firma_texto, p.t_ultimo_cambio = firma, ahora
         quieto = ahora - p.t_ultimo_cambio
@@ -322,8 +332,11 @@ class Motor(threading.Thread):
         sustancial = largo_cuerpo >= 150       # "Buscando en tus archivos…" no cuenta como respuesta
 
         motivo = None
-        if r.hay_fin and quieto >= 2.5:
-            motivo = "completo"
+        if r.hay_fin:
+            # el marcador FIN ya llegó: dar 2 s para que termine de pintarse y aceptar
+            lote.setdefault("fin_visto", ahora)
+            if ahora - lote["fin_visto"] >= 2:
+                motivo = "completo"
         elif (not r.total and quieto >= self.a.estabilidad_seg and transcurrido > 25
               and any(fr.lower() in cuerpo.lower() for fr in self.a.frases_limite)):
             self.log("aviso", f"{p.nombre}: Copilot indica un límite/errores; espero {self.a.pausa_limite_seg} s")

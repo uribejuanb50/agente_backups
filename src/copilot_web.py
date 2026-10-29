@@ -43,6 +43,14 @@ function recorrer(root){ for (const el of root.querySelectorAll('*')){ if (el.sh
   for (const h of el.shadowRoot.children){ if (h.innerText) partes.push(h.innerText); }
   recorrer(el.shadowRoot); } } }
 recorrer(document);
+// los bloques de código se leen también con textContent: no depende de que la ventana esté visible
+function plano(el){ const c = el.cloneNode(true);
+  c.querySelectorAll('br').forEach(b => b.replaceWith('\n'));
+  c.querySelectorAll('div,p,li,tr').forEach(x => x.append('\n'));
+  return c.textContent; }
+function codigos(root){ for (const el of root.querySelectorAll('pre')){ const t = plano(el); if (t) partes.push(t); }
+  for (const el of root.querySelectorAll('*')){ if (el.shadowRoot) codigos(el.shadowRoot); } }
+codigos(document);
 return partes.join('\n');
 """
 
@@ -158,6 +166,7 @@ class Pestana:
     handle: str
     nombre: str
     ruta_entrada: list[int] = field(default_factory=list)
+    ruta_respuesta: Optional[list[int]] = None   # frame donde Copilot escribe (puede ser distinto al de la caja)
     lote: object = None                 # lote en curso (lo maneja el motor)
     codigo: str = ""
     t_envio: float = 0.0
@@ -386,6 +395,7 @@ class CopilotWeb:
     def _cargar_copilot(self, p: Pestana) -> None:
         d = self.driver
         d.switch_to.window(p.handle)
+        p.ruta_respuesta = None
         d.get(self.a.url_carpeta)
         self.log("info", f"{p.nombre}: abriendo la carpeta en OneDrive…")
 
@@ -533,11 +543,31 @@ class CopilotWeb:
         self.log("debug", f"{p.nombre}: prompt enviado ({len(texto)} caracteres, método: {metodo})")
 
     # ------------------------------------------------------------------ lectura
+    def localizar_texto(self, p: Pestana, patron: re.Pattern) -> Optional[list[int]]:
+        """Recorre todos los frames y devuelve la ruta del primero cuyo texto coincide con el patrón."""
+        d = self.driver
+        d.switch_to.window(p.handle)
+        try:
+            for ruta in self._rutas_frames():
+                try:
+                    if self._ir_a(ruta) and patron.search(d.execute_script(JS_TEXTO) or ""):
+                        return ruta
+                except Exception:
+                    continue
+        finally:
+            try:
+                d.switch_to.default_content()
+            except Exception:
+                pass
+        return None
+
     def leer_texto(self, p: Pestana, todos_los_frames: bool = False) -> str:
         d = self.driver
         d.switch_to.window(p.handle)
         textos = []
         rutas = self._rutas_frames() if todos_los_frames else [p.ruta_entrada]
+        if not todos_los_frames and p.ruta_respuesta is not None and p.ruta_respuesta != p.ruta_entrada:
+            rutas.append(p.ruta_respuesta)
         for ruta in rutas:
             try:
                 if self._ir_a(ruta):
