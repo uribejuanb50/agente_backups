@@ -51,18 +51,21 @@ def evaluar_filas(plan: Plan, resultados: dict, estado_unidades: dict) -> list[d
     salida = []
     for fp in plan.filas:
         servidores = fp.servidores
-        varios = len(servidores) > 1
-        unidades_fila = [plan.unidades[u] for u in fp.unidades if u in plan.unidades]
-        pares = []            # (servidor, fecha_pedida, resultado|None, uid)
+        unidades_fila = plan.unidades_de_fila(fp)
+        # grupos de la fila: 1 grupo (criterio "cualquiera") o 1 por servidor (criterio "cada_uno")
+        grupos: dict[str, list] = {}
+        for u in unidades_fila:
+            grupos.setdefault(u.clave, []).append(u)
+        varios = len(grupos) > 1
+        pares = []            # (grupo, fecha_pedida, resultado|None, uid)
         pendiente = sin_resp = False
-        for s in servidores:
-            clave = s["nombre"].upper()
-            us = [u for u in unidades_fila if u.srv.clave == clave]
+        for us in grupos.values():
+            etiqueta_g = us[0].etiqueta
             if fp.origen == "Python":
                 for iso in fp.fechas:
                     uid = next((u.id for u in us if iso in u.fechas), None)
                     res = resultados.get(uid, {}).get(iso) if uid else None
-                    pares.append((s["nombre"], iso, res, uid))
+                    pares.append((etiqueta_g, iso, res, uid))
                     if res is None and uid:
                         st = estado_unidades.get(uid, {}).get("estado", "pendiente")
                         pendiente |= st == "pendiente"
@@ -71,7 +74,7 @@ def evaluar_filas(plan: Plan, resultados: dict, estado_unidades: dict) -> list[d
                 for u in us:
                     rs = sorted(resultados.get(u.id, {}).values(), key=lambda r: r["fecha_pedida"])
                     for r in rs:
-                        pares.append((s["nombre"], r["fecha_pedida"], r, u.id))
+                        pares.append((etiqueta_g, r["fecha_pedida"], r, u.id))
                     if not rs:
                         st = estado_unidades.get(u.id, {}).get("estado", "pendiente")
                         pendiente |= st == "pendiente"
@@ -147,7 +150,9 @@ def evaluar_filas(plan: Plan, resultados: dict, estado_unidades: dict) -> list[d
             "ANS": _dato(fp.datos, "ANS"),
             "SERVICIO": _dato(fp.datos, "SERVICIO"),
             "SERVIDOR": fp.servidor_texto,
-            "SERVIDORES_BUSCADOS": ", ".join(s["nombre"] for s in servidores),
+            "SERVIDORES_BUSCADOS": " / ".join(s["nombre"] for s in servidores),
+            "CRITERIO": ("Basta con cualquiera" if plan.parametros.get("criterio", "cualquiera") == "cualquiera"
+                         else "Cada servidor por separado") if len(servidores) > 1 else "",
             "NOMBRE_POLITICA": _dato(fp.datos, "NOMBRE_POLITICA", "NOMBRE POLITICA"),
             "TIPO_BACKUP": _dato(fp.datos, "TIPO_BACKUP", "TIPO BACKUP"),
             "AGENDA": " ".join(fp.agenda_texto.split()),
@@ -225,6 +230,8 @@ def escribir_excel(ruta: Path, plan: Plan, resultados: dict, estado_unidades: di
         ("Semilla (reproducibilidad)", par.get("semilla", "")),
         ("Modo de fechas", "Python calcula; Copilot solo las agendas no reconocidas" if par.get("modo") == "hibrido"
          else "Copilot asigna todas las fechas"),
+        ("Criterio con varios servidores", "Basta con que aparezca cualquiera"
+         if par.get("criterio", "cualquiera") == "cualquiera" else "Cada servidor por separado"),
         ("Carpeta consultada", info.get("carpeta", "")),
         ("Ventana de cercanía (días)", info.get("ventana", "")),
         ("Estado de la ejecución", info.get("estado", "")),
@@ -270,7 +277,7 @@ def escribir_excel(ruta: Path, plan: Plan, resultados: dict, estado_unidades: di
                 col_estado="ESTADO")
 
     # --- Detalle por fecha ---
-    det_cols = ["FILA_EXCEL", "SERVIDOR", "FECHA_PEDIDA", "ESTADO", "ESTADO_COPILOT", "FECHA_ENCONTRADA",
+    det_cols = ["FILA_EXCEL", "SERVIDORES", "FECHA_PEDIDA", "ESTADO", "ESTADO_COPILOT", "FECHA_ENCONTRADA",
                 "DIFERENCIA_DIAS", "EVIDENCIA", "NOTA_VALIDACION", "LOTE"]
     det = []
     for f in filas_eval:
@@ -283,7 +290,7 @@ def escribir_excel(ruta: Path, plan: Plan, resultados: dict, estado_unidades: di
                 det.append([f["FILA_EXCEL"], srv, _f(iso), "SIN RESPUESTA" if st == "sin_respuesta" else "PENDIENTE",
                             "", "", None, "", "", None])
     ws3 = wb.create_sheet("Detalle por fecha")
-    _hoja_tabla(ws3, det_cols, det, anchos={"EVIDENCIA": 50, "NOTA_VALIDACION": 50, "SERVIDOR": 26},
+    _hoja_tabla(ws3, det_cols, det, anchos={"EVIDENCIA": 50, "NOTA_VALIDACION": 50, "SERVIDORES": 34},
                 col_estado="ESTADO")
 
     # --- Lotes (trazabilidad: prompt y respuesta cruda) ---

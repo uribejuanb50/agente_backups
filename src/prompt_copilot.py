@@ -56,9 +56,16 @@ def _fechas_por_mes(fechas_iso: list[str]) -> str:
     return " ".join(f"{mes}[{','.join(dias)}]" for mes, dias in grupos.items())
 
 
+def nombres_grupo(u: Unidad, sep_alias: str = "") -> str:
+    """'LNXINSREP1 (WFM0393) / LNXINSREP2 (WFM0392)' -> cada servidor con sus alias; '/' separa alternativas."""
+    partes = []
+    for s in u.srvs:
+        partes.append(s.nombre + (f" ({sep_alias}{', '.join(s.alias)})" if s.alias else ""))
+    return " / ".join(partes)
+
+
 def _item_denso(sid: str, u: Unidad) -> str:
-    s = u.srv
-    nombre = s.nombre + (f" ({', '.join(s.alias)})" if s.alias else "")
+    nombre = nombres_grupo(u)
     if u.delegada:
         return f'{sid} {nombre}: ELEGIR {u.n} · agenda "{u.agenda}"'
     return f"{sid} {nombre}: {_fechas_por_mes(u.fechas)}"
@@ -76,8 +83,10 @@ def _prompt_denso(lote: list[Unidad], carpeta: str, inicio: date, fin: date, ven
     texto = (
         f'Actúa como auditor de backups. Revisa SOLO los correos y adjuntos de la carpeta "{carpeta}" '
         f"(incluidas subcarpetas). Sin evidencia = sin backup: no inventes.\n"
+        f"Cada ítem es un GRUPO de servidores separados por \" / \": basta con que aparezca CUALQUIERA de ellos "
+        f"(con su nombre o con los alias entre paréntesis).\n"
         f"Evidencia = correo (asunto o cuerpo) o adjunto (Excel, CSV, PDF, TXT, imagen…) que muestre el backup "
-        f"del servidor ese día; el servidor puede aparecer con cualquiera de los nombres entre paréntesis.\n"
+        f"de alguno de esos servidores ese día.\n"
         f"Para cada fecha pedida: ¿hay evidencia ese mismo día? Si no, busca la fecha con evidencia más cercana "
         f"(máximo {ventana} días antes o después).\n"
         f"Las fechas van agrupadas por mes: 2026-08[02,09] significa 02/08/2026 y 09/08/2026.{deleg}\n\n"
@@ -88,7 +97,7 @@ def _prompt_denso(lote: list[Unidad], carpeta: str, inicio: date, fin: date, ven
         f"@@FIN-<CÓDIGO>@@\n"
         f"Reglas: UNA línea por ítem, con su ID (S01, S02…). SI = fechas pedidas con evidencia ese día. "
         f"CERCA = fecha pedida>fecha encontrada. NO = sin evidencia. Cada fecha pedida va en SI, CERCA o NO; "
-        f"deja vacío lo que no aplique (ej. CERCA=). EV = un nombre corto de correo o adjunto, o -. "
+        f"deja vacío lo que no aplique (ej. CERCA=). EV = servidor encontrado y nombre corto del correo o adjunto, o -. "
         f"Incluye TODOS los ítems.\n"
         f"Código de este lote: {codigo}"
     )
@@ -109,12 +118,11 @@ def construir_prompt(lote: list[Unidad], carpeta: str, inicio: date, fin: date, 
     for i, u in enumerate(lote, start=1):
         sid = f"S{i:02d}"
         mapa[sid] = u.id
-        s = u.srv
-        nombre = s.nombre + (f" (también como: {', '.join(s.alias)})" if s.alias else "")
+        nombre = nombres_grupo(u, "también como: ")
         if u.delegada:
-            lineas_items.append(f'{sid} | servidor: {nombre} | ELEGIR {u.n} fechas | agenda: "{u.agenda}"')
+            lineas_items.append(f'{sid} | servidores: {nombre} | ELEGIR {u.n} fechas | agenda: "{u.agenda}"')
         else:
-            lineas_items.append(f"{sid} | servidor: {nombre} | fechas: {', '.join(_fmt(x) for x in u.fechas)}")
+            lineas_items.append(f"{sid} | servidores: {nombre} | fechas: {', '.join(_fmt(x) for x in u.fechas)}")
 
     if compacto:
         deleg = (f'\nÍtems "ELEGIR n fechas": elige tú n fechas entre {_fmt(inicio)} y {_fmt(fin)} según la agenda '
@@ -122,14 +130,15 @@ def construir_prompt(lote: list[Unidad], carpeta: str, inicio: date, fin: date, 
         texto = (
             f'Auditor de backups. Busca SOLO en los correos y adjuntos de la carpeta "{carpeta}". '
             f"No inventes: sin evidencia = sin backup.\n"
-            f"Para cada ítem y fecha: ¿hay evidencia de backup del servidor (con cualquiera de sus nombres) ese día? "
+            f"Cada ítem es un grupo de servidores (separados por \" / \"): basta con que aparezca CUALQUIERA. "
+            f"Para cada ítem y fecha: ¿hay evidencia de backup de alguno de ellos ese día? "
             f"Si no, da la fecha con evidencia más cercana (máx. {ventana} días).{deleg}\n"
             f"ÍTEMS:\n{chr(10).join(lineas_items)}\n"
             f"RESPONDE SOLO con un bloque de código, sin texto adicional:\n"
             f"@@INICIO-<CÓDIGO>@@\nID ; FECHA_PEDIDA ; ESTADO ; FECHA_ENCONTRADA ; EVIDENCIA\n@@FIN-<CÓDIGO>@@\n"
             f"Una línea por fecha de cada ítem. Fechas dd/mm/aaaa. ESTADO: EXACTA (misma fecha), "
             f"CERCANA (otra fecha a máx. {ventana} días) o NO_ENCONTRADA (FECHA_ENCONTRADA = -). "
-            f"EVIDENCIA: nombre del correo o adjunto (sin ;) o -.\n"
+            f"EVIDENCIA: servidor encontrado y correo o adjunto (sin ;) o -.\n"
             f"Código de este lote: {codigo}"
         )
         return texto, mapa
@@ -147,7 +156,7 @@ def construir_prompt(lote: list[Unidad], carpeta: str, inicio: date, fin: date, 
 
 FUENTE: usa únicamente los correos y adjuntos de la carpeta "{carpeta}" (incluidas sus subcarpetas). No uses conocimiento general ni inventes datos: si no ves evidencia, esa fecha NO tiene respaldo.
 
-QUÉ CUENTA COMO EVIDENCIA: un correo (asunto o cuerpo) o cualquier adjunto (Excel, CSV, PDF, TXT, HTML, imagen o comprimido) que muestre que el servidor tuvo backup ese día. El servidor puede aparecer con cualquiera de sus nombres, en mayúsculas o minúsculas, o dentro de un nombre más largo. La fecha que vale es la de ejecución del backup que dice el reporte; si el reporte no la dice, usa la fecha del correo.
+QUÉ CUENTA COMO EVIDENCIA: un correo (asunto o cuerpo) o cualquier adjunto (Excel, CSV, PDF, TXT, HTML, imagen o comprimido) que muestre que el servidor tuvo backup ese día. Cada ítem es un GRUPO de servidores separados por " / ": basta con que aparezca CUALQUIERA de ellos, con cualquiera de sus nombres, en mayúsculas o minúsculas, o dentro de un nombre más largo. La fecha que vale es la de ejecución del backup que dice el reporte; si el reporte no la dice, usa la fecha del correo.
 
 TAREA: para cada ítem y cada fecha pedida, revisa si hay evidencia ese mismo día. Si no la hay, busca la fecha con evidencia más cercana a la pedida (antes o después), como máximo a {ventana} días.
 {bloque_delegadas}
@@ -169,7 +178,7 @@ Reglas de cada campo:
   EXACTA = hay evidencia en la fecha pedida (FECHA_ENCONTRADA es igual a FECHA_PEDIDA).
   CERCANA = no hay en la fecha pedida, pero sí en otra fecha a máximo {ventana} días (FECHA_ENCONTRADA es esa otra fecha).
   NO_ENCONTRADA = no hay evidencia ni ese día ni cerca (FECHA_ENCONTRADA es -).
-- EVIDENCIA: nombre del correo o adjunto donde lo viste (máximo 80 caracteres y sin ";"), o - si no hay.
+- EVIDENCIA: servidor encontrado y nombre del correo o adjunto donde lo viste (máximo 80 caracteres y sin ";"), o - si no hay.
 - Si un ítem tiene 4 fechas, escribe 4 líneas para ese ítem. Escribe todas las líneas, también las NO_ENCONTRADA.
 
 Ejemplo solo de la forma (datos y código ficticios):
@@ -183,6 +192,23 @@ S99 ; 17/02/2026 ; NO_ENCONTRADA ; - ; -
 
 Código de este lote: {codigo}"""
     return texto, mapa
+
+
+def recordatorio_formato(codigo: str, modo: str) -> str:
+    """Mensaje de seguimiento cuando Copilot respondió en prosa: repetir lo mismo con el formato."""
+    if modo == "denso":
+        linea = "Sxx ; SI=dd/mm,dd/mm ; CERCA=dd/mm>dd/mm ; NO=dd/mm ; EV=servidor y archivo"
+        regla = "una línea por ítem"
+    else:
+        linea = "Sxx ; dd/mm/aaaa ; EXACTA|CERCANA|NO_ENCONTRADA ; dd/mm/aaaa o - ; evidencia"
+        regla = "una línea por fecha de cada ítem"
+    return (
+        "Tu respuesta no tiene el formato que necesito. NO busques de nuevo: repite la MISMA información "
+        f"de tu respuesta anterior, solo dentro de un bloque de código, {regla}, sin texto antes ni después:\n"
+        f"@@INICIO-<CÓDIGO>@@\n{linea}\n@@FIN-<CÓDIGO>@@\n"
+        "Incluye todos los ítems (S01, S02…); si de alguno no tienes datos, pon sus fechas en NO.\n"
+        f"{ancla_prompt(codigo)}"
+    )
 
 
 def ancla_prompt(codigo: str) -> str:

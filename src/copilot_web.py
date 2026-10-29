@@ -12,6 +12,7 @@ No dependemos de la estructura exacta de la página:
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -187,7 +188,13 @@ class CopilotWeb:
         self.pestanas: list[Pestana] = []
 
     # ------------------------------------------------------------------ navegador
-    def abrir_navegador(self) -> None:
+    FUERA_DE_PANTALLA = (-32000, -32000)
+
+    def abrir_navegador(self, modo_ventana: str | None = None) -> None:
+        """modo_ventana: "visible" | "oculta" (ventana real movida fuera de la pantalla) |
+        "sin_ventana" (headless, experimental)."""
+        self.modo_ventana = modo_ventana or getattr(self.a, "ventana_edge", "visible") or "visible"
+        self.ventana_mostrada = self.modo_ventana == "visible"
         from selenium import webdriver
         from selenium.webdriver.edge.options import Options
         from selenium.webdriver.edge.service import Service
@@ -199,7 +206,15 @@ class CopilotWeb:
         op = Options()
         op.add_argument(f"--user-data-dir={perfil}")
         op.add_argument("--profile-directory=Default")
-        op.add_argument("--start-maximized")
+        if self.modo_ventana == "oculta":
+            x, y = self.FUERA_DE_PANTALLA
+            op.add_argument(f"--window-position={x},{y}")
+            op.add_argument("--window-size=1500,1000")
+        elif self.modo_ventana == "sin_ventana":
+            op.add_argument("--headless=new")
+            op.add_argument("--window-size=1500,1000")
+        else:
+            op.add_argument("--start-maximized")
         # que las pestañas en segundo plano no se "duerman" mientras Copilot responde
         op.add_argument("--disable-background-timer-throttling")
         op.add_argument("--disable-renderer-backgrounding")
@@ -208,6 +223,9 @@ class CopilotWeb:
         op.add_experimental_option("excludeSwitches", ["enable-automation"])
         op.add_experimental_option("useAutomationExtension", False)
         servicio = Service(executable_path=self.a.ruta_driver) if self.a.ruta_driver else Service()
+        if os.name == "nt":
+            import subprocess
+            servicio.creation_flags = subprocess.CREATE_NO_WINDOW      # sin consola negra de msedgedriver
         try:
             self.driver = webdriver.Edge(options=op, service=servicio)
         except Exception as e:
@@ -217,6 +235,31 @@ class CopilotWeb:
             raise ErrorCopilot(f"No pude abrir Edge: {msg.splitlines()[0] if msg else e}. "
                                "Si la red bloquea la descarga del driver, indica la ruta de msedgedriver.exe en Ajustes.") from e
         self.driver.set_script_timeout(30)
+
+    def mostrar_ventana(self) -> None:
+        if not self.driver or self.modo_ventana == "sin_ventana":
+            return
+        try:
+            self.driver.set_window_position(0, 0)
+            self.driver.maximize_window()
+            self.ventana_mostrada = True
+        except Exception:
+            pass
+
+    def _reocultar_tras_login(self) -> None:
+        if getattr(self, "mostrada_por_login", False):
+            self.mostrada_por_login = False
+            self.ocultar_ventana()
+            self.log("info", "Sesión lista: vuelvo a ocultar Edge.")
+
+    def ocultar_ventana(self) -> None:
+        if not self.driver or self.modo_ventana == "sin_ventana":
+            return
+        try:
+            self.driver.set_window_rect(*self.FUERA_DE_PANTALLA, 1500, 1000)
+            self.ventana_mostrada = False
+        except Exception:
+            pass
 
     def cerrar(self) -> None:
         if self.driver:
@@ -356,6 +399,7 @@ class CopilotWeb:
             if el is not None:
                 p.ruta_entrada = ruta
                 self.log("ok", f"{p.nombre}: el chat de Copilot ya está abierto")
+                self._reocultar_tras_login()
                 return
             ruta_btn, btn = self._buscar("abrir_copilot")
             if btn is not None:
@@ -364,7 +408,15 @@ class CopilotWeb:
                 raise ErrorCopilot("No apareció el botón de Copilot. ¿Iniciaste sesión? Usa 'Probar conexión' "
                                    "para generar un diagnóstico de la página.")
             if time.time() - aviso > 20:
-                self.log("aviso", f"{p.nombre}: esperando la página… si Edge pide iniciar sesión, hazlo en esa ventana.")
+                if getattr(self, "modo_ventana", "visible") == "oculta" and not self.ventana_mostrada:
+                    self.mostrar_ventana()
+                    self.mostrada_por_login = True
+                    self.log("aviso", f"{p.nombre}: la página no carga Copilot; mostré Edge por si pide iniciar sesión.")
+                elif getattr(self, "modo_ventana", "visible") == "sin_ventana":
+                    raise ErrorCopilot("En modo 'sin ventana' no se puede iniciar sesión. Ejecuta una vez con la "
+                                       "ventana visible para que Edge guarde la sesión.")
+                else:
+                    self.log("aviso", f"{p.nombre}: esperando la página… si Edge pide iniciar sesión, hazlo en esa ventana.")
                 aviso = time.time()
             self._esperar(2)
 
@@ -383,6 +435,7 @@ class CopilotWeb:
                 if el is not None:
                     p.ruta_entrada = ruta
                     self.log("ok", f"{p.nombre}: Copilot listo (frame {ruta or 'principal'})")
+                    self._reocultar_tras_login()
                     return
                 self._esperar(1)
             self.log("aviso", f"{p.nombre}: no veo la caja del chat todavía, reintento abrir Copilot ({intento + 1}/3)")

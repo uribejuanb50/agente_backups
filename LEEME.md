@@ -13,6 +13,9 @@ python main.py
    exactamente lo que se enviará (se puede pegar a mano en Copilot para probar).
 3. **Ejecución**: progreso, contadores y bitácora. Pausar / Detener / Reanudar desde archivo.
 
+Sin consola: doble clic en **`Auditoria Backups.bat`** (abre la app con `pythonw`).
+Edge trabaja oculto por defecto (paso 1 → "Ventana de Edge"); en el paso 3 está "Mostrar Edge".
+
 ## Cómo funciona
 - `agenda.py` traduce AGENDA a una regla de calendario ("Primer domingo del mes", "Lunes a sábado",
   "Días 7, 15, 21 y 30"...). Lo que no se entiende ("Por demanda") se delega a Copilot.

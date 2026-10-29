@@ -120,6 +120,7 @@ class Ajustes:
     url_carpeta: str = URL_CARPETA_DEFECTO
     nombre_carpeta: str = "OPN11- Ejecucion de respaldos No SAP"
     perfil_edge: str = "C:/SeleniumProfiles/AgenteOPN11_Edge"
+    ventana_edge: str = "oculta"          # "visible" | "oculta" (fuera de pantalla) | "sin_ventana" (headless)
     ruta_driver: str = ""
     # salida
     carpeta_salida: str = ""
@@ -127,6 +128,7 @@ class Ajustes:
     fecha_inicio: str = ""
     fecha_fin: str = ""
     semilla: str = ""
+    criterio_servidores: str = "cualquiera"   # varios servidores en una fila: "cualquiera" basta | "cada_uno"
     modo_fechas: str = "hibrido"          # "hibrido" (Python calcula, Copilot solo lo no reconocido) | "copilot"
     ventana_cercania: int = 7             # días hacia atrás/adelante para buscar fecha cercana
     repeticiones: dict = field(default_factory=dict)     # clave de regla -> N
@@ -147,7 +149,7 @@ class Ajustes:
     # calibración
     selectores: dict = field(default_factory=lambda: {k: list(v) for k, v in SELECTORES_DEFECTO.items()})
     selectores_calibrados: dict = field(default_factory=dict)   # grabados con "Calibrar con clics"
-    version_ajustes: int = 2
+    version_ajustes: int = 3
     frases_limite: list = field(default_factory=lambda: list(FRASES_LIMITE_DEFECTO))
 
     # ------------------------------------------------------------------
@@ -171,6 +173,11 @@ class Ajustes:
                 a.modo_prompt = "denso"
                 a.timeout_respuesta = max(900, int(a.timeout_respuesta or 0))
                 a.version_ajustes = 2
+            if int(datos.get("version_ajustes", 1)) < 3:
+                a.timeout_respuesta = max(900, int(a.timeout_respuesta or 0))
+                a.version_ajustes = 3
+            if a.ventana_edge not in ("visible", "oculta", "sin_ventana"):
+                a.ventana_edge = "oculta"
             if a.modo_prompt not in ("denso", "compacto", "detallado"):
                 a.modo_prompt = "denso"
         return a

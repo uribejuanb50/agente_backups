@@ -43,8 +43,13 @@ ESTADO_KPI = [
 ]
 SEG_BASE_LOTE = 60          # estimación: tiempo fijo por consulta (abrir chat, pegar, empezar a responder)
 SEG_POR_SERVIDOR = 5        # estimación: tiempo extra de búsqueda por servidor en la consulta
+MODOS_VENTANA_UI = {
+    "oculta": "Oculta (recomendado): Edge trabaja fuera de la pantalla",
+    "visible": "Visible: ver lo que hace Edge",
+    "sin_ventana": "Sin ventana (headless, experimental)",
+}
 MODOS_PROMPT_UI = {
-    "denso": "Denso: 1 línea por servidor (lotes grandes, recomendado)",
+    "denso": "Denso: 1 línea por ítem (lotes grandes, recomendado)",
     "compacto": "Compacto: 1 línea por fecha, instrucciones cortas",
     "detallado": "Detallado: 1 línea por fecha, instrucciones largas",
 }
@@ -143,6 +148,7 @@ class App(tk.Tk):
         self._construir()
         self._cargar_valores()
         self.protocol("WM_DELETE_WINDOW", self._al_cerrar)
+        self.report_callback_exception = self._error_interfaz
         self.after(150, self._leer_cola)
         self.after(300, self._autocargar)
         self.lift()
@@ -285,8 +291,14 @@ class App(tk.Tk):
         self._fila_campo(b, 4, "msedgedriver (opcional)", self.v_driver,
                          boton=("…", lambda: self._elegir_archivo(self.v_driver, [("msedgedriver", "*.exe"), ("Todos", "*.*")])),
                          ayuda="Solo si la red bloquea la descarga automática del driver.")
+        ttk.Label(b, text="Ventana de Edge").grid(row=6, column=0, sticky="w", pady=(8, 0))
+        self.v_ventana_edge = tk.StringVar()
+        ttk.Combobox(b, textvariable=self.v_ventana_edge, state="readonly", width=52,
+                     values=list(MODOS_VENTANA_UI.values())).grid(row=6, column=1, sticky="w", padx=(12, 6), pady=(8, 0))
+        ttk.Label(b, text="Probar conexión y Calibrar siempre muestran Edge. Si pide iniciar sesión, la ventana aparece sola.",
+                  style="Suave.TLabel").grid(row=7, column=1, columnspan=2, sticky="w", padx=(12, 0))
         fp = tk.Frame(b, bg=C["tarjeta"])
-        fp.grid(row=6, column=0, columnspan=3, sticky="ew", pady=(12, 0))
+        fp.grid(row=8, column=0, columnspan=3, sticky="ew", pady=(12, 0))
         self.btn_probar = ttk.Button(fp, text="Probar conexión", style="Secundario.TButton", command=self._probar)
         self.btn_probar.pack(side="left")
         self.btn_calibrar = ttk.Button(fp, text="Calibrar con clics", style="Secundario.TButton", command=self._calibrar)
@@ -321,11 +333,11 @@ class App(tk.Tk):
         self.v_nuevo_chat = tk.BooleanVar()
         campos = [
             ("Caracteres por consulta (máx.)", self.v_chars, 1000, 20000),
-            ("Servidores por consulta (máx.)", self.v_srv_lote, 1, 300),
+            ("Ítems por consulta (máx.)", self.v_srv_lote, 1, 300),
             ("Fechas por consulta (máx.)", self.v_fch_lote, 5, 2000),
             ("Espera máx. por respuesta (s)", self.v_timeout, 60, 3600),
             ("Pestañas de Copilot en paralelo", self.v_pestanas, 1, 4),
-            ("Reintentos por servidor", self.v_reint, 0, 5),
+            ("Reintentos por ítem", self.v_reint, 0, 5),
         ]
         for i, (txt, var, lo, hi) in enumerate(campos):
             ttk.Label(b, text=txt).grid(row=i, column=0, sticky="w", pady=4)
@@ -389,6 +401,15 @@ class App(tk.Tk):
                         variable=self.v_modo, value="hibrido", command=self._refrescar_tabla).pack(side="left", padx=(10, 6))
         ttk.Radiobutton(f3, text="Copilot (todas)", variable=self.v_modo, value="copilot",
                         command=self._refrescar_tabla).pack(side="left")
+
+        self.v_criterio = tk.StringVar()
+        f4 = tk.Frame(b, bg=C["tarjeta"])
+        f4.pack(fill="x", pady=(10, 0))
+        ttk.Label(f4, text="Filas con varios servidores").pack(side="left")
+        ttk.Radiobutton(f4, text="Basta con que aparezca cualquiera (recomendado)", variable=self.v_criterio,
+                        value="cualquiera", command=self._refrescar_tabla).pack(side="left", padx=(10, 6))
+        ttk.Radiobutton(f4, text="Verificar cada servidor por separado", variable=self.v_criterio,
+                        value="cada_uno", command=self._refrescar_tabla).pack(side="left")
 
         for v in (self.v_ini, self.v_fin, self.v_semilla):
             v.trace_add("write", lambda *_: self._programar_tabla())
@@ -480,6 +501,9 @@ class App(tk.Tk):
         self.btn_reanudar = ttk.Button(bot, text="Reanudar desde archivo…", style="Secundario.TButton",
                                        command=self._reanudar_archivo)
         self.btn_reanudar.pack(side="left", padx=(18, 0))
+        self.btn_ver_edge = ttk.Button(bot, text="Mostrar Edge", style="Secundario.TButton", state="disabled",
+                                       command=self._alternar_edge)
+        self.btn_ver_edge.pack(side="left", padx=(6, 0))
         self.btn_carpeta = ttk.Button(bot, text="Abrir carpeta", style="Secundario.TButton", state="disabled",
                                       command=lambda: abrir_ruta(self.ruta_resultado.parent if self.ruta_resultado else self.v_salida.get()))
         self.btn_carpeta.pack(side="right")
@@ -515,6 +539,7 @@ class App(tk.Tk):
         self.v_carpeta.set(a.nombre_carpeta)
         self.v_perfil.set(a.perfil_edge)
         self.v_driver.set(a.ruta_driver)
+        self.v_ventana_edge.set(MODOS_VENTANA_UI.get(a.ventana_edge, MODOS_VENTANA_UI["oculta"]))
         self.v_salida.set(a.carpeta_salida)
         self.v_pestanas.set(a.pestanas)
         self.v_chars.set(a.max_caracteres_prompt)
@@ -529,6 +554,7 @@ class App(tk.Tk):
         self.v_fin.set(a.fecha_fin or hoy.isoformat())
         self.v_semilla.set(a.semilla or self._semilla_aleatoria())
         self.v_modo.set(a.modo_fechas or "hibrido")
+        self.v_criterio.set(a.criterio_servidores if a.criterio_servidores in ("cualquiera", "cada_uno") else "cualquiera")
         self.v_ventana.set(a.ventana_cercania)
         self.repeticiones: dict[str, int] = dict(a.repeticiones or {})
         self.forzar: set[str] = set(a.forzar_copilot or [])
@@ -549,6 +575,7 @@ class App(tk.Tk):
         a.nombre_carpeta = self.v_carpeta.get().strip()
         a.perfil_edge = self.v_perfil.get().strip()
         a.ruta_driver = self.v_driver.get().strip()
+        a.ventana_edge = next((k for k, v in MODOS_VENTANA_UI.items() if v == self.v_ventana_edge.get()), "oculta")
         a.carpeta_salida = self.v_salida.get().strip()
         a.pestanas = max(1, min(4, entero(self.v_pestanas, 1)))
         a.max_caracteres_prompt = max(800, entero(self.v_chars, 4000))
@@ -562,6 +589,7 @@ class App(tk.Tk):
         a.fecha_fin = self.v_fin.get().strip()
         a.semilla = self.v_semilla.get().strip()
         a.modo_fechas = self.v_modo.get()
+        a.criterio_servidores = self.v_criterio.get() or "cualquiera"
         a.ventana_cercania = max(1, entero(self.v_ventana, 7))
         a.repeticiones = {k: v for k, v in self.repeticiones.items() if v}
         a.forzar_copilot = sorted(self.forzar)
@@ -880,7 +908,8 @@ class App(tk.Tk):
         if not (ini and fin) or not self.filas:
             return None
         return construir_plan(self.filas, self.repeticiones, ini, fin, self.v_semilla.get().strip() or "AUD",
-                              self.v_modo.get(), sorted(self.forzar), self._entero(self.v_fch_lote, 400))
+                              self.v_modo.get(), sorted(self.forzar), self._entero(self.v_fch_lote, 400),
+                              self.v_criterio.get() or "cualquiera")
 
     @staticmethod
     def _entero(var, d):
@@ -930,8 +959,9 @@ class App(tk.Tk):
         prom = r["unidades"] / max(1, lotes)
         extra = f"  ·  {r['delegadas']} consultas con fechas elegidas por Copilot" if r["delegadas"] else ""
         self.lbl_resumen.configure(
-            text=(f"{r['filas']} filas  →  {r['servidores']} servidores  ·  {r['fechas']} fechas a verificar{extra}\n"
-                  f"≈ {lotes} consultas a Copilot (≈ {prom:.0f} servidores c/u)  ·  tiempo estimado ≈ {fmt_dur(t)} "
+            text=(f"{r['filas']} filas  →  {r['grupos']} grupos de servidores ({r['servidores']} servidores)  ·  "
+                  f"{r['fechas']} fechas a verificar{extra}\n"
+                  f"≈ {lotes} consultas a Copilot (≈ {prom:.0f} ítems c/u)  ·  tiempo estimado ≈ {fmt_dur(t)} "
                   f"con {pest} pestaña(s)"),
             fg=C["texto"])
 
@@ -1057,7 +1087,7 @@ class App(tk.Tk):
         lotes = self._estimar_lotes(plan)
         if not messagebox.askokcancel(
                 "Iniciar auditoría",
-                f"Se consultarán {r['servidores']} servidores ({r['fechas']} fechas) en ≈ {lotes} consultas a Copilot.\n\n"
+                f"Se consultarán {r['grupos']} grupos de servidores ({r['fechas']} fechas) en ≈ {lotes} consultas a Copilot.\n\n"
                 "Edge se abrirá con su propio perfil. Mientras corre, no uses el portapapeles "
                 "(el programa pega el prompt con Ctrl+V).\n\n¿Continuar?"):
             return
@@ -1098,9 +1128,18 @@ class App(tk.Tk):
         self.btn_reanudar.configure(state="disabled")
         self.btn_pausa.configure(state="normal", text="⏸  Pausar")
         self.btn_parar.configure(state="normal")
+        self.btn_ver_edge.configure(state="normal" if motor.a.ventana_edge == "oculta" else "disabled",
+                                    text="Mostrar Edge")
         self.btn_excel.configure(state="normal")
         self.btn_carpeta.configure(state="normal")
         self._pildora("En curso", C["verde"])
+
+    def _alternar_edge(self):
+        if not (self.motor and self.motor.is_alive()):
+            return
+        mostrar = self.btn_ver_edge.cget("text") == "Mostrar Edge"
+        self.motor.pedido_ventana = "mostrar" if mostrar else "ocultar"
+        self.btn_ver_edge.configure(text="Ocultar Edge" if mostrar else "Mostrar Edge")
 
     def _pausar(self):
         if not self.motor:
@@ -1161,7 +1200,7 @@ class App(tk.Tk):
         hechas = d["unidades_ok"] + d["unidades_sin"]
         pct = 100 * hechas / tot
         self.barra.configure(value=pct)
-        partes = [f"{hechas} de {tot} consultas de servidor ({pct:.0f} %)", f"lotes enviados: {d['lotes']}",
+        partes = [f"{hechas} de {tot} ítems ({pct:.0f} %)", f"lotes enviados: {d['lotes']}",
                   f"transcurrido: {fmt_dur(d.get('transcurrido'))}"]
         if d.get("prom_lote"):
             partes.append(f"≈ {d['prom_lote']:.0f} s por lote")
@@ -1182,6 +1221,7 @@ class App(tk.Tk):
         self.btn_reanudar.configure(state="normal")
         self.btn_pausa.configure(state="disabled", text="⏸  Pausar")
         self.btn_parar.configure(state="disabled")
+        self.btn_ver_edge.configure(state="disabled", text="Mostrar Edge")
         ok = estado == "Completada"
         self._pildora("Terminado" if ok else "Detenido", C["verde"] if ok else C["ambar"])
         self._log("ok" if ok else "aviso", f"{estado}. Excel: {self.ruta_resultado}")
@@ -1203,6 +1243,17 @@ class App(tk.Tk):
             self._estado(msg)
         if nivel in ("aviso", "error") and self.prueba and self.prueba.is_alive():
             self.lbl_probar.configure(text=msg[:120], fg=C["ambar"] if nivel == "aviso" else C["rojo"])
+
+    def _error_interfaz(self, exc, val, tb):
+        import traceback
+        detalle = "".join(traceback.format_exception(exc, val, tb))
+        try:
+            (RAIZ / "logs").mkdir(exist_ok=True)
+            with open(RAIZ / "logs" / "errores_interfaz.log", "a", encoding="utf-8") as fh:
+                fh.write(f"\n[{datetime.now():%Y-%m-%d %H:%M:%S}]\n{detalle}")
+        except Exception:
+            pass
+        self._log("error", f"Error en la interfaz: {val}  (detalle en logs/errores_interfaz.log)")
 
     def _estado(self, txt: str):
         self.lbl_estado.configure(text=txt[:200])

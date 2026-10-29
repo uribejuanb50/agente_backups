@@ -26,7 +26,7 @@ from .consolidado import contar_estados, escribir_excel, evaluar_filas
 from .copilot_web import CopilotWeb, ErrorCopilot, ErrorPromptLargo, Pestana, mensaje_corto
 from .planificador import Plan, Unidad, armar_lote
 from .prompt_copilot import (ancla_prompt, construir_prompt, cuantos_caben, expandir_densas, extraer_respuesta,
-                             generar_codigo, unidades_completas, validar_lineas)
+                             generar_codigo, recordatorio_formato, unidades_completas, validar_lineas)
 
 
 @dataclass
@@ -61,6 +61,7 @@ class Motor(threading.Thread):
                 if st["estado"] == "sin_respuesta":
                     st["estado"], st["intentos"] = "pendiente", 0
         self.factor = 1.0
+        self.pedido_ventana: str | None = None     # "mostrar" | "ocultar" (lo pide la interfaz)
         self.t_inicio = 0.0
         self.duraciones: list[float] = []
         self.ruta_excel_real = self.ruta_excel
@@ -181,7 +182,12 @@ class Motor(threading.Thread):
             self._progreso(q, 0)
             fallos: dict[str, int] = {}
 
+            if getattr(self.web, "modo_ventana", "visible") != "visible":
+                self.log("info", "Edge trabaja oculto. Usa 'Mostrar Edge' si quieres verlo.")
             while not self.parar.is_set():
+                if self.pedido_ventana:
+                    (self.web.mostrar_ventana if self.pedido_ventana == "mostrar" else self.web.ocultar_ventana)()
+                    self.pedido_ventana = None
                 ocupadas = [p for p in self.web.pestanas if p.lote is not None]
                 if not q and not ocupadas:
                     break
@@ -288,7 +294,7 @@ class Motor(threading.Thread):
         except Exception:
             raise
         fechas = sum(v.peso for v in vistas)
-        self.log("info", f"Lote {n} → {p.nombre}: {len(vistas)} servidores, {fechas} fechas (código {codigo})")
+        self.log("info", f"Lote {n} → {p.nombre}: {len(vistas)} ítems, {fechas} fechas (código {codigo})")
 
     def _revisar(self, p: Pestana, q: deque):
         lote = p.lote
@@ -305,22 +311,46 @@ class Motor(threading.Thread):
         quieto = ahora - p.t_ultimo_cambio
         generando = self.web.generando(p)
 
+        # ¿qué escribió Copilot después de nuestro prompt?
+        ancla = ancla_prompt(p.codigo)
+        if ancla in texto:
+            cuerpo = texto[texto.rfind(ancla) + len(ancla):]
+        else:                                  # burbuja del prompt colapsada: medir lo que creció la página
+            lote.setdefault("largo_base", len(texto))
+            cuerpo = texto[lote["largo_base"]:]
+        largo_cuerpo = len(cuerpo.strip())
+        sustancial = largo_cuerpo >= 150       # "Buscando en tus archivos…" no cuenta como respuesta
+
         motivo = None
         if r.hay_fin and quieto >= 2.5:
             motivo = "completo"
-        elif not generando and quieto >= self.a.estabilidad_seg and transcurrido > 25:
-            cola_txt = texto[texto.rfind(ancla_prompt(p.codigo)):].lower() if ancla_prompt(p.codigo) in texto else ""
-            if not r.total and any(fr.lower() in cola_txt for fr in self.a.frases_limite):
-                self.log("aviso", f"{p.nombre}: Copilot indica un límite/errores; espero {self.a.pausa_limite_seg} s")
-                for t in reversed(lote["tareas"]):
-                    q.appendleft(t)
-                p.lote = None
-                self.web._esperar(self.a.pausa_limite_seg)
-                self.web.nuevo_chat(p)
+        elif (not r.total and quieto >= self.a.estabilidad_seg and transcurrido > 25
+              and any(fr.lower() in cuerpo.lower() for fr in self.a.frases_limite)):
+            self.log("aviso", f"{p.nombre}: Copilot indica un límite/errores; espero {self.a.pausa_limite_seg} s")
+            for t in reversed(lote["tareas"]):
+                q.appendleft(t)
+            p.lote = None
+            self.web._esperar(self.a.pausa_limite_seg)
+            self.web.nuevo_chat(p)
+            return
+        elif r.hay_inicio:
+            # está escribiendo el bloque: solo se corta si lleva mucho rato quieto
+            if not generando and quieto >= max(self.a.estabilidad_seg, 90):
+                motivo = "parcial"
+        elif sustancial and not generando and quieto >= max(self.a.estabilidad_seg, 45) and transcurrido > 60:
+            # respondió algo largo SIN el formato: pedirle (en el mismo chat) que lo repita bien, una vez
+            if r.total:
+                motivo = "parcial"
+            elif not lote.get("recordado"):
+                lote["recordado"] = True
+                self.log("aviso", f"{p.nombre}: lote {lote['n']} respondió sin el formato; le pido que lo repita")
+                self.web.enviar(p, recordatorio_formato(p.codigo, self.a.modo_prompt))
+                p.t_envio = time.time() - transcurrido          # conservar el tiempo transcurrido real
                 return
-            motivo = "parcial" if r.total else "sin formato"
-        elif transcurrido > self.a.timeout_respuesta:
-            motivo = "tiempo agotado"
+            else:
+                motivo = "sin formato"
+        if motivo is None and transcurrido > self.a.timeout_respuesta:
+            motivo = "parcial" if r.total else "tiempo agotado"
         if motivo is None:
             return
         self._procesar(p, q, r, texto, motivo, transcurrido)
@@ -365,7 +395,7 @@ class Motor(threading.Thread):
         self.duraciones.append(duracion)
         nivel = "ok" if motivo == "completo" and not incompletas else "aviso"
         self.log(nivel, f"Lote {lote['n']} ({p.nombre}): {len(res)} líneas válidas en {duracion:.0f} s"
-                        + (f" · {len(incompletas)} servidor(es) a reintentar" if incompletas else "")
+                        + (f" · {len(incompletas)} ítem(s) a reintentar" if incompletas else "")
                         + (f" · {motivo}" if motivo != "completo" else ""))
         for a in avisos[:5]:
             self.log("debug", f"   {a}")
@@ -393,7 +423,7 @@ class PruebaConexion(threading.Thread):
         web = CopilotWeb(self.a, log=self.log, debe_parar=self.parar.is_set)
         ok = False
         try:
-            web.abrir_navegador()
+            web.abrir_navegador("visible")
             p = web.preparar_pestana("Prueba")
             ruta = web.diagnostico(self.carpeta)
             self.log("info", f"Diagnóstico guardado en: {ruta}")
@@ -443,7 +473,7 @@ class Calibracion(threading.Thread):
         web = CopilotWeb(self.a, log=self.log, debe_parar=self.parar.is_set)
         resultado: dict = {}
         try:
-            web.abrir_navegador()
+            web.abrir_navegador("visible")
             resultado = web.calibrar(lambda i, n, txt: self.cola.put(("calibrar_paso", {"i": i, "n": n, "texto": txt})))
             # comprobar que con lo grabado se encuentra la caja del chat
             if "entrada" in resultado:
