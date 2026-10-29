@@ -62,3 +62,11 @@ Symbols not available. Dumping unresolved backtrace:
 	(No symbol) [0x7ffde7eee957]
 	(No symbol) [0x7ffde8887c1c]
 . Excel: D:\OneDrive - Comunicacion Celular S.A.- Comcel S.A\Documentos\fercho_mejora_continua\backups\out\Auditoria_Backups_20261029_102911.xlsx
+
+
+Donde debería hacer click el aplicativo y hablar con copilot
+<span role="textbox" contenteditable="true" tabindex="0" aria-describedby="chat-input-placeholderr7" class="fai-EditorInput__input r18fti29 r18aquq2 ___1ld5kid f16gbxbe ff9e3i1 fv5qcn6 f1a3p1vp" data-lexical-editor="true" style="user-select: text; word-break: break-word;"><p class="___1ehrlty f1s184ao fpgzoln"><br></p></span>
+
+Debería dar click ahí, informame si depronto es que cambia el nombre
+
+Ya que si es así, deberíamos montar en el probar conexión algún dispositivo para grabar los clicks paso por paso para colocar el campo donde se abre copilot y donde se colocan los mensajes
